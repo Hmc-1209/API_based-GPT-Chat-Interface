@@ -2,4 +2,5 @@
 /api/.idea
 /api/.venv
 /api/__pycache__
+/api/Authentication/config.py
 /db/apib_gptci-db-config.sql

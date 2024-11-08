@@ -1,11 +1,12 @@
 from fastapi import FastAPI
-# import Router
+import Router
 from database import db
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# app.include_router(Router.token)
+app.include_router(Router.token)
+app.include_router(Router.user)
 
 app.add_middleware(
     CORSMiddleware,
