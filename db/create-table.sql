@@ -32,10 +32,11 @@ CREATE TABLE User
 -- Create ChatRecord table
 CREATE TABLE ChatRecord
 (
-    user_id                          INT AUTO_INCREMENT PRIMARY KEY, 
-    chat_name                        VARCHAR(255) NOT NULL,
+    record_id                        INT AUTO_INCREMENT PRIMARY KEY, 
+    user_id                          INT NOT NULL, 
+    chat_name                        VARCHAR(20) NOT NULL,
     chat_encryption_key_path         VARCHAR(255) NOT NULL,
     record_path                      VARCHAR(255) NOT NULL,
     created_at                       DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at                       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 記錄更新時間
+    updated_at                       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
