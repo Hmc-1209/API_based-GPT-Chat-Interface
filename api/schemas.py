@@ -4,8 +4,14 @@ from datetime import datetime
 
 class BaseUser(BaseModel):
     name: str | None = None
+
+
+class CreateUser(BaseUser):
     password: str | None = None
 
+    class Config:
+        from_attributes = True
+        
 
 class CompleteUser(BaseUser):
     user_id: int

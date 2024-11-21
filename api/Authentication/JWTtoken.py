@@ -2,6 +2,7 @@ from fastapi import Depends
 from datetime import timedelta, datetime
 from jose import jwt, JWTError
 
+from schemas import CompleteUser
 from Repository.CommonCRUD import check_user
 from Authentication.hashing import verify_password
 from Authentication.OAuth2 import oauth2_token_scheme
@@ -20,7 +21,7 @@ def generate_access_token(data: dict):
     return token
 
 
-async def get_current_user(token=Depends(oauth2_token_scheme)):
+async def get_current_user(token=Depends(oauth2_token_scheme)) -> CompleteUser:
     """Get the current user's info, also used for authenticate JWT"""
 
     try:
