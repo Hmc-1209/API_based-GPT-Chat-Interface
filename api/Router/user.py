@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Annotated
 from schemas import BaseUser, CreateUser, CompleteUser
-from exception import bad_request
+from exception import bad_request, password_error, confirm_password_error
 from Repository.UserCRUD import create_user, patch_user_data, update_user_password
 from Authentication.JWTtoken import get_current_user
 from Authentication.hashing import hashing_password, verify_password
@@ -19,6 +19,9 @@ async def create_new_user(user: CreateUser) -> None:
     :param user: The name and password for the user.
     :return: HTTP code for successful / failed creation of the new user.
     """
+
+    if await check_user_name(user.name):
+        raise username_repeated
 
     if not await create_user(user):
         raise bad_request
@@ -51,6 +54,9 @@ async def patch_user(mode: int, val: str, current_user=Depends(get_current_user)
     :return: HTTP code for successful / failed to patch the user.
     """
 
+    if mode == 1 and await check_user_name(val):
+        raise username_repeated
+
     if not await patch_user_data(mode, val, current_user.user_id):
         raise bad_request
 
@@ -70,16 +76,10 @@ async def update_password(old_password: str, password: str, confirm_password: st
     """
 
     if not verify_password(old_password, current_user.password):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Password error."
-        )
+        raise password_error
 
     if password != confirm_password:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Confirm password error."
-        )
+        raise confirm_password_error
 
     if not await update_user_password(password, current_user.user_id):
         raise bad_request

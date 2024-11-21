@@ -7,6 +7,7 @@ app = FastAPI()
 
 app.include_router(Router.token)
 app.include_router(Router.user)
+app.include_router(Router.chatRecord)
 
 app.add_middleware(
     CORSMiddleware,

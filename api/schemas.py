@@ -27,6 +27,10 @@ class BaseChatRecord(BaseModel):
     updated_at: datetime | None = Field(default_factory=datetime.utcnow)
 
 
+class CreateChatRecord(BaseChatRecord):
+    user_id: int
+
+
 class CompleteChatRecord(BaseChatRecord):
     chat_id: int
     user_id: int
