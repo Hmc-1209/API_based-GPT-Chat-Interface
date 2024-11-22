@@ -32,9 +32,9 @@ class CreateChatRecord(BaseChatRecord):
 
 
 class CompleteChatRecord(BaseChatRecord):
-    chat_id: int
+    record_id: int
     user_id: int
 
 
 class ReadChatRecord(BaseChatRecord):
-    chat_id: int
+    record_id: int

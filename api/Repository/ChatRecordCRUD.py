@@ -1,11 +1,12 @@
 from fastapi import HTTPException, status
 from database import db
 from sqlalchemy import insert
+from cryptography.fernet import Fernet
 
 from datetime import datetime
 from config import data_storage_path
 from models import ChatRecord
-from schemas import BaseChatRecord, CreateChatRecord
+from schemas import BaseChatRecord, CreateChatRecord, ReadChatRecord
 from exception import bad_request
 from Repository.CommonCRUD import *
 from database import execute_stmt_in_tran
@@ -42,13 +43,18 @@ async def create_new_chat_record(user_id: int):
         os.makedirs(chat_record_folder, exist_ok=True)
         os.makedirs(key_folder, exist_ok=True)
 
-        json_file_path = os.path.join(chat_record_folder, f"chat-id-{record_id}.json")
-        async with aiofiles.open(json_file_path, "w") as json_file:
-            await json_file.write(json.dumps({}))
-
-        encryption_key = secrets.token_hex(32)
+        bson_file_path = os.path.join(chat_record_folder, f"chat-id-{record_id}.bson")
         key_file_path = os.path.join(key_folder, f"chat-id-{record_id}.txt")
-        async with aiofiles.open(key_file_path, "w") as key_file:
+        encryption_key = Fernet.generate_key()
+        fernet = Fernet(encryption_key)
+        data = {}
+        json_data = json.dumps(data)
+        encrypted_json = fernet.encrypt(json_data.encode())
+
+        async with aiofiles.open(bson_file_path, "wb") as bson_file:
+            await bson_file.write(encrypted_json)
+
+        async with aiofiles.open(key_file_path, "wb") as key_file:
             await key_file.write(encryption_key)
 
         return True
@@ -57,11 +63,71 @@ async def create_new_chat_record(user_id: int):
         delete_stmt = ChatRecord.delete().where(ChatRecord.c.record_id == record_id)
         await execute_stmt_in_tran([delete_stmt])
 
-        if os.path.exists(json_file_path):
-            os.remove(json_file_path)
+        if os.path.exists(bson_file_path):
+            os.remove(bson_file_path)
         if os.path.exists(key_file_path):
             os.remove(key_file_path)
 
         return False
 
 
+async def get_all_chat_record_names(user_id: int) -> list[ReadChatRecord]:
+    """
+    Get all chat record names.
+
+    This endpoint returns all chat record names.
+
+    :param user_id: The current user's id.
+    :return:
+    """
+
+    stmt = ChatRecord.select().where(ChatRecord.c.user_id == user_id)
+
+    return await db.fetch_all(stmt)
+
+
+async def get_chat_record_content(record_id: int, user_id: int) -> json:
+    """
+    Get chat record content.
+
+    This endpoint returns chat record content.
+
+    :param record_id: The target chat record id.
+    :param user_id: The current user id.
+    :return: The chat record content.
+    """
+
+    stmt = ChatRecord.select().where(ChatRecord.c.record_id == record_id)
+    if (await db.fetch_one(stmt)).user_id != user_id:
+        return False
+
+    chat_record_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id), "chat-id-" + str(record_id) + ".bson")
+    key_path = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id), "chat-id-" + str(record_id) + ".txt")
+
+    return await decrypt_content(chat_record_path, key_path)
+
+
+async def delete_chat_record_content(record_id: int, user_id: int) -> bool:
+    """
+    Delete chat record content.
+
+    This endpoint deletes chat record content.
+    :param record_id: The target chat record id.
+    :param user_id: The current user id.
+    :return: HTTP code for successful / failed to delete chat record content.
+    """
+
+    bson_file_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id), f"chat-id-{record_id}.bson")
+    key_file_path = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id), f"chat-id-{record_id}.txt")
+
+    stmt = ChatRecord.delete().where(ChatRecord.c.record_id == record_id)
+    result = await execute_stmt_in_tran([stmt])
+
+    if os.path.exists(bson_file_path):
+        os.remove(bson_file_path)
+    if os.path.exists(key_file_path):
+        os.remove(key_file_path)
+
+    if result:
+        return True
+    return False
