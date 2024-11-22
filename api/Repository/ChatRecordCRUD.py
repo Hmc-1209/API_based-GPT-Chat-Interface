@@ -29,29 +29,39 @@ async def create_new_chat_record(user_id: int):
         user_id=user_id,
         chat_name="New Chat",
         created_at=datetime.utcnow(),
-        updated_at=datetime.utcnow(),
-        record_path="pending",
-        chat_encryption_key_path="pending"
+        updated_at=datetime.utcnow()
     )
     record_id = await execute_stmt_in_tran([stmt], ret=True)
 
-    chat_record_folder = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id))
-    key_folder = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id))
-    os.makedirs(chat_record_folder, exist_ok=True)
-    os.makedirs(key_folder, exist_ok=True)
+    if not record_id:
+        return False
 
-    json_file_path = os.path.join(chat_record_folder, f"chat-id-{record_id}.json")
-    async with aiofiles.open(json_file_path, "w") as json_file:
-        await json_file.write(json.dumps({}))
+    try:
+        chat_record_folder = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id))
+        key_folder = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id))
+        os.makedirs(chat_record_folder, exist_ok=True)
+        os.makedirs(key_folder, exist_ok=True)
 
-    encryption_key = secrets.token_hex(32)
-    key_file_path = os.path.join(key_folder, f"chat-id-{record_id}.txt")
-    async with aiofiles.open(key_file_path, "w") as key_file:
-        await key_file.write(encryption_key)
+        json_file_path = os.path.join(chat_record_folder, f"chat-id-{record_id}.json")
+        async with aiofiles.open(json_file_path, "w") as json_file:
+            await json_file.write(json.dumps({}))
 
-    update_stmt = ChatRecord.update().where(
-        ChatRecord.c.record_id == record_id
-    ).values(record_path=json_file_path,
-             chat_encryption_key_path=key_file_path)
+        encryption_key = secrets.token_hex(32)
+        key_file_path = os.path.join(key_folder, f"chat-id-{record_id}.txt")
+        async with aiofiles.open(key_file_path, "w") as key_file:
+            await key_file.write(encryption_key)
 
-    return await execute_stmt_in_tran([update_stmt])
+        return True
+
+    except Exception as e:
+        delete_stmt = ChatRecord.delete().where(ChatRecord.c.record_id == record_id)
+        await execute_stmt_in_tran([delete_stmt])
+
+        if os.path.exists(json_file_path):
+            os.remove(json_file_path)
+        if os.path.exists(key_file_path):
+            os.remove(key_file_path)
+
+        return False
+
+

@@ -17,8 +17,6 @@ ChatRecord = sqlalchemy.Table(
     Column("record_id", sqlalchemy.INTEGER, primary_key=True, index=True),
     Column("user_id", sqlalchemy.INTEGER, nullable=False),
     Column("chat_name", sqlalchemy.VARCHAR(50), nullable=False),
-    Column("chat_encryption_key_path", sqlalchemy.VARCHAR(255), nullable=False),
-    Column("record_path", sqlalchemy.VARCHAR(255), nullable=False),
     Column("created_at", sqlalchemy.TIMESTAMP, nullable=False),
     Column("updated_at", sqlalchemy.TIMESTAMP, nullable=False),
 )

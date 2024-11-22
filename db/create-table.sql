@@ -35,8 +35,6 @@ CREATE TABLE ChatRecord
     record_id                        INT AUTO_INCREMENT PRIMARY KEY, 
     user_id                          INT NOT NULL, 
     chat_name                        VARCHAR(20) NOT NULL,
-    chat_encryption_key_path         VARCHAR(255) NOT NULL,
-    record_path                      VARCHAR(255) NOT NULL,
     created_at                       DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at                       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE

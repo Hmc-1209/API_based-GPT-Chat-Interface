@@ -34,8 +34,6 @@ class CreateChatRecord(BaseChatRecord):
 class CompleteChatRecord(BaseChatRecord):
     chat_id: int
     user_id: int
-    chat_encryption_key_path: str
-    record_path: str
 
 
 class ReadChatRecord(BaseChatRecord):
