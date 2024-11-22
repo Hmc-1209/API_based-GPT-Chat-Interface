@@ -3,6 +3,7 @@ from typing import Annotated
 from schemas import BaseUser, CreateUser, CompleteUser
 from exception import bad_request, password_error, confirm_password_error
 from Repository.UserCRUD import create_user, patch_user_data, update_user_password
+from Repository.CommonCRUD import check_user_name
 from Authentication.JWTtoken import get_current_user
 from Authentication.hashing import hashing_password, verify_password
 

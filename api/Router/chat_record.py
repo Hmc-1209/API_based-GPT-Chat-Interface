@@ -3,6 +3,7 @@ from database import db
 
 from models import User
 from schemas import BaseUser
+from exception import bad_request
 from Repository.CommonCRUD import *
 from Repository.ChatRecordCRUD import create_new_chat_record
 from Authentication import hashing

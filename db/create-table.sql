@@ -38,5 +38,6 @@ CREATE TABLE ChatRecord
     chat_encryption_key_path         VARCHAR(255) NOT NULL,
     record_path                      VARCHAR(255) NOT NULL,
     created_at                       DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at                       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at                       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
 );

@@ -9,3 +9,4 @@ python-jose
 pydantic~=2.3.0
 SQLAlchemy
 greenlet
+aiofiles==24.1.0

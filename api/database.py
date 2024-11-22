@@ -24,15 +24,22 @@ metadata = MetaData()
 engine = create_async_engine(DATABASE_URL)
 
 
-async def execute_stmt_in_tran(stmt_list: list[ClauseElement]) -> bool:
+async def execute_stmt_in_tran(stmt_list: list[ClauseElement], ret=False) -> any:
     tran = db.transaction()
 
     try:
         await tran.start()
-        for stmt in stmt_list:
-            await db.execute(stmt)
-        await tran.commit()
-        return True
+        if not ret:
+            for stmt in stmt_list:
+                await db.execute(stmt)
+            await tran.commit()
+            return True
+        else:
+            result = None
+            for stmt in stmt_list:
+                result = await db.execute(stmt)
+            await tran.commit()
+            return result
 
     except:
         await tran.rollback()

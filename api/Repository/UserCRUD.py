@@ -24,7 +24,7 @@ async def create_user(user: BaseUser):
         password=hashing.hashing_password(user.password),
     )
 
-    return await execute_stmt_in_tran(stmt)
+    return await execute_stmt_in_tran([stmt])
 
 
 async def patch_user_data(mode: int, val: str, user_id: int):
