@@ -71,14 +71,14 @@ async def create_new_chat_record(user_id: int):
         return False
 
 
-async def get_all_chat_record_names(user_id: int) -> list[ReadChatRecord]:
+async def get_all_chat_record_info(user_id: int) -> list[ReadChatRecord]:
     """
-    Get all chat record names.
+    Get all chat record info.
 
-    This endpoint returns all chat record names.
+    This endpoint returns all chat record info.
 
     :param user_id: The current user's id.
-    :return:
+    :return: All chat record info for current user.
     """
 
     stmt = ChatRecord.select().where(ChatRecord.c.user_id == user_id)
@@ -117,17 +117,41 @@ async def delete_chat_record_content(record_id: int, user_id: int) -> bool:
     :return: HTTP code for successful / failed to delete chat record content.
     """
 
-    bson_file_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id), f"chat-id-{record_id}.bson")
-    key_file_path = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id), f"chat-id-{record_id}.txt")
+    stmt = ChatRecord.select().where(ChatRecord.c.record_id == record_id)
+    chat_record = await db.fetch_one(stmt)
 
-    stmt = ChatRecord.delete().where(ChatRecord.c.record_id == record_id)
-    result = await execute_stmt_in_tran([stmt])
+    if not (chat_record and chat_record.user_id == user_id):
+        return False
 
-    if os.path.exists(bson_file_path):
-        os.remove(bson_file_path)
-    if os.path.exists(key_file_path):
-        os.remove(key_file_path)
+    bson_file_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id),
+                                  f"chat-id-{record_id}.bson")
+    key_file_path = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id),
+                                 f"chat-id-{record_id}.txt")
 
-    if result:
-        return True
+    try:
+        delete_stmt = ChatRecord.delete().where(ChatRecord.c.record_id == record_id)
+        result = await execute_stmt_in_tran([delete_stmt])
+
+        if result:
+            if os.path.exists(bson_file_path):
+                os.remove(bson_file_path)
+            else:
+                raise FileNotFoundError(f"BSON file not found: {bson_file_path}")
+
+            if os.path.exists(key_file_path):
+                os.remove(key_file_path)
+            else:
+                raise FileNotFoundError(f"Key file not found: {key_file_path}")
+
+            return True
+        else:
+            return False
+
+    except Exception as e:
+        print(f"Error during deletion: {e}")
+        return False
+
+
+async def send_chat_request(record_id: int, chat_message: str, user_id: int) -> bool:
+
     return False

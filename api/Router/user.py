@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Annotated
 from schemas import BaseUser, CreateUser, CompleteUser
-from exception import bad_request, password_error, confirm_password_error
+from exception import bad_request, password_error, confirm_password_error, username_repeated
 from Repository.UserCRUD import create_user, patch_user_data, update_user_password
 from Repository.CommonCRUD import check_user_name
 from Authentication.JWTtoken import get_current_user
@@ -22,6 +22,7 @@ async def create_new_user(user: CreateUser) -> None:
     """
 
     if await check_user_name(user.name):
+        print(await check_user_name(user.name))
         raise username_repeated
 
     if not await create_user(user):
