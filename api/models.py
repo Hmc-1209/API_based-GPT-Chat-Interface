@@ -8,7 +8,7 @@ User = sqlalchemy.Table(
     Column("user_id", sqlalchemy.INTEGER, primary_key=True, index=True),
     Column("name", sqlalchemy.VARCHAR(50), nullable=False, unique=True),
     Column("password", sqlalchemy.CHAR(64), nullable=False),
-    Column("api_key", sqlalchemy.CHAR(255)),
+    Column("api_key_encryption_key", sqlalchemy.CHAR(255)),
 )
 
 ChatRecord = sqlalchemy.Table(

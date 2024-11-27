@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Annotated
 from schemas import BaseUser, CreateUser, CompleteUser
 from exception import bad_request, password_error, confirm_password_error, username_repeated
-from Repository.UserCRUD import create_user, patch_user_data, update_user_password
+from Repository.UserCRUD import create_user, patch_user_data, update_user_password, get_current_user_api_key
 from Repository.CommonCRUD import check_user_name
 from Authentication.JWTtoken import get_current_user
 from Authentication.hashing import hashing_password, verify_password
@@ -22,7 +22,6 @@ async def create_new_user(user: CreateUser) -> None:
     """
 
     if await check_user_name(user.name):
-        print(await check_user_name(user.name))
         raise username_repeated
 
     if not await create_user(user):
@@ -41,6 +40,24 @@ async def get_self_user(current_user=Depends(get_current_user)) -> CompleteUser:
     """
 
     return current_user
+
+
+@router.get("/api-key")
+async def get_self_api_key(current_user=Depends(get_current_user)) -> str:
+    """
+    Retrieve the current user's api_key
+
+    This endpoint is used to retrieve the current user's api_key.
+
+    :param current_user: The user from the token of current request.
+    :return: The current user's api_key.
+    """
+
+    result = await get_current_user_api_key(current_user.user_id)
+    if not result:
+        raise bad_request
+
+    return result
 
 
 @router.patch("/")

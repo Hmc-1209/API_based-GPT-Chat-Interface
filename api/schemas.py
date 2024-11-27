@@ -15,7 +15,7 @@ class CreateUser(BaseUser):
 
 class CompleteUser(BaseUser):
     user_id: int
-    api_key: str | None = None
+    api_key_encryption_key: str | None = None
 
     class Config:
         from_attributes = True

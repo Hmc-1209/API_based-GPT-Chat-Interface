@@ -26,7 +26,7 @@ CREATE TABLE User
     user_id                         INT AUTO_INCREMENT PRIMARY KEY,
     name                            VARCHAR(50) NOT NULL UNIQUE,
     password                        VARCHAR(64) NOT NULL,
-    api_key                         VARCHAR(255)
+    api_key_encryption_key          VARCHAR(255)
 );
 
 -- Create ChatRecord table
