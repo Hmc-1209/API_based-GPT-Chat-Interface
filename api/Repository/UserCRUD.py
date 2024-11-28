@@ -54,10 +54,13 @@ async def get_current_user_api_key(user_id: int):
     if not os.path.exists(api_key_file_path):
         return "None"
 
-    with open(api_key_file_path, "rb") as bson_file:
-        api_key = bson_file.read()
-        api_key = fernet.decrypt(api_key)
-    return api_key.decode()
+    try:
+        with open(api_key_file_path, "rb") as bson_file:
+            api_key = bson_file.read()
+            api_key = fernet.decrypt(api_key)
+        return api_key.decode()
+    except:
+        return "None"
 
 
 async def patch_user_data(mode: int, val: str, user_id: int):

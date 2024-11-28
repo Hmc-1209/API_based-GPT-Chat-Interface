@@ -88,7 +88,8 @@ async def delete_chat_record(record_id: int, current_user=Depends(get_current_us
 
 
 @router.post('/chat')
-async def chat_request(record_id: int, chat_message: str, current_user=Depends(get_current_user)) -> None:
+async def chat_request(record_id: int, chat_message: str, use_record: bool, model: str,
+                       current_user=Depends(get_current_user)) -> dict:
     """
     Chat request.
 
@@ -97,8 +98,14 @@ async def chat_request(record_id: int, chat_message: str, current_user=Depends(g
     :param record_id: The target chat record.
     :param chat_message: The message to chat with LLM.
     :param current_user: The user from the token of current request.
+    :param use_record: Whether to use history chat record.
+    :param model: The gpt model to use.
     :return: HTTP code for successful / failed to send chat request.
     """
 
-    if not await send_chat_request(record_id, chat_message, current_user.user_id):
+    response = await send_chat_request(record_id, chat_message, current_user.user_id, use_record, model)
+
+    if not response:
         raise bad_request
+
+    return response

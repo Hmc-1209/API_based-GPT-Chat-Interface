@@ -7,13 +7,15 @@ from datetime import datetime
 from config import data_storage_path
 from models import ChatRecord
 from schemas import BaseChatRecord, CreateChatRecord, ReadChatRecord
-from exception import bad_request
+from exception import bad_request, api_key_error
 from Repository.CommonCRUD import *
+from Repository.UserCRUD import get_current_user_api_key
 from database import execute_stmt_in_tran
 import secrets
 import os
 import aiofiles
 import json
+import openai
 
 
 async def create_new_chat_record(user_id: int):
@@ -47,7 +49,10 @@ async def create_new_chat_record(user_id: int):
         key_file_path = os.path.join(key_folder, f"chat-id-{record_id}.txt")
         encryption_key = Fernet.generate_key()
         fernet = Fernet(encryption_key)
-        data = {}
+
+        data = [
+            {"role": "system", "content": "You're an assistant for answering questions."}
+        ]
         json_data = json.dumps(data)
         encrypted_json = fernet.encrypt(json_data.encode())
 
@@ -59,7 +64,7 @@ async def create_new_chat_record(user_id: int):
 
         return True
 
-    except Exception as e:
+    except:
         delete_stmt = ChatRecord.delete().where(ChatRecord.c.record_id == record_id)
         await execute_stmt_in_tran([delete_stmt])
 
@@ -152,6 +157,66 @@ async def delete_chat_record_content(record_id: int, user_id: int) -> bool:
         return False
 
 
-async def send_chat_request(record_id: int, chat_message: str, user_id: int) -> bool:
+async def send_chat_request(record_id: int, chat_message: str, user_id: int, use_record: bool, model: str) -> dict:
+    """
+    Send the chatting request.
 
-    return False
+    This endpoint is used to send chat request to gpt api.
+
+    :param record_id: The target chat record id.
+    :param chat_message: The message to send.
+    :param user_id: The current user id.
+    :param use_record: Whether to use chat record or not.
+    :param model: The gpt model to use.
+    :return: Response from gpt api.
+    """
+
+    try:
+        openai.api_key = await get_current_user_api_key(user_id)
+        if openai.api_key == "none":
+            raise api_key_error
+
+        message = await get_chat_record_content(record_id, user_id) if use_record else [
+            {"role": "system", "content": "You're an assistant for answering questions."}
+        ]
+        message.append({"role": "user", "content": chat_message})
+
+        response = openai.chat.completions.create(
+            model=model,
+            messages=message
+        )
+        print("* Response from gpt api.")
+
+        key_file_path = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id), f"chat-id-{record_id}.txt")
+        async with aiofiles.open(key_file_path, "rb") as key_file:
+            key = await key_file.read()
+
+        fernet = Fernet(key)
+        response_data = {"role": "assistant", "content": response.choices[0].message.content}
+        message.append(response_data)
+        bson_file_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id),
+                                      f"chat-id-{record_id}.bson")
+
+        if not use_record:
+            message = message[1:]
+            async with aiofiles.open(bson_file_path, "rb") as bson_file:
+                old_msg = await bson_file.read()
+                decrypted_msg = json.loads(fernet.decrypt(old_msg).decode('utf-8'))
+
+                if isinstance(decrypted_msg, list):
+                    decrypted_msg.extend(message)
+                    message = decrypted_msg
+                else:
+                    raise ValueError("Decrypted message format is not a list.")
+
+        async with aiofiles.open(bson_file_path, "wb") as bson_file:
+            content = fernet.encrypt(json.dumps(message).encode())
+            await bson_file.write(content)
+
+        return response_data
+
+    except Exception as e:
+        print(f"Call Openai API Error: {e}")
+
+        if "invalid_api_key" in str(e):
+            raise api_key_error

@@ -81,7 +81,8 @@ async def patch_user(mode: int, val: str, current_user=Depends(get_current_user)
 
 
 @router.patch("/password")
-async def update_password(old_password: str, password: str, confirm_password: str, current_user=Depends(get_current_user)) -> None:
+async def update_password(old_password: str, password: str, confirm_password: str,
+                          current_user=Depends(get_current_user)) -> None:
     """
     Update the current password.
 

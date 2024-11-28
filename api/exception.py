@@ -18,3 +18,6 @@ password_error = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
 
 confirm_password_error = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                        detail="Confirm password inconsistent.")
+
+api_key_error = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                              detail="API key error.")
