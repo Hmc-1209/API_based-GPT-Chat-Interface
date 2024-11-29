@@ -38,4 +38,7 @@ async def get_current_user(token=Depends(oauth2_token_scheme)) -> CompleteUser:
 
     except JWTError:
         raise token_expired
-    
+
+
+# ToDO: Write another function that can get access token by HTTPOnly Cookie
+# async def get_current_user(token=Depends(oauth2_token_scheme)) -> CompleteUser:
