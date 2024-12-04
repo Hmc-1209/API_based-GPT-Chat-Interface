@@ -16,16 +16,15 @@ const get_access_token = async (user_name, user_password) => {
     try {
         const response = await axios.post(`${api_host}/token`, formData, {
             headers: {
-                accept: "application/json",
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "http://localhost:8000"
             },
             validateStatus: function (status) {
                 return (status >= 200 && status < 300) || status === 404;
             },
         });
-        if (response.data.access_token) {
-            console.log(response.data.access_token);
-            // window.localStorage.setItem("access_token", response.data.access_token);
+
+        if (response) {
+            console.log(response);
             return 1;
         } else {
             return response.data.detail;
@@ -35,3 +34,28 @@ const get_access_token = async (user_name, user_password) => {
     } 
 };
 export default get_access_token;
+
+export const get_self_user = async () => {
+    // Get self user detail
+    try {
+        const response = await axios.get(`${api_host}/user/`, {
+            withCredentials: true,
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "http://localhost:8000"
+            },
+        });
+
+        if (!response.data) {
+            return false;
+        }
+
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+  

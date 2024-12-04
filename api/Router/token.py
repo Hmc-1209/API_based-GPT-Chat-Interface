@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 
@@ -9,8 +9,12 @@ router = APIRouter(prefix="/token", tags=["Token"])
 
 
 @router.post("/")
-async def create_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> dict[str, str | bool]:
-    """The endpoint of generating new access_token"""
+async def create_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], response: Response):
+    """
+    The endpoint of generating new access_token.
+
+    Sets the access_token as an HttpOnly cookie.
+    """
 
     data = {
         "name": form_data.username,
@@ -22,7 +26,15 @@ async def create_access_token(form_data: Annotated[OAuth2PasswordRequestForm, De
     if not token:
         raise no_such_user
 
-    return {"access_token": token}
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {token}",
+        httponly=True,
+        secure=False,
+        samesite="lax"
+    )
+
+    return None
 
 
 @router.post("/validate_access_token")

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import get_access_token from "../http-requests/login";
+import { get_self_user } from '../http-requests/login';
 
 const LogIn = () => {
     /*
@@ -91,7 +92,8 @@ const LogIn = () => {
                         <button className='text-3xl xl:text-2xl pt-10 text-transparent bg-clip-text bg-gradient-to-b from-gray-100 to-gray-500'>Sign Up</button>
                     </div>
                 }
-                </div>
+            </div>
+            <button onClick={get_self_user}>get user</button>
             
         </div>
     )
