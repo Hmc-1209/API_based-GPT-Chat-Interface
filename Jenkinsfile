@@ -9,7 +9,7 @@ pipeline {
                     sshagent(['SSH-dannyho']) {
                         sh '''
                         ssh -o StrictHostKeyChecking=no dannyho@125.229.56.26 "
-                            echo "Testing Jenkins..."
+                            echo 'Testing Jenkins...'
                         "
                         '''
                     }
