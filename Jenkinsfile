@@ -18,7 +18,7 @@ pipeline {
         stage('Build - DB') {
             steps {
                 sshagent(['SSH-dannyho']) {
-                    withCredentials([usernamePassword(credentialsId: 'MariaDB', usernameVariable: 'dbUser', passwordVariable: 'dbPassword'),
+                    withCredentials([usernamePassword(credentialsId: 'MariaDB-root', usernameVariable: 'dbUser', passwordVariable: 'dbPassword'),
                                     file(credentialsId: "API_Based_GPT_Chat_Interface_db_config", variable: 'dbConfig')]) {
                         sh '''
                         ssh -v -o StrictHostKeyChecking=no dannyho@125.229.56.26 "
