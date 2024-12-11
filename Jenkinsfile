@@ -11,7 +11,8 @@ pipeline {
                         git pull
                         whoami
                         echo $PATH
-                        /usr/bin/docker --version
+                        /usr/local/bin/docker --version
+                        /usr/local/bin/mysql --version
                     "
                     '''
                 }
