@@ -10,7 +10,8 @@ pipeline {
                         cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface
                         git pull
                         whoami
-                        docker --version
+                        echo $PATH
+                        /usr/bin/docker --version
                     "
                     '''
                 }
