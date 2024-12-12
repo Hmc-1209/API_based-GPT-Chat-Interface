@@ -1,3 +1,5 @@
+SOURCE /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/apib_gptci-db-config.sql;
+
 DROP DATABASE IF EXISTS API_Based_GPTCI;
 DROP USER IF EXISTS 'APIB_GPTCI_root'@'localhost';
 DROP USER IF EXISTS 'APIB_GPTCI_admin'@'%';
@@ -6,7 +8,6 @@ DROP USER IF EXISTS 'APIB_GPTCI_admin'@'%';
 CREATE DATABASE API_Based_GPTCI;
 Use API_Based_GPTCI;
 
-SET @db_password = 'TestingDB@123';
 -- Create root user
 SET @sql = CONCAT('CREATE USER ''APIB_GPTCI_root''@''localhost'' IDENTIFIED BY ''', @db_password, ''';');
 PREPARE stmt FROM @sql;
