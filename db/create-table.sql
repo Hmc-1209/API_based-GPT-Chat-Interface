@@ -7,11 +7,17 @@ CREATE DATABASE API_Based_GPTCI;
 Use API_Based_GPTCI;
 
 -- Create root user
-CREATE USER 'APIB_GPTCI_root'@'localhost' IDENTIFIED BY db_password;
+SET @sql = CONCAT("CREATE USER 'APIB_GPTCI_root'@'localhost' IDENTIFIED BY '", @db_password, "';");
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 GRANT ALL PRIVILEGES ON API_Based_GPTCI.* TO 'APIB_GPTCI_root'@'localhost';
 
 -- Create admin user
-CREATE USER 'APIB_GPTCI_admin'@'%' IDENTIFIED BY db_password;
+SET @sql = CONCAT("CREATE USER 'APIB_GPTCI_admin'@'%' IDENTIFIED BY '", @db_password, "';");
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, EXECUTE, INDEX ON API_Based_GPTCI.* TO 'APIB_GPTCI_admin'@'%';
 
 -- Create USER table
