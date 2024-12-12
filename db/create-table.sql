@@ -6,6 +6,7 @@ DROP USER IF EXISTS 'APIB_GPTCI_admin'@'%';
 CREATE DATABASE API_Based_GPTCI;
 Use API_Based_GPTCI;
 
+SELECT @db_password;
 -- Create root user
 SET @sql = CONCAT('CREATE USER ''APIB_GPTCI_root''@''localhost'' IDENTIFIED BY ''', @db_password, ''';');
 PREPARE stmt FROM @sql;
