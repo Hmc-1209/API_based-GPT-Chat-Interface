@@ -6,17 +6,17 @@ import databases
 import config
 
 # In case someday the API and the database are in different server
-# server = SSHTunnelForwarder(
-#     ('127.0.0.1', 22),
-#     ssh_username=config.ssh_username,
-#     ssh_password=config.ssh_password,
-#     remote_bind_address=('localhost', 3306)
-# )
-#
-# server.start()
-# DATABASE_URL = f"mysql+asyncmy://admin:{config.db_password}@localhost:{str(server.local_bind_port)}/api_based_gptci"
+server = SSHTunnelForwarder(
+    ('125.229.56.26', 22),
+    ssh_username=config.ssh_username,
+    ssh_password=config.ssh_password,
+    remote_bind_address=('localhost', 3306)
+)
 
-DATABASE_URL = f"mysql+asyncmy://APIB_GPTCI_admin:{config.db_password}@localhost:3306/api_based_gptci"
+server.start()
+DATABASE_URL = f"mysql+asyncmy://APIB_GPTCI_admin:{config.db_password}@localhost:{str(server.local_bind_port)}/api_based_gptci"
+
+# DATABASE_URL = f"mysql+asyncmy://APIB_GPTCI_admin:{config.db_password}@localhost:3306/api_based_gptci"
 
 db = databases.Database(DATABASE_URL)
 

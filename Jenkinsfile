@@ -31,20 +31,20 @@ pipeline {
             }
         }
 
-        stage('Build - DB') {
-            steps {
-                sshagent(['SSH-dannyho']) {
-                    withCredentials([usernamePassword(credentialsId: 'MariaDB-root', usernameVariable: 'dbUser', passwordVariable: 'dbPassword'),
-                                    file(credentialsId: "API_Based_GPT_Chat_Interface_db_config", variable: 'dbConfig')]) {
-                        sh '''
-                        ssh -o StrictHostKeyChecking=no dannyho@125.229.56.26 "
-                            /usr/local/bin/mysql -u$dbUser -p$dbPassword -e 'SOURCE /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/create-table.sql'
-                        "
-                        '''
-                    }
-                }
-            }
-        }
+        // stage('Build - DB') {
+        //     steps {
+        //         sshagent(['SSH-dannyho']) {
+        //             withCredentials([usernamePassword(credentialsId: 'MariaDB-root', usernameVariable: 'dbUser', passwordVariable: 'dbPassword'),
+        //                             file(credentialsId: "API_Based_GPT_Chat_Interface_db_config", variable: 'dbConfig')]) {
+        //                 sh '''
+        //                 ssh -o StrictHostKeyChecking=no dannyho@125.229.56.26 "
+        //                     /usr/local/bin/mysql -u$dbUser -p$dbPassword -e 'SOURCE /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/create-table.sql'
+        //                 "
+        //                 '''
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Build - API & APP') {
             steps {
