@@ -46,26 +46,15 @@ pipeline {
             }
         }
 
-        stage('Build - API') {
+        stage('Build - API & APP') {
             steps {
-                sshagent(['SSH-dannyho']) {
+                sshagent(['SSH-root']) {
                         sh '''
-                        ssh -o StrictHostKeyChecking=no dannyho@125.229.56.26 "
-                            echo 'Pending api build action here...'
+                        ssh -o StrictHostKeyChecking=no root@125.229.56.26 "
+                            whoami
+                            /usr/local/bin/docker ps
                         "
                         '''
-                }
-            }
-        }
-
-        stage('Build - APP') {
-            steps {
-                sshagent(['SSH-dannyho']) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no dannyho@125.229.56.26 "
-                        echo 'Pending app build action here...'
-                    "
-                    '''
                 }
             }
         }
