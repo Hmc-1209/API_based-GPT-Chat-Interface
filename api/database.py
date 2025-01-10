@@ -14,9 +14,9 @@ server = SSHTunnelForwarder(
 )
 
 server.start()
-DATABASE_URL = f"mysql+asyncmy://APIB_GPTCI_admin:{config.db_password}@localhost:{str(server.local_bind_port)}/api_based_gptci"
+DATABASE_URL = f"mysql+asyncmy://APIB_GPTCI_admin:{config.db_password}@localhost:{str(server.local_bind_port)}/API_Based_GPTCI"
 
-# DATABASE_URL = f"mysql+asyncmy://APIB_GPTCI_admin:{config.db_password}@localhost:3306/api_based_gptci"
+# DATABASE_URL = f"mysql+asyncmy://APIB_GPTCI_admin:{config.db_password}@localhost:3306/API_Based_GPTCI"
 
 db = databases.Database(DATABASE_URL)
 

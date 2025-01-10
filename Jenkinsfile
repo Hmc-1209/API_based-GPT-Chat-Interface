@@ -10,6 +10,7 @@ pipeline {
                         cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface
                         git pull
                         rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/config.py || true
+                        rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/authentication/config.py || true
                         rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/apib_gptci-db-config.sql || true
                     "
                     '''
@@ -21,10 +22,12 @@ pipeline {
             steps {
                 sshagent(['SSH-dannyho']) {
                     withCredentials([file(credentialsId: "API_Based_GPT_Chat_Interface_db_config", variable: 'dbConfig'),
-                                     file(credentialsId: 'APIB_GPTCI_api_config', variable: 'apiSecretFile')]) {
+                                     file(credentialsId: 'APIB_GPTCI_api_config', variable: 'apiSecretFile'),
+                                     file(credentialsId: 'APIB_GPTCI_api_authentication_config', variable: 'apiAuthenticationSecretFile')]) {
                         sh '''
                         scp -o StrictHostKeyChecking=no -O $dbConfig dannyho@125.229.56.26:/volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/apib_gptci-db-config.sql
                         scp -o StrictHostKeyChecking=no -O $apiSecretFile dannyho@125.229.56.26:/volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/config.py
+                        scp -o StrictHostKeyChecking=no -O $apiAuthenticationSecretFile dannyho@125.229.56.26:/volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/authentication/config.py
                         '''
                     }
                 }
@@ -51,8 +54,8 @@ pipeline {
                 sshagent(['SSH-root']) {
                         sh '''
                         ssh -o StrictHostKeyChecking=no root@125.229.56.26 "
-                            whoami
-                            /usr/local/bin/docker ps
+                            cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/
+                            docker compose up --build
                         "
                         '''
                 }

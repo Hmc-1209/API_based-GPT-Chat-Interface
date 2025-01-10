@@ -2,16 +2,12 @@ FROM node:18-slim
 
 WORKDIR /app
 
-COPY package*.json /app/
+COPY package*.json .
 
-RUN npm install --legacy-peer-deps
+RUN npm install
 
-COPY . /app/
-
-RUN npm run build
-
-RUN npm install -g serve
+COPY . .
 
 EXPOSE 30002
 
-CMD ["serve", "-s", "build"]
+CMD ["npm", "start"]
