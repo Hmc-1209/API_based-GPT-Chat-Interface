@@ -10,7 +10,7 @@ pipeline {
                         cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface
                         git pull
                         rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/config.py || true
-                        rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/Authentication/config.py || true
+                        
                         rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/apib_gptci-db-config.sql || true
                     "
                     '''
