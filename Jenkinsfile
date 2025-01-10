@@ -10,7 +10,7 @@ pipeline {
                         cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface
                         git pull
                         rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/config.py || true
-                        rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/authentication/config.py || true
+                        rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/Authentication/config.py || true
                         rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/apib_gptci-db-config.sql || true
                     "
                     '''
@@ -27,7 +27,7 @@ pipeline {
                         sh '''
                         scp -o StrictHostKeyChecking=no -O $dbConfig dannyho@125.229.56.26:/volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/db/apib_gptci-db-config.sql
                         scp -o StrictHostKeyChecking=no -O $apiSecretFile dannyho@125.229.56.26:/volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/config.py
-                        scp -o StrictHostKeyChecking=no -O $apiAuthenticationSecretFile dannyho@125.229.56.26:/volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/authentication/config.py
+                        scp -o StrictHostKeyChecking=no -O $apiAuthenticationSecretFile dannyho@125.229.56.26:/volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/Authentication/config.py
                         '''
                     }
                 }
