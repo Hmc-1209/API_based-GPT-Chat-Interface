@@ -18,3 +18,4 @@ services:
       - "30002:3000"
     volumes:
       - ./app:/app
+      - /app/node_modules
