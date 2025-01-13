@@ -56,7 +56,8 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no root@125.229.56.26 "
                             cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/
                             /usr/local/bin/docker-compose down || true
-                            /usr/local/bin/docker-compose up --build
+                            /usr/local/bin/docker-compose --no-cache build
+                            /usr/local/bin/docker-compose up 
                         "
                         '''
                 }
