@@ -15,6 +15,6 @@ services:
       dockerfile: Dockerfile
     container_name: apib_gptci_app
     ports:
-      - "30002:30002"
+      - "30002:3000"
     volumes:
       - ./app:/app
