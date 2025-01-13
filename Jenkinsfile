@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sshagent(['SSH-dannyho']) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no -v dannyho@125.229.56.26 "
+                    ssh -o StrictHostKeyChecking=no dannyho@125.229.56.26 "
                         cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface
                         git pull
                         rm /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/api/config.py || true
@@ -55,9 +55,9 @@ pipeline {
                         sh '''
                         ssh -o StrictHostKeyChecking=no root@125.229.56.26 "
                             cd /volume1/homes/dannyho/deployments/API_based-GPT-Chat-Interface/
-                            /usr/local/bin/docker-compose down || true
-                            /usr/local/bin/docker-compose --no-cache build
-                            /usr/local/bin/docker-compose up 
+                            /usr/local/bin/docker-compose down --rmi local || true
+                            /usr/local/bin/docker-compose build --no-cache
+                            /usr/local/bin/docker-compose up -d --remove-orphans
                         "
                         '''
                 }
