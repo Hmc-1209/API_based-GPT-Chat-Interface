@@ -6,7 +6,7 @@ COPY package*.json /app/
 
 RUN npm install
 
-RUN npm build
+RUN npm run build
 
 COPY . /app/
 
