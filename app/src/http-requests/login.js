@@ -15,6 +15,7 @@ const get_access_token = async (user_name, user_password) => {
 
   try {
     const response = await axios.post(`${api_host}/token/`, formData, {
+      withCredentials: true,
       headers: {
         "Access-Control-Allow-Origin": "https://chat-api.dh1209.com",
       },
