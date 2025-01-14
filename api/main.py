@@ -11,7 +11,7 @@ app.include_router(Router.chatRecord)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://chat.dh1209.com", "https://chat-api.dh1209.com"],
+    allow_origins=["https://chat.dh1209.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
