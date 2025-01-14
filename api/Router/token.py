@@ -28,7 +28,7 @@ async def create_access_token(form_data: Annotated[OAuth2PasswordRequestForm, De
 
     response.set_cookie(
         key="access_token",
-        value=f"Bearer {token}",
+        value=f"{token}",
         httponly=True,
         secure=True,
         samesite="None"
