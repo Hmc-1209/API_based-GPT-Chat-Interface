@@ -45,15 +45,17 @@ def generate_access_token(data: dict):
 async def get_current_user(request: Request) -> CompleteUser:
     """Get the current user's info, now using JWT from HttpOnly cookie"""
     token = request.cookies.get("access_token")
-    print(request.cookies)
+    print(token, request.cookies)
 
     if not token:
         raise HTTPException(status_code=401, detail="Token not found in cookies")
 
     try:
         payload = jwt.decode(token, ACCESS_TOKEN_SECRET_KEY, algorithms=[ALGORITHM])
+        print(payload)
 
         user = await check_user(payload["id"])
+        print(user)
 
         if user:
             if verify_password(payload["password"], user.password):
