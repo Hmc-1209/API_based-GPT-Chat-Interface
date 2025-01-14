@@ -1,1 +1,1 @@
-export const api_host = "http://127.0.0.1:8000";
+export const api_host = "https://chat-api.dh1209.com";
