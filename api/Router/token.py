@@ -30,8 +30,8 @@ async def create_access_token(form_data: Annotated[OAuth2PasswordRequestForm, De
         key="access_token",
         value=f"Bearer {token}",
         httponly=True,
-        secure=False,
-        samesite="lax"
+        secure=True,
+        samesite="None"
     )
 
     return None
