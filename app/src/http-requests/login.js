@@ -35,7 +35,7 @@ export default get_access_token;
 
 export const check_access_token = async () => {
   try {
-    const response = await axios.post(
+    const response = await axios.get(
       `${api_host}/token/validate_access_token`,
       {
         withCredentials: true,
