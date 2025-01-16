@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, Response
 from fastapi.security import OAuth2PasswordRequestForm
+from Authentication.JWTtoken import get_current_user
 from typing import Annotated
 
-from Repository.TokenCRUD import generate_access_token, validate_access_token
+from Repository.TokenCRUD import generate_access_token
 from exception import no_such_user
 
 router = APIRouter(prefix="/token", tags=["Token"])
@@ -37,8 +38,11 @@ async def create_access_token(form_data: Annotated[OAuth2PasswordRequestForm, De
     return None
 
 
-@router.post("/validate_access_token")
-async def validate_the_access_token() -> None:
+@router.get("/validate_access_token")
+async def validate_the_access_token(current_user=Depends(get_current_user)) -> None:
     """The endpoint of validate the access_token's availability"""
 
-    return await validate_access_token()
+    if current_user:
+        return None
+    
+    return False

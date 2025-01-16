@@ -13,10 +13,3 @@ async def generate_access_token(data: dict) -> str | bool:
             return JWTtoken.generate_access_token(data)
 
     return False
-
-
-async def validate_access_token():
-    if await JWTtoken.get_current_user():
-        return None
-
-    return False
