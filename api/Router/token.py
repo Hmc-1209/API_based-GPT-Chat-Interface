@@ -38,7 +38,7 @@ async def create_access_token(form_data: Annotated[OAuth2PasswordRequestForm, De
 
 
 @router.post("/validate_access_token")
-async def validate_the_access_token(token: str) -> None:
+async def validate_the_access_token() -> None:
     """The endpoint of validate the access_token's availability"""
 
-    return await validate_access_token(token)
+    return await validate_access_token()
