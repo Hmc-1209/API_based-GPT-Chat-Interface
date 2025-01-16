@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-import get_access_token from "../http-requests/login";
+import get_access_token, { check_access_token } from "../http-requests/login";
 import { get_self_user } from "../http-requests/login";
 
 const LogIn = () => {
@@ -9,10 +9,20 @@ const LogIn = () => {
         This is the component for login page.
     */
   const [loginMode, setLoginMode] = useState(0);
+  const [loading, setLoading] = useState(0);
 
   const switch_mode = () => {
     loginMode === 0 ? setLoginMode(1) : setLoginMode(0);
     return;
+  };
+
+  const loggedin_check = async () => {
+    const response = await check_access_token();
+    if (response === 1) {
+      console.log("The user has already logged in.");
+    } else {
+      console.log(response);
+    }
   };
 
   const login = async () => {
@@ -22,6 +32,28 @@ const LogIn = () => {
       console.log("Empty username or password detected.");
       return;
     }
+    setLoading(1);
+    const response = await get_access_token(username, password);
+    setLoading(0);
+    if (response === 1) {
+      console.log("login success");
+    } else if (response === "Username or password incorrect.") {
+      console.log("login failed");
+    }
+  };
+
+  const signup = async () => {
+    const username = document.getElementById("signup-username").value;
+    const password = document.getElementById("signup-password").value;
+    const confirm_password = document.getElementById(
+      "signup-confirm-password"
+    ).value;
+
+    if (username === "" || password === "" || confirm_password === "") {
+      console.log("Empty username or password detected.");
+      return;
+    }
+
     const response = await get_access_token(username, password);
     if (response === 1) {
       console.log("login success");
@@ -81,18 +113,22 @@ const LogIn = () => {
               />
             </div>
             <div className="text-sm">
-              Not yet have an account? Sign in{" "}
+              Not yet have an account? Sign up{" "}
               <span onClick={switch_mode} className="underline">
                 here
               </span>
               .
             </div>
-            <button
-              className="text-3xl xl:text-2xl pt-10 text-transparent bg-clip-text bg-gradient-to-b from-gray-100 to-gray-500"
-              onClick={login}
-            >
-              Login
-            </button>
+            {loading === 0 ? (
+              <button
+                className="text-3xl xl:text-2xl pt-10 text-transparent bg-clip-text bg-gradient-to-b from-gray-100 to-gray-500"
+                onClick={login}
+              >
+                Login
+              </button>
+            ) : (
+              <div className="text-3xl xl:text-2xl pt-10">Loading...</div>
+            )}
           </div>
         )}
         {loginMode === 1 && (
@@ -143,13 +179,17 @@ const LogIn = () => {
               </span>
               .
             </div>
-            <button className="text-3xl xl:text-2xl pt-10 text-transparent bg-clip-text bg-gradient-to-b from-gray-100 to-gray-500">
+            <button
+              className="text-3xl xl:text-2xl pt-10 text-transparent bg-clip-text bg-gradient-to-b from-gray-100 to-gray-500"
+              onclick={signup}
+            >
               Sign Up
             </button>
           </div>
         )}
       </div>
       <button onClick={get_self_user}>get user</button>
+      <button onClick={loggedin_check}>check token</button>
     </div>
   );
 };

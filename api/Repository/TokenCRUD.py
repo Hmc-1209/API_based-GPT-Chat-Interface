@@ -15,5 +15,8 @@ async def generate_access_token(data: dict) -> str | bool:
     return False
 
 
-async def validate_access_token(token: str):
-    await JWTtoken.get_current_user(token)
+async def validate_access_token():
+    if await JWTtoken.get_current_user:
+        return True
+
+    return False

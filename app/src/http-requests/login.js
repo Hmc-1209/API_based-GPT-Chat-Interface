@@ -36,6 +36,32 @@ const get_access_token = async (user_name, user_password) => {
 };
 export default get_access_token;
 
+export const check_access_token = async () => {
+  try {
+    const response = await axios.post(
+      `${api_host}/token/validate_access_token`,
+      {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "https://chat-api.dh1209.com",
+        },
+        validateStatus: function (status) {
+          return (status >= 200 && status < 300) || status === 404;
+        },
+      }
+    );
+
+    if (response) {
+      console.log(response);
+      return 1;
+    } else {
+      return response.data.detail;
+    }
+  } catch (error) {
+    return 5;
+  }
+};
+
 export const get_self_user = async () => {
   // Get self user detail
   try {
