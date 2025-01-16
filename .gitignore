@@ -7,3 +7,4 @@
 /api/Router/__pycache__
 /db/apib_gptci-db-config.sql
 /app/node_modules
+/app/build

@@ -5,9 +5,10 @@ services:
       dockerfile: Dockerfile
     container_name: apib_gptci_api
     ports:
-      - "30001:30001"
+      - "30001:8000"
     volumes:
       - ./api:/api
+      - /volume1/homes/dannyho/deployments_data:/deployment_datas
 
   app:
     build:
