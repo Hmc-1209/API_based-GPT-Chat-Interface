@@ -16,9 +16,9 @@ const get_access_token = async (user_name, user_password) => {
   try {
     const response = await axios.post(`${api_host}/token/`, formData, {
       withCredentials: true,
-      headers: {
-        "Access-Control-Allow-Origin": "https://chat-api.dh1209.com",
-      },
+      //   headers: {
+      // "Access-Control-Allow-Origin": "https://chat-api.dh1209.com",
+      //   },
       validateStatus: function (status) {
         return (status >= 200 && status < 300) || status === 404;
       },
@@ -42,9 +42,6 @@ export const check_access_token = async () => {
       `${api_host}/token/validate_access_token`,
       {
         withCredentials: true,
-        headers: {
-          "Access-Control-Allow-Origin": "https://chat-api.dh1209.com",
-        },
         validateStatus: function (status) {
           return (status >= 200 && status < 300) || status === 404;
         },
@@ -70,7 +67,7 @@ export const get_self_user = async () => {
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "https://chat-api.dh1209.com",
+        // "Access-Control-Allow-Origin": "https://chat-api.dh1209.com",
       },
     });
 
