@@ -190,7 +190,7 @@ const LogIn = () => {
       </div>
       <button onClick={get_self_user}>get user</button>
       <button onClick={loggedin_check}>check token</button>
-      <button onClick={get_self_user}>test</button>
+      {/* <button onClick={get_self_user}>test</button> */}
     </div>
   );
 };
