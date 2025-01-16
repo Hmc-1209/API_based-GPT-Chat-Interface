@@ -8,7 +8,7 @@ services:
       - "30001:8000"
     volumes:
       - ./api:/api
-      - /volume1/homes/dannyho/deployments_data:/deployment_datas
+      - /volume1/homes/dannyho/deployment_datas:/deployment_datas
 
   app:
     build:
