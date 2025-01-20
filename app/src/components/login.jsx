@@ -52,6 +52,9 @@ const LogIn = () => {
     if (username === "" || password === "" || confirm_password === "") {
       console.log("Empty username or password detected.");
       return;
+    } else if (password !== confirm_password) {
+      console.log("Confirm password doesn't match.");
+      return;
     }
 
     const response = await get_access_token(username, password);
@@ -127,7 +130,9 @@ const LogIn = () => {
                 Login
               </button>
             ) : (
-              <div className="text-3xl xl:text-2xl pt-10">Loading...</div>
+              <div className="text-3xl xl:text-2xl pt-10 from-gray-100">
+                Loading...
+              </div>
             )}
           </div>
         )}
@@ -188,9 +193,8 @@ const LogIn = () => {
           </div>
         )}
       </div>
-      <button onClick={get_self_user}>get user</button>
-      <button onClick={loggedin_check}>check token</button>
-      {/* <button onClick={get_self_user}>test</button> */}
+      {/* <button onClick={get_self_user}>get user</button>
+      <button onClick={loggedin_check}>check token</button> */}
     </div>
   );
 };

@@ -33,6 +33,30 @@ const get_access_token = async (user_name, user_password) => {
 };
 export default get_access_token;
 
+export const create_new_user = async (user_name, user_password) => {
+  const formData = new FormData();
+  formData.append("username", user_name);
+  formData.append("password", user_password);
+
+  try {
+    const response = await axios.post(`${api_host}/user/`, formData, {
+      withCredentials: true,
+      validateStatus: function (status) {
+        return (status >= 200 && status < 300) || status === 404;
+      },
+    });
+
+    if (response) {
+      console.log(response);
+      return 1;
+    } else {
+      return response.data.detail;
+    }
+  } catch (error) {
+    return 5;
+  }
+};
+
 export const check_access_token = async () => {
   try {
     const response = await axios.get(
@@ -45,8 +69,7 @@ export const check_access_token = async () => {
       }
     );
 
-    if (response) {
-      console.log(response);
+    if (response.status === 200) {
       return 1;
     } else {
       return response.data.detail;
