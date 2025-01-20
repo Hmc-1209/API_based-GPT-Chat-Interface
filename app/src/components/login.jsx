@@ -1,10 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-import get_access_token, {
-  check_access_token,
-  create_new_user,
-} from "../http-requests/login";
+import get_access_token, { create_new_user } from "../http-requests/login";
+import { AppContext } from "../App";
 // import { get_self_user } from "../http-requests/login";
 
 const LogIn = () => {
@@ -14,36 +12,36 @@ const LogIn = () => {
   const [loginMode, setLoginMode] = useState(0);
   const [loading, setLoading] = useState(0);
 
+  let { setAlert } = useContext(AppContext);
+
   const switch_mode = () => {
     loginMode === 0 ? setLoginMode(1) : setLoginMode(0);
     return;
   };
-
-  // const loggedin_check = async () => {
-  //   const response = await check_access_token();
-  //   if (response === 1) {
-  //     console.log("The user has already logged in.");
-  //   } else {
-  //     console.log(response);
-  //   }
-  // };
 
   const login = async () => {
     setLoading(1);
     const username = document.getElementById("login-username").value;
     const password = document.getElementById("login-password").value;
     if (username === "" || password === "") {
-      console.log("Empty username or password detected.");
+      setAlert(1);
       setLoading(0);
       return;
     }
     const response = await get_access_token(username, password);
     setLoading(0);
     if (response === 1) {
-      console.log("login success");
-    } else if (response === "Username or password incorrect.") {
-      console.log("login failed");
+      // login success
+      setAlert(2);
+      return;
+    } else if (response === 2) {
+      // invalid username or password
+      setAlert(3);
+      return;
     }
+    // unknown error
+    setAlert(6);
+    return;
   };
 
   const signup = async () => {
@@ -55,11 +53,11 @@ const LogIn = () => {
     ).value;
 
     if (username === "" || password === "" || confirm_password === "") {
-      console.log("Empty username or password detected.");
+      setAlert(1);
       setLoading(0);
       return;
     } else if (password !== confirm_password) {
-      console.log("Confirm password doesn't match.");
+      setAlert(4);
       setLoading(0);
       return;
     }
@@ -68,10 +66,16 @@ const LogIn = () => {
     setLoading(0);
 
     if (response === 1) {
-      console.log("signup success");
+      // successfully registed
+      setAlert(5);
+      return;
     } else {
-      console.log(response);
+      // invalid username or password
+      setAlert(3);
+      return;
     }
+    setAlert(6);
+    return;
   };
 
   return (

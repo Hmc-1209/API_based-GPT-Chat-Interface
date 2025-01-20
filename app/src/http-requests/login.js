@@ -21,13 +21,15 @@ const get_access_token = async (user_name, user_password) => {
       },
     });
 
-    if (response) {
-      console.log(response);
+    if (response.status === 200) {
+      // login success
       return 1;
-    } else {
-      return response.data.detail;
+    } else if (response.status === 404) {
+      // login failed
+      return 2;
     }
   } catch (error) {
+    // unknown error
     return 5;
   }
 };
@@ -45,17 +47,19 @@ export const create_new_user = async (user_name, user_password) => {
         "Content-Type": "application/json",
       },
       validateStatus: function (status) {
-        return (status >= 200 && status < 300) || status === 404;
+        return (status >= 200 && status < 300) || status === 400;
       },
     });
 
-    if (response) {
-      console.log(response);
+    if (response.status === 200) {
+      // successfully registed
       return 1;
-    } else {
-      return response.data.detail;
+    } else if (response.status === 404) {
+      // invalid username or password
+      return 2;
     }
   } catch (error) {
+    // unknown error
     return 5;
   }
 };
@@ -67,17 +71,20 @@ export const check_access_token = async () => {
       {
         withCredentials: true,
         validateStatus: function (status) {
-          return (status >= 200 && status < 300) || status === 404;
+          return (status >= 200 && status < 300) || status === 401;
         },
       }
     );
 
     if (response.status === 200) {
+      // token available
       return 1;
-    } else {
-      return response.data.detail;
+    } else if (response.status === 401) {
+      // invalid token
+      return 2;
     }
   } catch (error) {
+    // unknown error
     return 5;
   }
 };
