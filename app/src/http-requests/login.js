@@ -35,7 +35,7 @@ export default get_access_token;
 
 export const create_new_user = async (user_name, user_password) => {
   const formData = new FormData();
-  formData.append("username", user_name);
+  formData.append("name", user_name);
   formData.append("password", user_password);
 
   try {

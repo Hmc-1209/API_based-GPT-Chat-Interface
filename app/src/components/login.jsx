@@ -5,7 +5,7 @@ import get_access_token, {
   check_access_token,
   create_new_user,
 } from "../http-requests/login";
-import { get_self_user } from "../http-requests/login";
+// import { get_self_user } from "../http-requests/login";
 
 const LogIn = () => {
   /*
@@ -19,14 +19,14 @@ const LogIn = () => {
     return;
   };
 
-  const loggedin_check = async () => {
-    const response = await check_access_token();
-    if (response === 1) {
-      console.log("The user has already logged in.");
-    } else {
-      console.log(response);
-    }
-  };
+  // const loggedin_check = async () => {
+  //   const response = await check_access_token();
+  //   if (response === 1) {
+  //     console.log("The user has already logged in.");
+  //   } else {
+  //     console.log(response);
+  //   }
+  // };
 
   const login = async () => {
     setLoading(1);
@@ -34,6 +34,7 @@ const LogIn = () => {
     const password = document.getElementById("login-password").value;
     if (username === "" || password === "") {
       console.log("Empty username or password detected.");
+      setLoading(0);
       return;
     }
     const response = await get_access_token(username, password);
@@ -55,19 +56,21 @@ const LogIn = () => {
 
     if (username === "" || password === "" || confirm_password === "") {
       console.log("Empty username or password detected.");
+      // setLoading(0);
       return;
     } else if (password !== confirm_password) {
       console.log("Confirm password doesn't match.");
+      // setLoading(0);
       return;
     }
 
     const response = await create_new_user(username, password);
-    setLoading(0);
+    // setLoading(0);
 
     if (response === 1) {
-      console.log("login success");
-    } else if (response === "Username or password incorrect.") {
-      console.log("login failed");
+      console.log("signup success");
+    } else {
+      console.log(response);
     }
   };
 
@@ -136,7 +139,7 @@ const LogIn = () => {
                 Login
               </button>
             ) : (
-              <div className="text-3xl xl:text-2xl pt-10 from-gray-500">
+              <div className="text-3xl xl:text-2xl pt-10 text-gray-500">
                 Loading...
               </div>
             )}
@@ -193,12 +196,12 @@ const LogIn = () => {
             {loading === 0 ? (
               <button
                 className="text-3xl xl:text-2xl pt-10 text-transparent bg-clip-text bg-gradient-to-b from-gray-100 to-gray-500"
-                onclick={signup}
+                onClick={signup}
               >
                 Sign Up
               </button>
             ) : (
-              <div className="text-3xl xl:text-2xl pt-10 from-gray-500">
+              <div className="text-3xl xl:text-2xl pt-10 text-gray-500">
                 Loading...
               </div>
             )}
