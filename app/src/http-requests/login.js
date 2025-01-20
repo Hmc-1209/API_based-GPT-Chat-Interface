@@ -34,13 +34,16 @@ const get_access_token = async (user_name, user_password) => {
 export default get_access_token;
 
 export const create_new_user = async (user_name, user_password) => {
-  const formData = new FormData();
-  formData.append("name", user_name);
-  formData.append("password", user_password);
+  const requestData = {
+    name: user_name,
+    password: user_password,
+  };
 
   try {
-    const response = await axios.post(`${api_host}/user/`, formData, {
-      withCredentials: true,
+    const response = await axios.post(`${api_host}/user/`, requestData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
       validateStatus: function (status) {
         return (status >= 200 && status < 300) || status === 404;
       },

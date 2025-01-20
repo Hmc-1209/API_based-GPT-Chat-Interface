@@ -56,16 +56,16 @@ const LogIn = () => {
 
     if (username === "" || password === "" || confirm_password === "") {
       console.log("Empty username or password detected.");
-      // setLoading(0);
+      setLoading(0);
       return;
     } else if (password !== confirm_password) {
       console.log("Confirm password doesn't match.");
-      // setLoading(0);
+      setLoading(0);
       return;
     }
 
     const response = await create_new_user(username, password);
-    // setLoading(0);
+    setLoading(0);
 
     if (response === 1) {
       console.log("signup success");

@@ -3,11 +3,11 @@ from datetime import datetime
 
 
 class BaseUser(BaseModel):
-    name: str | None = None
+    name: str
 
 
 class CreateUser(BaseUser):
-    password: str | None = None
+    password: str
 
     class Config:
         from_attributes = True
@@ -15,7 +15,7 @@ class CreateUser(BaseUser):
 
 class CompleteUser(BaseUser):
     user_id: int
-    api_key_encryption_key: str | None = None
+    api_key_encryption_key: str
 
     class Config:
         from_attributes = True
