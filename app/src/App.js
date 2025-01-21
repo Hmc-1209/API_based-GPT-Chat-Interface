@@ -65,7 +65,7 @@ function App() {
     <div className="App">
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
-        <AppContext.Provider value={{ alert, setAlert }}>
+        <AppContext.Provider value={{ alert, setAlert, setAppPage }}>
           {appPage === 0 && <LogIn />}
           {appPage === 1 && <ChatPage />}
           <ToastContainer

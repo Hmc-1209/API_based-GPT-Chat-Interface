@@ -12,7 +12,7 @@ const LogIn = () => {
   const [loginMode, setLoginMode] = useState(0);
   const [loading, setLoading] = useState(0);
 
-  let { setAlert } = useContext(AppContext);
+  let { setAlert, setAppPage } = useContext(AppContext);
 
   const switch_mode = () => {
     loginMode === 0 ? setLoginMode(1) : setLoginMode(0);
@@ -33,6 +33,7 @@ const LogIn = () => {
     if (response === 1) {
       // login success
       setAlert(2);
+      setAppPage(1);
       return;
     } else if (response === 2) {
       // invalid username or password
