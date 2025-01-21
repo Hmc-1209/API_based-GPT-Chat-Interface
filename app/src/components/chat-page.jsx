@@ -48,7 +48,7 @@ const ChatPage = () => {
         } else {
           groups.previous.push(record);
         }
-
+        console.log(groups);
         return groups;
       },
       { today: [], yesterday: [], previous: [] }
@@ -101,10 +101,10 @@ const ChatPage = () => {
               <button
                 key={record.record_id}
                 className={
-                  "w-[100%] text-gray-600 p-4 text-left text-md xl:text-sm" +
+                  "w-[100%] p-4 text-left text-md xl:text-sm" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
-                    : "")
+                    : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
@@ -123,10 +123,10 @@ const ChatPage = () => {
               <button
                 key={record.record_id}
                 className={
-                  "w-[100%] text-gray-600 p-4 text-left text-md xl:text-sm" +
+                  "w-[100%] p-4 text-left text-md xl:text-sm" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
-                    : "")
+                    : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
@@ -145,10 +145,10 @@ const ChatPage = () => {
               <button
                 key={record.record_id}
                 className={
-                  "w-[100%] text-gray-600 p-4 text-left text-md xl:text-sm" +
+                  "w-[100%] p-4 text-left text-md xl:text-sm" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
-                    : "")
+                    : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
