@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import get_self_user from "../http-requests/user-data";
+import get_self_user, {
+  get_self_chat_records,
+} from "../http-requests/user-data";
 import { AppContext } from "../App";
 
 const ChatPage = () => {
@@ -38,7 +40,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     const get_chat_records = async () => {
-      const chat_records = await get_self_user();
+      const chat_records = await get_self_chat_records();
       if (chat_records === 2) {
         setAlert(7);
         return;
