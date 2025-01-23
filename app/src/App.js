@@ -58,6 +58,8 @@ function App() {
         error("Currently unavailable.");
         setAlert(0);
         return;
+      case 7:
+        error("Failed to fetch user data.");
     }
   }, [alert]);
 

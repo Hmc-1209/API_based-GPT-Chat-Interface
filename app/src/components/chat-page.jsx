@@ -1,35 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import get_self_user from "../http-requests/user-data";
+import { AppContext } from "../App";
 
 const ChatPage = () => {
   const [leftSideBar, setLeftSideBar] = useState(false);
-  // const [chatRecord, setChatRecord] = useState([]);
-  const [chatRecord, setChatRecord] = useState([
-    {
-      chat_name: "TestChatRoom4",
-      created_at: "2025-01-21T06:36:56.913Z",
-      updated_at: "2025-01-21T06:36:56.913Z",
-      record_id: 4,
-    },
-    {
-      chat_name: "TestChatRoom3",
-      created_at: "2025-01-20T06:36:56.913Z",
-      updated_at: "2025-01-20T06:36:56.913Z",
-      record_id: 3,
-    },
-    {
-      chat_name: "TestChatRoom2",
-      created_at: "2025-01-10T06:36:56.913Z",
-      updated_at: "2025-01-10T06:36:56.913Z",
-      record_id: 2,
-    },
-    {
-      chat_name: "TestChatRoom1",
-      created_at: "2025-01-09T06:36:56.913Z",
-      updated_at: "2025-01-09T06:36:56.913Z",
-      record_id: 1,
-    },
-  ]);
+  const [chatRecord, setChatRecord] = useState([]);
   const [selectedChatRecord, setSelectedChatRecord] = useState(0);
+  const { setAlert } = useContext(AppContext);
 
   const groupChatRecords = (records) => {
     const today = new Date();
@@ -55,6 +32,23 @@ const ChatPage = () => {
     );
   };
   const groupedRecords = groupChatRecords(chatRecord);
+
+  useEffect(() => {
+    const get_chat_records = async () => {
+      const chat_records = await get_self_user();
+      if (chat_records === 2) {
+        setAlert(7);
+        return;
+      } else if (chat_records === 5) {
+        setAlert(6);
+        return;
+      }
+      setChatRecord(chat_records);
+      return;
+    };
+
+    get_chat_records();
+  }, []);
 
   return (
     <div className="w-full h-full bg-gray-800 font-bold rounded-lg flex flex-row xl:flex-row">

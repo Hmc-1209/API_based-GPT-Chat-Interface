@@ -88,25 +88,3 @@ export const check_access_token = async () => {
     return 5;
   }
 };
-
-export const get_self_user = async () => {
-  // Get self user detail
-  try {
-    const response = await axios.get(`${api_host}/user/`, {
-      withCredentials: true,
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.data) {
-      return false;
-    }
-
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
