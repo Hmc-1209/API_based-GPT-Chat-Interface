@@ -9,6 +9,10 @@ const ChatPage = () => {
   const { setAlert } = useContext(AppContext);
 
   const groupChatRecords = (records) => {
+    if (!Array.isArray(records) || records.length === 0) {
+      return { today: [], yesterday: [], previous: [] };
+    }
+
     const today = new Date();
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
@@ -25,7 +29,6 @@ const ChatPage = () => {
         } else {
           groups.previous.push(record);
         }
-        console.log(groups);
         return groups;
       },
       { today: [], yesterday: [], previous: [] }
@@ -43,7 +46,7 @@ const ChatPage = () => {
         setAlert(6);
         return;
       }
-      setChatRecord(chat_records);
+      setChatRecord(Array.isArray(chat_records) ? chat_records : []);
       return;
     };
 
