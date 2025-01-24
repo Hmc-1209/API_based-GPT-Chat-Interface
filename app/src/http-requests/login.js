@@ -92,7 +92,7 @@ export const check_access_token = async () => {
 export const clear_access_token = async () => {
   // Get self user chat records
   try {
-    const response = await axios.get(`${api_host}/clear_access_token/`, {
+    const response = await axios.get(`${api_host}/clear_access_token`, {
       withCredentials: true,
       headers: {
         accept: "application/json",
