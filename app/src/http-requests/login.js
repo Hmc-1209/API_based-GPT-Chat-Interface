@@ -88,3 +88,24 @@ export const check_access_token = async () => {
     return 5;
   }
 };
+
+export const clear_access_token = async () => {
+  // Get self user chat records
+  try {
+    const response = await axios.get(`${api_host}/clear_access_token/`, {
+      withCredentials: true,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      return 2;
+    }
+
+    return 1;
+  } catch (error) {
+    return 5;
+  }
+};

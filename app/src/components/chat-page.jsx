@@ -1,14 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import get_self_user, {
   get_self_chat_records,
 } from "../http-requests/user-data";
 import { AppContext } from "../App";
+import { clear_access_token } from "../http-requests/login";
 
 const ChatPage = () => {
   const [leftSideBar, setLeftSideBar] = useState(false);
   const [chatRecord, setChatRecord] = useState([]);
   const [selectedChatRecord, setSelectedChatRecord] = useState(0);
+  const [accountMenu, setAccountMenu] = useState(false);
   const { setAlert } = useContext(AppContext);
+  const accountMenuRef = useRef(null);
 
   const groupChatRecords = (records) => {
     if (!Array.isArray(records) || records.length === 0) {
@@ -38,6 +41,15 @@ const ChatPage = () => {
   };
   const groupedRecords = groupChatRecords(chatRecord);
 
+  const logout = async () => {
+    const response = await clear_access_token();
+    if (response === 1) {
+      setAlert(8);
+      return;
+    }
+    setAlert(6);
+  };
+
   useEffect(() => {
     const get_chat_records = async () => {
       const chat_records = await get_self_chat_records();
@@ -53,6 +65,22 @@ const ChatPage = () => {
     };
 
     get_chat_records();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        accountMenuRef.current &&
+        !accountMenuRef.current.contains(event.target)
+      ) {
+        setAccountMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   return (
@@ -169,6 +197,35 @@ const ChatPage = () => {
       <div className="w-full xl:w-[85%] h-full text-white pt-5 bg-gray-800">
         GPTCI
       </div>
+
+      {/* Account icon */}
+      <i
+        class="fa-solid fa-user absolute top-4 right-4 text-gray-400 text-3xl md:text-4xl cursor-pointer rounded"
+        onClick={() => setAccountMenu((prev) => !prev)}
+      />
+      {/* Account dropdown menu */}
+      {accountMenu && (
+        <div
+          className="absolute top-16 right-4 bg-gray-700 shadow-lg rounded-md w-48 text-sm"
+          ref={accountMenuRef}
+        >
+          <button className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded">
+            <i class="fa-solid fa-address-card" /> Profile
+          </button>
+          <button className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded">
+            <i class="fa-solid fa-gear" /> Settings
+          </button>
+          <button className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded">
+            <i class="fa-solid fa-circle-info" /> Help
+          </button>
+          <button
+            className="block w-full text-left px-4 py-2 text-red-300 hover:bg-gray-600 rounded"
+            onClick={() => logout()}
+          >
+            <i class="fa-solid fa-right-from-bracket" /> Logout
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -10,7 +10,7 @@ export const AppContext = createContext(null);
 
 function App() {
   const [alert, setAlert] = useState(0);
-  const [appPage, setAppPage] = useState(0);
+  const [appPage, setAppPage] = useState(1);
   const success = (message) => toast.success(message);
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
@@ -60,6 +60,13 @@ function App() {
         return;
       case 7:
         error("Failed to fetch user data.");
+        setAlert(0);
+        return;
+      case 8:
+        success("Logged out.");
+        setAlert(0);
+        setAppPage(0);
+        return;
     }
   }, [alert]);
 

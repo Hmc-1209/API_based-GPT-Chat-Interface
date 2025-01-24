@@ -46,3 +46,19 @@ async def validate_the_access_token(current_user=Depends(get_current_user)) -> N
         return None
     
     return False
+
+
+@router.get("/clear_access_token")
+async def clear_the_access_token(response: Response) -> None:
+    """The endpoint to clear the access_token"""
+
+    response.set_cookie(
+        key="access_token",
+        value="",
+        httponly=True,
+        secure=True,
+        samesite="strict",
+        max_age=0,
+    )
+    
+    return None
