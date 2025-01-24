@@ -5,12 +5,13 @@ import { useState, createContext, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { check_access_token } from "./http-requests/login";
 import ChatPage from "./components/chat-page";
+import PageLoading from "./components/app-loading";
 
 export const AppContext = createContext(null);
 
 function App() {
   const [alert, setAlert] = useState(0);
-  const [appPage, setAppPage] = useState(0);
+  const [appPage, setAppPage] = useState(-1);
   const success = (message) => toast.success(message);
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
@@ -19,10 +20,9 @@ function App() {
     const loggedin_check = async () => {
       const response = await check_access_token();
       if (response === 1) {
-        console.log("The user has already logged in.");
         setAppPage(1);
       } else {
-        console.log(response);
+        setAppPage(0);
       }
     };
 
@@ -75,6 +75,7 @@ function App() {
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
         <AppContext.Provider value={{ alert, setAlert, setAppPage }}>
+          {appPage === -1 && <PageLoading />}
           {appPage === 0 && <LogIn />}
           {appPage === 1 && <ChatPage />}
           <ToastContainer
