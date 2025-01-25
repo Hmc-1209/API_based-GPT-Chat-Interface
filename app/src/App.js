@@ -19,26 +19,26 @@ function App() {
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
 
-  // useEffect(() => {
-  //   const loggedin_check = async () => {
-  //     const response = await check_access_token();
-  //     if (response === 1) {
-  //       const user_detail = await get_self_user();
-  //       if (user_detail === 2 || user_detail === 5) {
-  //         setAlert(9);
-  //       } else {
-  //         setUserDetail(user_detail);
-  //       }
-  //       setAppPage(1);
-  //       return;
-  //     } else {
-  //       setAppPage(0);
-  //       return;
-  //     }
-  //   };
+  useEffect(() => {
+    const loggedin_check = async () => {
+      const response = await check_access_token();
+      if (response === 1) {
+        const user_detail = await get_self_user();
+        if (user_detail === 2 || user_detail === 5) {
+          setAlert(9);
+        } else {
+          setUserDetail(user_detail);
+        }
+        setAppPage(1);
+        return;
+      } else {
+        setAppPage(0);
+        return;
+      }
+    };
 
-  //   loggedin_check();
-  // }, []);
+    loggedin_check();
+  }, []);
 
   /*
     Alert message type and settings:
