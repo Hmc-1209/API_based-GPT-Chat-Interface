@@ -3,7 +3,9 @@ import { AppContext } from "../App";
 import camelCase from "../../node_modules/boxen/node_modules/camelcase/index";
 
 const AccountProfile = () => {
-  const { setAppPage, userDetail } = useContext(AppContext);
+  const { setAppPage } = useContext(AppContext);
+
+  const userDetail = {};
 
   return (
     <div className="flex flex-col text-[20px] w-[70%] h-full xl:w-[30%] select-none text-base text-center">
@@ -18,10 +20,12 @@ const AccountProfile = () => {
         <b>Username :</b>{" "}
         <input
           type="text"
-          defaultValue={userDetail.name}
+          defaultValue={
+            userDetail.name !== undefined ? userDetail.name : "None"
+          }
           readOnly
           className="bg-gray-700 text-white px-2 py-1 border-none outline-none max-w-[75%] rounded-md text-center select-none overflow-hidden text-ellipsis whitespace-nowrap"
-          size={userDetail.name.length ? userDetail.name.length : 1}
+          size={userDetail.name !== undefined ? userDetail.name.length : 4}
           title={userDetail.name}
         />
       </div>
@@ -30,13 +34,17 @@ const AccountProfile = () => {
         <b>API key :</b>{" "}
         <input
           type="text"
-          defaultValue={userDetail.api_key_encryption_key}
+          defaultValue={
+            userDetail.api_key_encryption_key !== undefined
+              ? userDetail.api_key_encryption_key
+              : "None"
+          }
           readOnly
           className="bg-gray-700 text-white px-2 py-1 border-none outline-none max-w-[65%] xl:max-w-[75%] rounded-md text-center select-none overflow-hidden text-ellipsis whitespace-nowrap"
           size={
-            userDetail.api_key_encryption_key.length
+            userDetail.api_key_encryption_key !== undefined
               ? userDetail.api_key_encryption_key.length
-              : 1
+              : 4
           }
           title={userDetail.api_key_encryption_key}
         />
