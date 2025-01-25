@@ -3,9 +3,7 @@ import { AppContext } from "../App";
 import camelCase from "../../node_modules/boxen/node_modules/camelcase/index";
 
 const AccountProfile = () => {
-  const { setAppPage } = useContext(AppContext);
-
-  const userDetail = {};
+  const { setAppPage, userDetail } = useContext(AppContext);
 
   return (
     <div className="flex flex-col text-[20px] w-[70%] h-full xl:w-[30%] select-none text-base text-center">
