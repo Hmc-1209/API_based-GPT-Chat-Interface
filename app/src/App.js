@@ -6,28 +6,39 @@ import { ToastContainer, toast } from "react-toastify";
 import { check_access_token } from "./http-requests/login";
 import ChatPage from "./components/chat-page";
 import PageLoading from "./components/app-loading";
+import get_self_user from "./http-requests/user-data";
+import AccountProfile from "./components/account-profile";
 
 export const AppContext = createContext(null);
 
 function App() {
   const [alert, setAlert] = useState(0);
-  const [appPage, setAppPage] = useState(-1);
+  const [appPage, setAppPage] = useState(2);
+  const [userDetail, setUserDetail] = useState({});
   const success = (message) => toast.success(message);
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
 
-  useEffect(() => {
-    const loggedin_check = async () => {
-      const response = await check_access_token();
-      if (response === 1) {
-        setAppPage(1);
-      } else {
-        setAppPage(0);
-      }
-    };
+  // useEffect(() => {
+  //   const loggedin_check = async () => {
+  //     const response = await check_access_token();
+  //     if (response === 1) {
+  //       const user_detail = await get_self_user();
+  //       if (user_detail === 2 || user_detail === 5) {
+  //         setAlert(9);
+  //       } else {
+  //         setUserDetail(user_detail);
+  //       }
+  //       setAppPage(1);
+  //       return;
+  //     } else {
+  //       setAppPage(0);
+  //       return;
+  //     }
+  //   };
 
-    loggedin_check();
-  }, []);
+  //   loggedin_check();
+  // }, []);
 
   /*
     Alert message type and settings:
@@ -74,10 +85,13 @@ function App() {
     <div className="App">
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
-        <AppContext.Provider value={{ alert, setAlert, setAppPage }}>
+        <AppContext.Provider
+          value={{ alert, setAlert, setAppPage, userDetail }}
+        >
           {appPage === -1 && <PageLoading />}
           {appPage === 0 && <LogIn />}
           {appPage === 1 && <ChatPage />}
+          {appPage === 2 && <AccountProfile />}
           <ToastContainer
             position="bottom-right"
             theme="colored"

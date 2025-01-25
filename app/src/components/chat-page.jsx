@@ -10,7 +10,7 @@ const ChatPage = () => {
   const [chatRecord, setChatRecord] = useState([]);
   const [selectedChatRecord, setSelectedChatRecord] = useState(0);
   const [accountMenu, setAccountMenu] = useState(false);
-  const { setAlert } = useContext(AppContext);
+  const { setAlert, setAppPage } = useContext(AppContext);
   const accountMenuRef = useRef(null);
 
   const groupChatRecords = (records) => {
@@ -209,7 +209,10 @@ const ChatPage = () => {
           className="absolute top-16 right-4 bg-gray-700 shadow-lg rounded-md w-48 text-sm"
           ref={accountMenuRef}
         >
-          <button className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded">
+          <button
+            className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded"
+            onClick={() => setAppPage(2)}
+          >
             <i class="fa-solid fa-address-card" /> Profile
           </button>
           <button className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded">
