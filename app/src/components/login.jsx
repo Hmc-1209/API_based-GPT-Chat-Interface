@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 
 import get_access_token, { create_new_user } from "../http-requests/login";
 import { AppContext } from "../App";
+import get_self_user from "../http-requests/user-data";
 // import { get_self_user } from "../http-requests/login";
 
 const LogIn = () => {
@@ -12,7 +13,7 @@ const LogIn = () => {
   const [loginMode, setLoginMode] = useState(0);
   const [loading, setLoading] = useState(0);
 
-  let { setAlert, setAppPage } = useContext(AppContext);
+  let { setAlert, setAppPage, setUserDetail } = useContext(AppContext);
 
   const switch_mode = () => {
     loginMode === 0 ? setLoginMode(1) : setLoginMode(0);
@@ -32,6 +33,12 @@ const LogIn = () => {
     setLoading(0);
     if (response === 1) {
       // login success
+      const user_detail = await get_self_user();
+      if (user_detail === 2 || user_detail === 5) {
+        setAlert(9);
+      } else {
+        setUserDetail(user_detail);
+      }
       setAlert(2);
       setAppPage(1);
       return;

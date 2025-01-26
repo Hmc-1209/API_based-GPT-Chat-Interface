@@ -19,6 +19,7 @@ function App() {
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
 
+  // Login check
   useEffect(() => {
     const loggedin_check = async () => {
       const response = await check_access_token();
