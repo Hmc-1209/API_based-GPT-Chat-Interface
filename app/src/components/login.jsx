@@ -36,7 +36,6 @@ const LogIn = () => {
       if (user_detail === 2 || user_detail === 5) {
         setAlert(9);
       } else {
-        console.log(user_detail);
         setUserDetail(user_detail);
       }
       setAlert(2);

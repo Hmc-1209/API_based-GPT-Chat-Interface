@@ -87,7 +87,7 @@ function App() {
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
         <AppContext.Provider
-          value={{ alert, setAlert, setAppPage, userDetail }}
+          value={{ alert, setAlert, setAppPage, userDetail, setUserDetail }}
         >
           {appPage === -1 && <PageLoading />}
           {appPage === 0 && <LogIn />}
