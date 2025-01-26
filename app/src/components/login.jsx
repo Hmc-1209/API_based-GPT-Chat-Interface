@@ -4,7 +4,6 @@ import { useState, useContext } from "react";
 import get_access_token, { create_new_user } from "../http-requests/login";
 import { AppContext } from "../App";
 import get_self_user from "../http-requests/user-data";
-// import { get_self_user } from "../http-requests/login";
 
 const LogIn = () => {
   /*
@@ -37,6 +36,7 @@ const LogIn = () => {
       if (user_detail === 2 || user_detail === 5) {
         setAlert(9);
       } else {
+        console.log(user_detail);
         setUserDetail(user_detail);
       }
       setAlert(2);
@@ -220,8 +220,6 @@ const LogIn = () => {
           </div>
         )}
       </div>
-      {/* <button onClick={get_self_user}>get user</button>
-      <button onClick={loggedin_check}>check token</button> */}
     </div>
   );
 };
