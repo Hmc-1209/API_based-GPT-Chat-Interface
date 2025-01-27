@@ -29,7 +29,7 @@ async def create_new_user(user: CreateUser) -> None:
 
 
 @router.get("/")
-async def get_self_user(current_user=Depends(get_current_user)) -> CompleteUser:
+async def get_self_user(current_user=Depends(get_current_user)) -> dict:
     """
     Retrieve the current user.
 
