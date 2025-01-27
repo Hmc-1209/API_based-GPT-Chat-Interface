@@ -5,7 +5,7 @@ import { update_user_data } from "../http-requests/user-data";
 const SettingsPage = () => {
 
     const [updating, setUpdating] = useState(false);
-    const { userDetail, setAppPage, setAlert } = useContext(AppContext);
+    const { userDetail, setUserDetail, setAppPage, setAlert } = useContext(AppContext);
 
     const update = async (mode, val) => {
         setUpdating(true);
@@ -21,6 +21,17 @@ const SettingsPage = () => {
             return;
         }
         setAlert(11);
+        setUserDetail((prevDetail) => {
+            const updatedDetail = { ...prevDetail };
+    
+            if (mode === 1) {
+                updatedDetail.name = val;
+            } else if (mode === 2) {
+                updatedDetail.api_key = val;
+            }
+    
+            return updatedDetail;
+        });
         return;
     }
 
