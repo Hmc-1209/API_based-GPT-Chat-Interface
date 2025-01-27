@@ -8,6 +8,7 @@ import ChatPage from "./components/chat-page";
 import PageLoading from "./components/app-loading";
 import get_self_user from "./http-requests/user-data";
 import AccountProfile from "./components/account-profile";
+import SettingsPage from "./components/settings";
 
 export const AppContext = createContext(null);
 
@@ -79,6 +80,18 @@ function App() {
         setAlert(0);
         setAppPage(0);
         return;
+      case 9:
+        error("Unable to get user data.");
+        setAlert(0);
+        return;
+      case 10:
+        error("No change detected.");
+        setAlert(0);
+        return;
+      case 11:
+        success("User data updated.");
+        setAlert(0);
+        return;
     }
   }, [alert]);
 
@@ -93,6 +106,7 @@ function App() {
           {appPage === 0 && <LogIn />}
           {appPage === 1 && <ChatPage />}
           {appPage === 2 && <AccountProfile />}
+          {appPage === 3 && <SettingsPage />}
           <ToastContainer
             position="bottom-right"
             theme="colored"

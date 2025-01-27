@@ -44,3 +44,29 @@ export const get_self_chat_records = async () => {
     return 5;
   }
 };
+
+export const update_user_data = async (mode, value) => {
+  // Update username or api key
+  const data = {
+    "mode": mode,
+    "val": value
+  }
+
+  try {
+    const response = await axios.patch(`${api_host}/user/`, data, {
+      withCredentials: true,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      return 2;
+    }
+
+    return 1;
+  } catch (error) {
+    return 5;
+  }
+}
