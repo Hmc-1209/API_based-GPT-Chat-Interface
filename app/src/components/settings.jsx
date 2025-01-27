@@ -83,7 +83,7 @@ const SettingsPage = () => {
             <button className="bg-gray-700 text-bold p-1 mt-2 xl:ml-5 rounded-md"   
                 onClick={() => {
                     const inputValue = document.getElementById("input-api-key").value;
-                    update(1, inputValue);
+                    update(2, inputValue);
                 }}
             >Apply change</button>
         </div>
