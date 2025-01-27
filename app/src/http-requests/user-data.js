@@ -47,13 +47,9 @@ export const get_self_chat_records = async () => {
 
 export const update_user_data = async (mode, value) => {
   // Update username or api key
-  const data = {
-    "mode": mode,
-    "val": value
-  }
 
   try {
-    const response = await axios.patch(`${api_host}/user/`, {
+    const response = await axios.patch(`${api_host}/user/`, null, {
       params: {
         mode: mode,
         val: value,
