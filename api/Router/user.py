@@ -41,6 +41,7 @@ async def get_self_user(current_user=Depends(get_current_user)) -> dict:
 
     del current_user["api_key_encryption_key"]
     current_user = current_user["api_key"] = await get_current_user_api_key(current_user.user_id)
+    print(current_user)
 
     return current_user
 
