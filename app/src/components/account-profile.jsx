@@ -33,18 +33,18 @@ const AccountProfile = () => {
         <input
           type="text"
           defaultValue={
-            userDetail.api_key_encryption_key !== undefined
-              ? userDetail.api_key_encryption_key
+            userDetail.api_key !== undefined
+              ? userDetail.api_key
               : "None"
           }
           readOnly
           className="bg-gray-700 text-white px-2 py-1 border-none outline-none max-w-[65%] xl:max-w-[75%] rounded-md text-center select-none overflow-hidden text-ellipsis whitespace-nowrap"
           size={
-            userDetail.api_key_encryption_key !== undefined
-              ? userDetail.api_key_encryption_key.length
+            userDetail.api_key !== undefined
+              ? userDetail.api_key.length
               : 4
           }
-          title={userDetail.api_key_encryption_key}
+          title={userDetail.api_key}
         />
       </div>
       <span className="text-sm italic mt-5">
