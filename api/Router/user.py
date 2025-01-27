@@ -39,8 +39,8 @@ async def get_self_user(current_user=Depends(get_current_user)) -> dict:
     :return: The current user's data.
     """
 
-    del current_user["api_key_encryption_key"]
-    current_user = current_user["api_key"] = await get_current_user_api_key(current_user.user_id)
+    current_user.pop("api_key_encryption_key")
+    current_user["api_key"] = await get_current_user_api_key(current_user.user_id)
     print(current_user)
 
     return current_user
