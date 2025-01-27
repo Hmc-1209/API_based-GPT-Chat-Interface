@@ -53,7 +53,11 @@ export const update_user_data = async (mode, value) => {
   }
 
   try {
-    const response = await axios.patch(`${api_host}/user/`, data, {
+    const response = await axios.patch(`${api_host}/user/`, {
+      params: {
+        mode: mode,
+        val: value,
+      },
       withCredentials: true,
       headers: {
         accept: "application/json",
