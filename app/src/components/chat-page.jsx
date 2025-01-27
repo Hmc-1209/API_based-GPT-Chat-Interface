@@ -215,7 +215,10 @@ const ChatPage = () => {
           >
             <i class="fa-solid fa-address-card" /> Profile
           </button>
-          <button className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded">
+          <button 
+            className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded"
+            onClick={() => setAppPage(3)}
+          >
             <i class="fa-solid fa-gear" /> Settings
           </button>
           <button className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded">
