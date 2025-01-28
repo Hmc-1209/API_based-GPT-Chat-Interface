@@ -88,7 +88,7 @@ const ChatPage = () => {
   }, []);
 
   return (
-    <div className="w-full h-full bg-gray-800 font-bold rounded-lg flex flex-row xl:flex-row">
+    <div className="w-full h-full bg-gray-800 font-bold flex flex-row xl:flex-row">
       {/* Menu button */}
       <button
         className="w-[10%] xl:hidden absolute top-4 left-4 flex flex-col gap-1 md:gap-3 bg-gray-700 text-white p-2 md:p-3 rounded"
@@ -192,7 +192,7 @@ const ChatPage = () => {
       {/* Left side bar cover */}
       {leftSideBar && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 xl:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 h-[100%] z-[2] xl:hidden"
           onClick={() => setLeftSideBar(false)}
         />
       )}
@@ -202,7 +202,7 @@ const ChatPage = () => {
         <div className="text-white text-2xl xl:text-4xl pt-5 pb-5 bg-gray-800">
           GPTCI
         </div>
-        <ChatSection />
+        <ChatSection className="z-[1]"/>
       </div>
 
       {/* Account icon */}
