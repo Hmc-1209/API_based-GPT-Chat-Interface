@@ -4,6 +4,7 @@ import get_self_user, {
 } from "../http-requests/user-data";
 import { AppContext } from "../App";
 import { clear_access_token } from "../http-requests/login";
+import ChatSection from "./chat-section";
 
 const ChatPage = () => {
   const [leftSideBar, setLeftSideBar] = useState(false);
@@ -13,6 +14,7 @@ const ChatPage = () => {
   const { setAlert, setAppPage } = useContext(AppContext);
   const accountMenuRef = useRef(null);
 
+  // Classify chat rooms with update date
   const groupChatRecords = (records) => {
     if (!Array.isArray(records) || records.length === 0) {
       return { today: [], yesterday: [], previous: [] };
@@ -50,6 +52,7 @@ const ChatPage = () => {
     setAlert(6);
   };
 
+  // Get all char rooms' breief info
   useEffect(() => {
     const get_chat_records = async () => {
       const chat_records = await get_self_chat_records();
@@ -67,6 +70,7 @@ const ChatPage = () => {
     get_chat_records();
   }, []);
 
+  // Account icon unfocus
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -194,8 +198,11 @@ const ChatPage = () => {
       )}
 
       {/* Chat */}
-      <div className="w-full xl:w-[85%] h-full text-white pt-5 bg-gray-800">
-        GPTCI
+      <div className="w-full xl:w-[85%]h-full text-white bg-gray-800 flex flex-col h-screen">
+        <div className="text-white text-2xl xl:text-4xl pt-5 pb-5 bg-gray-800">
+          GPTCI
+        </div>
+        <ChatSection />
       </div>
 
       {/* Account icon */}
