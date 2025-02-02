@@ -69,4 +69,4 @@ export const update_user_data = async (mode, value) => {
   } catch (error) {
     return 5;
   }
-}
+};

@@ -8,10 +8,110 @@ import ChatSection from "./chat-section";
 
 const ChatPage = () => {
   const [leftSideBar, setLeftSideBar] = useState(false);
-  const [chatRecord, setChatRecord] = useState([]);
+  const [chatRecord, setChatRecord] = useState([
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 3,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 6,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 7,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 8,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 9,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 10,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 11,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 12,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 13,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 14,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 15,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 16,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 17,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-01-28T07:10:09",
+      updated_at: "2025-01-28T07:10:09",
+      record_id: 18,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-02-01T07:10:09",
+      updated_at: "2025-02-01T07:10:09",
+      record_id: 5,
+    },
+    {
+      chat_name: "New Chat",
+      created_at: "2025-02-02T07:10:09",
+      updated_at: "2025-02-02T07:10:09",
+      record_id: 4,
+    },
+  ]);
   const [selectedChatRecord, setSelectedChatRecord] = useState(0);
   const [accountMenu, setAccountMenu] = useState(false);
+  const [settingChatRoom, setSettingChatRoom] = useState(0);
   const { setAlert, setAppPage } = useContext(AppContext);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const dropdownRef = useRef(null);
   const accountMenuRef = useRef(null);
 
   // Classify chat rooms with update date
@@ -87,6 +187,20 @@ const ChatPage = () => {
     };
   }, []);
 
+  // Set chat room unfocus
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setSettingChatRoom(0);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="w-full h-full bg-gray-800 font-bold flex flex-row xl:flex-row">
       {/* Menu button */}
@@ -129,18 +243,45 @@ const ChatPage = () => {
               Today
             </h3>
             {groupedRecords.today.map((record) => (
-              <button
+              <div
                 key={record.record_id}
                 className={
-                  "w-[100%] p-4 text-left text-md xl:text-sm" +
+                  "relative w-[100%] p-4 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
-                {record.chat_name}
-              </button>
+                <button className="w-[90%] text-left truncate overflow-hidden whitespace-nowrap">
+                  {record.chat_name}
+                </button>
+
+                <button
+                  className={
+                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-2 pl-5 opacity-0 group-hover:opacity-100" +
+                    (settingChatRoom === record.record_id ? " opacity-100" : "")
+                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const dropdownHeight = 100;
+                    const isOverflowing =
+                      rect.bottom + dropdownHeight > window.innerHeight;
+
+                    setDropdownPosition({
+                      top: isOverflowing
+                        ? rect.top - dropdownHeight
+                        : rect.bottom,
+                      left: rect.left,
+                    });
+
+                    setSettingChatRoom(record.record_id);
+                  }}
+                >
+                  ⋮
+                </button>
+              </div>
             ))}
           </div>
         )}
@@ -151,18 +292,45 @@ const ChatPage = () => {
               Yesterday
             </h3>
             {groupedRecords.yesterday.map((record) => (
-              <button
+              <div
                 key={record.record_id}
                 className={
-                  "w-[100%] p-4 text-left text-md xl:text-sm" +
+                  "relative w-[100%] p-4 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
-                {record.chat_name}
-              </button>
+                <button className="w-[90%] text-left truncate overflow-hidden whitespace-nowrap">
+                  {record.chat_name}
+                </button>
+
+                <button
+                  className={
+                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-2 pl-5 opacity-0 group-hover:opacity-100" +
+                    (settingChatRoom === record.record_id ? " opacity-100" : "")
+                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const dropdownHeight = 100;
+                    const isOverflowing =
+                      rect.bottom + dropdownHeight > window.innerHeight;
+
+                    setDropdownPosition({
+                      top: isOverflowing
+                        ? rect.top - dropdownHeight
+                        : rect.bottom,
+                      left: rect.left,
+                    });
+
+                    setSettingChatRoom(record.record_id);
+                  }}
+                >
+                  ⋮
+                </button>
+              </div>
             ))}
           </div>
         )}
@@ -173,18 +341,45 @@ const ChatPage = () => {
               Previous
             </h3>
             {groupedRecords.previous.map((record) => (
-              <button
+              <div
                 key={record.record_id}
                 className={
-                  "w-[100%] p-4 text-left text-md xl:text-sm" +
+                  "relative w-[100%] p-4 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
-                {record.chat_name}
-              </button>
+                <button className="w-[90%] text-left truncate overflow-hidden whitespace-nowrap">
+                  {record.chat_name}
+                </button>
+
+                <button
+                  className={
+                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-2 pl-5 opacity-0 group-hover:opacity-100" +
+                    (settingChatRoom === record.record_id ? " opacity-100" : "")
+                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const dropdownHeight = 100;
+                    const isOverflowing =
+                      rect.bottom + dropdownHeight > window.innerHeight;
+
+                    setDropdownPosition({
+                      top: isOverflowing
+                        ? rect.top - dropdownHeight
+                        : rect.bottom,
+                      left: rect.left,
+                    });
+
+                    setSettingChatRoom(record.record_id);
+                  }}
+                >
+                  ⋮
+                </button>
+              </div>
             ))}
           </div>
         )}
@@ -198,11 +393,11 @@ const ChatPage = () => {
       )}
 
       {/* Chat */}
-      <div className="w-full xl:w-[85%]h-full text-white bg-gray-800 flex flex-col h-screen">
+      <div className="max-w-[100%] xl:w-[85%] text-white bg-gray-800 flex flex-col h-[100%] xl:h-screen">
         <div className="text-white text-2xl xl:text-4xl pt-5 pb-5 bg-gray-800">
           GPTCI
         </div>
-        <ChatSection className="z-[1]"/>
+        <ChatSection className="z-[1]" />
       </div>
 
       {/* Account icon */}
@@ -222,7 +417,7 @@ const ChatPage = () => {
           >
             <i class="fa-solid fa-address-card" /> Profile
           </button>
-          <button 
+          <button
             className="block w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-600 rounded"
             onClick={() => setAppPage(3)}
           >
@@ -236,6 +431,25 @@ const ChatPage = () => {
             onClick={() => logout()}
           >
             <i class="fa-solid fa-right-from-bracket" /> Logout
+          </button>
+        </div>
+      )}
+
+      {/* Set chat room */}
+      {settingChatRoom !== 0 && (
+        <div
+          ref={dropdownRef}
+          className="absolute bg-gray-800 text-sm left-5 z-[10] shadow-md rounded-md"
+          style={{
+            top: `${dropdownPosition.top - 20}px`,
+            left: `${dropdownPosition.left - 70}px`,
+          }}
+        >
+          <button className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700">
+            <i class="fa-solid fa-pen" /> Rename
+          </button>
+          <button className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700 text-red-600">
+            <i class="fa-solid fa-trash-can" /> Delete
           </button>
         </div>
       )}
