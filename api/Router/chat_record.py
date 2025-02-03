@@ -135,5 +135,3 @@ async def chat_update(record_id: int, mode: int, value: str = None, current_user
     response = await patch_chat_record(record_id, mode, value)
     if not response:
         raise bad_request
-    
-    return False
