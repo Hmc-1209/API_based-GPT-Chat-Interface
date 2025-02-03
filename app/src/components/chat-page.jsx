@@ -109,8 +109,10 @@ const ChatPage = () => {
   const [selectedChatRecord, setSelectedChatRecord] = useState(0);
   const [accountMenu, setAccountMenu] = useState(false);
   const [settingChatRoom, setSettingChatRoom] = useState(0);
-  const { setAlert, setAppPage } = useContext(AppContext);
+  const [settingStatus, setSettingStatus] = useState(0);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+
+  const { setAlert, setAppPage } = useContext(AppContext);
   const dropdownRef = useRef(null);
   const accountMenuRef = useRef(null);
 
@@ -192,6 +194,7 @@ const ChatPage = () => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setSettingChatRoom(0);
+        setSettingStatus(0);
       }
     };
 
@@ -219,21 +222,38 @@ const ChatPage = () => {
           leftSideBar ? "translate-x-0" : "-translate-x-full"
         } transition-transform xl:transform-none w-[60%] xl:w-[15%] h-full bg-gray-900 z-10 overflow-y-auto custom-scrollbar`}
       >
-        <div className="w-full p-5 text-md xl:text-sm text-white flex items-center justify-between sticky top-0 bg-gray-900 z-20">
+        <div className="w-full pt-5 pb-5 pl-2 pr-2 text-md xl:text-sm text-white flex items-center justify-between sticky top-0 bg-gray-900 z-20">
           <button onClick={() => setSelectedChatRecord(0)}>Chat room</button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-white cursor-pointer"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
+          <div className="flex items-center gap-5 ml-auto">
+            {" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-white cursor-pointer"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2h-4l-5 3v-3H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4" />
+              <line x1="14" y1="12" x2="20" y2="12" />
+              <line x1="17" y1="9" x2="17" y2="15" />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-white cursor-pointer"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
         </div>
 
         {/* Chat record from today */}
@@ -246,20 +266,32 @@ const ChatPage = () => {
               <div
                 key={record.record_id}
                 className={
-                  "relative w-[100%] p-4 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
+                  "relative w-[100%] p-2 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
-                <button className="w-[90%] text-left truncate overflow-hidden whitespace-nowrap">
-                  {record.chat_name}
-                </button>
+                {(settingStatus === 0 ||
+                  settingChatRoom !== record.record_id) && (
+                  <button className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap">
+                    {record.chat_name}
+                  </button>
+                )}
+
+                {settingStatus === 1 &&
+                  settingChatRoom === record.record_id && (
+                    <input
+                      ref={dropdownRef}
+                      className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap bg-gray-700 text-gray-400 outline-none"
+                      defaultValue={record.chat_name}
+                    />
+                  )}
 
                 <button
                   className={
-                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-2 pl-5 opacity-0 group-hover:opacity-100" +
+                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
                     (settingChatRoom === record.record_id ? " opacity-100" : "")
                   }
                   onClick={(e) => {
@@ -295,20 +327,32 @@ const ChatPage = () => {
               <div
                 key={record.record_id}
                 className={
-                  "relative w-[100%] p-4 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
+                  "relative w-[100%] p-2 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
                 }
                 onClick={() => setSelectedChatRecord(record.record_id)}
               >
-                <button className="w-[90%] text-left truncate overflow-hidden whitespace-nowrap">
-                  {record.chat_name}
-                </button>
+                {(settingStatus === 0 ||
+                  settingChatRoom !== record.record_id) && (
+                  <button className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap">
+                    {record.chat_name}
+                  </button>
+                )}
+
+                {settingStatus === 1 &&
+                  settingChatRoom === record.record_id && (
+                    <input
+                      ref={dropdownRef}
+                      className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap bg-gray-700 text-gray-400 outline-none"
+                      defaultValue={record.chat_name}
+                    />
+                  )}
 
                 <button
                   className={
-                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-2 pl-5 opacity-0 group-hover:opacity-100" +
+                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
                     (settingChatRoom === record.record_id ? " opacity-100" : "")
                   }
                   onClick={(e) => {
@@ -344,20 +388,34 @@ const ChatPage = () => {
               <div
                 key={record.record_id}
                 className={
-                  "relative w-[100%] p-4 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
+                  "relative w-[100%] p-2 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
                 }
-                onClick={() => setSelectedChatRecord(record.record_id)}
               >
-                <button className="w-[90%] text-left truncate overflow-hidden whitespace-nowrap">
-                  {record.chat_name}
-                </button>
+                {(settingStatus === 0 ||
+                  settingChatRoom !== record.record_id) && (
+                  <button
+                    className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap"
+                    onClick={() => setSelectedChatRecord(record.record_id)}
+                  >
+                    {record.chat_name}
+                  </button>
+                )}
+
+                {settingStatus === 1 &&
+                  settingChatRoom === record.record_id && (
+                    <input
+                      ref={dropdownRef}
+                      className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap bg-gray-700 text-gray-400 outline-none"
+                      defaultValue={record.chat_name}
+                    />
+                  )}
 
                 <button
                   className={
-                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-2 pl-5 opacity-0 group-hover:opacity-100" +
+                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
                     (settingChatRoom === record.record_id ? " opacity-100" : "")
                   }
                   onClick={(e) => {
@@ -441,11 +499,17 @@ const ChatPage = () => {
           ref={dropdownRef}
           className="absolute bg-gray-800 text-sm left-5 z-[10] shadow-md rounded-md"
           style={{
-            top: `${dropdownPosition.top - 20}px`,
+            top: `${dropdownPosition.top - 15}px`,
             left: `${dropdownPosition.left - 70}px`,
           }}
         >
-          <button className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700">
+          <button
+            className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700"
+            onClick={() => {
+              setSettingStatus(1);
+              console.log(settingChatRoom, settingStatus);
+            }}
+          >
             <i class="fa-solid fa-pen" /> Rename
           </button>
           <button className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700 text-red-600">
