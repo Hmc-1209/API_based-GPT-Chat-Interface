@@ -220,3 +220,25 @@ async def send_chat_request(record_id: int, chat_message: str, user_id: int, use
 
         if "invalid_api_key" in str(e):
             raise api_key_error
+
+
+async def patch_chat_record(record_id: int, mode: int, value: str = None):
+    """
+    Patch char record data.
+
+    This endpoint is used to patch the chat record data (updated_at and chat_name).
+
+    :param record_id: The target chat record.
+    :param mode: The mode of patching, 1 for updated_at, 2 for chat_name.
+    :return: HTTP code for successful / failed to patch.
+    """
+
+
+    if mode == 1:
+        stmt = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(updated_at=datetime.utcnow())
+    elif mode == 2:
+        stmt = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(chat_name=value)
+    else:
+        return False
+
+    return await execute_stmt_in_tran([stmt])

@@ -9,7 +9,8 @@ from Repository.ChatRecordCRUD import (create_new_chat_record,
                                        get_all_chat_record_info,
                                        get_chat_record_content,
                                        delete_chat_record_content,
-                                       send_chat_request)
+                                       send_chat_request,
+                                       patch_chat_record)
 from Authentication import hashing
 from Authentication.JWTtoken import get_current_user
 from database import execute_stmt_in_tran
@@ -107,5 +108,32 @@ async def chat_request(record_id: int, chat_message: str, use_record: bool, mode
 
     if not response:
         raise bad_request
+        
+    update = await chat_update(record_id, 1)
+
+    if not update:
+        raise bad_request
 
     return response
+
+
+@router.patch('/chat')
+async def chat_update(record_id: int, mode: int, value: str = None, current_user=Depends(get_current_user)) -> None:
+    """
+    Chat data patch.
+
+    This endpoint is used to patch the chat record data (updated_at and chat_name).
+
+    :param record_id: The target chat record.
+    :param mode: The mode of patching, 1 for updated_at, 2 for chat_name.
+    :return: HTTP code for successful / failed to patch.
+    """
+
+    if not current_user:
+        return False
+
+    response = await patch_chat_record(record_id, mode, value)
+    if not response:
+        raise bad_request
+    
+    return False
