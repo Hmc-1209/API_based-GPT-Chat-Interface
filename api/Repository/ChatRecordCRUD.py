@@ -236,9 +236,10 @@ async def patch_chat_record(record_id: int, mode: int, value: str = None):
 
     if mode == 1:
         stmt = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(updated_at=datetime.utcnow())
+        return await execute_stmt_in_tran([stmt])
     elif mode == 2:
         stmt = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(chat_name=value)
+        stmt2 = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(updated_at=datetime.utcnow())
+        return await execute_stmt_in_tran([stmt, stmt2])
     else:
         return False
-
-    return await execute_stmt_in_tran([stmt])
