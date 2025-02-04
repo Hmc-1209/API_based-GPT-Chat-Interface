@@ -1,5 +1,4 @@
 import "./App.css";
-
 import LogIn from "./components/login";
 import { useState, createContext, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -20,7 +19,22 @@ function App() {
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
 
-  // Login check
+  const [vh, setVh] = useState(window.innerHeight * 0.01);
+
+  useEffect(() => {
+    // 更新視窗高度
+    const updateVh = () => {
+      setVh(window.innerHeight * 0.01);
+    };
+
+    // 監聽視窗大小變化
+    window.addEventListener("resize", updateVh);
+    updateVh(); // 初始化設置
+
+    return () => window.removeEventListener("resize", updateVh);
+  }, []);
+
+  // 登入檢查
   useEffect(() => {
     const loggedin_check = async () => {
       const response = await check_access_token();
@@ -42,9 +56,6 @@ function App() {
     loggedin_check();
   }, []);
 
-  /*
-    Alert message type and settings:
-  */
   useEffect(() => {
     switch (alert) {
       case 1:
@@ -100,7 +111,7 @@ function App() {
   }, [alert]);
 
   return (
-    <div className="App h-[100vh]">
+    <div className="App" style={{ height: `${vh * 100}px` }}>
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
         <AppContext.Provider
