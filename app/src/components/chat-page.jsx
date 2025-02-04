@@ -251,10 +251,10 @@ const ChatPage = () => {
   }, []);
 
   return (
-    <div className="w-full h-full bg-gray-800 font-bold flex flex-row xl:flex-row">
+    <div className="w-full h-[100%] bg-gray-800 font-bold flex flex-row xl:flex-row">
       {/* Menu button */}
       <button
-        className="w-[10%] xl:hidden absolute top-4 left-4 flex flex-col gap-1 md:gap-3 bg-gray-700 text-white p-2 md:p-3 rounded"
+        className="w-[70px] xl:hidden absolute top-4 left-4 flex flex-col gap-1 md:gap-3 bg-gray-700 text-white p-2 md:p-3 rounded"
         onClick={() => setLeftSideBar(!leftSideBar)}
       >
         <span className="block w-[100%] h-0.5 md:h-1 bg-white"></span>

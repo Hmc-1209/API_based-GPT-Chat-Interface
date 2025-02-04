@@ -20,23 +20,6 @@ function App() {
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
 
-  const [vh, setVh] = useState(window.innerHeight * 0.01);
-
-  // Height adjust for cellphone
-  useEffect(() => {
-    const updateVh = () => {
-      document.documentElement.style.setProperty(
-        "--vh",
-        `${window.innerHeight * 0.01}px`
-      );
-    };
-
-    window.addEventListener("resize", updateVh);
-    updateVh();
-
-    return () => window.removeEventListener("resize", updateVh);
-  }, []);
-
   // Login check
   useEffect(() => {
     const loggedin_check = async () => {
@@ -102,7 +85,7 @@ function App() {
         setAlert(0);
         return;
       case 10:
-        error("No change detected.");
+        warning("No change detected.");
         setAlert(0);
         return;
       case 11:
@@ -117,7 +100,7 @@ function App() {
   }, [alert]);
 
   return (
-    <div className="App" style={{ height: `${vh * 100}px` }}>
+    <div className="App h-[100vh]">
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
         <AppContext.Provider
