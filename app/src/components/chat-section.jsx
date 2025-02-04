@@ -73,7 +73,7 @@ const ChatSection = () => {
 
         <div className="bg-gray-800 p-2 flex justify-center relative">
           <textarea
-            className="w-[90%] xl:w-[75%] h-[6rem] px-3 py-3 xl:mb-3 bg-gray-700 text-white rounded-md overflow-y-auto resize-none focus:outline-none"
+            className="w-[90%] xl:w-[75%] h-[6rem] px-3 py-3 mb-3 xl:mb-3 bg-gray-700 text-white rounded-md overflow-y-auto resize-none focus:outline-none"
             placeholder="Send message to GPT"
             id="chat-text"
           />
