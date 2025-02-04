@@ -54,14 +54,14 @@ const ChatSection = () => {
           {chatMessages.map((message, index) =>
             message.role === "user" ? (
               <div className="flex justify-end">
-                <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-10 break-words">
+                <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-5 break-words">
                   {message.content}
                 </div>
               </div>
             ) : message.role === "assistant" ? (
               <div
                 key={index}
-                className="text-gray-300 text-left  max-w-[80%] p-2 rounded-lg mr-auto m-10 p-3"
+                className="text-gray-300 text-left  max-w-[85%] p-2 rounded-lg mr-auto m-5 p-3"
               >
                 {message.content}
               </div>
@@ -77,7 +77,7 @@ const ChatSection = () => {
             placeholder="Send message to GPT"
             id="chat-text"
           />
-          <button className="absolute right-[10%] xl:right-[13%] bottom-5 xl:bottom-6 bg-gray-600 text-white px-3 py-2 xl:m-2 rounded-md hover:bg-gray-800">
+          <button className="absolute right-[9%] xl:right-[13%] bottom-7 xl:bottom-6 bg-gray-600 text-white px-3 py-2 xl:m-2 rounded-md hover:bg-gray-800">
             Send
           </button>
         </div>
