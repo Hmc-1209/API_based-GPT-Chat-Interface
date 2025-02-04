@@ -54,7 +54,7 @@ const ChatSection = () => {
           {chatMessages.map((message, index) =>
             message.role === "user" ? (
               <div className="flex justify-end">
-                <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-5 break-words">
+                <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-7 break-words">
                   {message.content}
                 </div>
               </div>
