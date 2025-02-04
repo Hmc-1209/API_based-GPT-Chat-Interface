@@ -172,7 +172,7 @@ const ChatPage = () => {
   const update_chat_name = async (record_id, new_name) => {
     const response = await update_chat_record_name(record_id, new_name);
 
-    if (response === 2) {
+    if (response === 1) {
       setAlert(12);
       await get_chat_records();
       return;
