@@ -76,6 +76,7 @@ const ChatSection = () => {
             className="w-[90%] xl:w-[75%] h-[6rem] px-3 py-3 xl:mb-3 bg-gray-700 text-white rounded-md overflow-y-auto resize-none focus:outline-none"
             placeholder="Send message to GPT"
             id="chat-text"
+            style={{ resize: "vertical" }}
           />
           <button className="absolute right-[10%] xl:right-[13%] bottom-5 xl:bottom-6 bg-gray-600 text-white px-3 py-2 xl:m-2 rounded-md hover:bg-gray-800">
             Send
