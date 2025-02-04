@@ -95,3 +95,46 @@ export const update_chat_record_name = async (record_id, value) => {
     return 5;
   }
 };
+
+export const delete_chat_record = async (record_id) => {
+  try {
+    const response = await axios.delete(
+      `${api_host}/chat_record/${record_id}`,
+      {
+        withCredentials: true,
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status === 401) {
+      return 2;
+    }
+
+    return 1;
+  } catch (error) {
+    return 5;
+  }
+};
+
+export const add_new_chat_record = async () => {
+  try {
+    const response = await axios.post(`${api_host}/chat_record/`, null, {
+      withCredentials: true,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      return 2;
+    }
+
+    return 1;
+  } catch (error) {
+    return 5;
+  }
+};

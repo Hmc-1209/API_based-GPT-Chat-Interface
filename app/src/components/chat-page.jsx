@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import get_self_user, {
+  add_new_chat_record,
+  delete_chat_record,
   get_self_chat_records,
   update_chat_record_name,
 } from "../http-requests/user-data";
@@ -111,6 +113,7 @@ const ChatPage = () => {
   const [accountMenu, setAccountMenu] = useState(false);
   const [settingChatRoom, setSettingChatRoom] = useState(0);
   const [settingStatus, setSettingStatus] = useState(0);
+  const [addingNewChat, setAddingNewChat] = useState(0);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
 
   const { setAlert, setAppPage } = useContext(AppContext);
@@ -166,6 +169,8 @@ const ChatPage = () => {
       return;
     }
     setChatRecord(Array.isArray(chat_records) ? chat_records : []);
+    setSettingChatRoom(0);
+    setSettingStatus(0);
     return;
   };
 
@@ -178,6 +183,33 @@ const ChatPage = () => {
       return;
     }
     setAlert(6);
+    return;
+  };
+
+  const delete_chat = async (record_id) => {
+    const response = await delete_chat_record(record_id);
+
+    if (response === 1) {
+      setAlert(12);
+      await get_chat_records();
+      return;
+    }
+    setAlert(6);
+    return;
+  };
+
+  const add_chat = async () => {
+    setAddingNewChat(1);
+    const response = await add_new_chat_record();
+
+    if (response === 1) {
+      setAlert(12);
+      await get_chat_records();
+      setAddingNewChat(0);
+      return;
+    }
+    setAlert(6);
+    setAddingNewChat(0);
     return;
   };
 
@@ -256,13 +288,18 @@ const ChatPage = () => {
             </svg>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-white cursor-pointer"
+              className={
+                "h-5 w-5 cursor-pointer" + addingNewChat
+                  ? " text-gray-600"
+                  : " text-white"
+              }
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              onClick={() => addingNewChat && add_chat()}
             >
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -531,14 +568,14 @@ const ChatPage = () => {
         >
           <button
             className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700"
-            onClick={() => {
-              setSettingStatus(1);
-              console.log(settingChatRoom, settingStatus);
-            }}
+            onClick={() => setSettingStatus(1)}
           >
             <i class="fa-solid fa-pen" /> Rename
           </button>
-          <button className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700 text-red-600">
+          <button
+            className="block w-full rounded-md text-left px-3 py-2 hover:bg-gray-700 text-red-600"
+            onClick={() => delete_chat(settingChatRoom)}
+          >
             <i class="fa-solid fa-trash-can" /> Delete
           </button>
         </div>
