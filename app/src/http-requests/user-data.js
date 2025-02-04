@@ -70,3 +70,28 @@ export const update_user_data = async (mode, value) => {
     return 5;
   }
 };
+
+export const update_chat_record_name = async (record_id, value) => {
+  try {
+    const response = await axios.patch(`${api_host}/chat_record/chat`, null, {
+      params: {
+        record_id: record_id,
+        mode: 2,
+        value: value,
+      },
+      withCredentials: true,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      return 2;
+    }
+
+    return 1;
+  } catch (error) {
+    return 5;
+  }
+};

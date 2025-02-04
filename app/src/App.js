@@ -92,6 +92,10 @@ function App() {
         success("User data updated.");
         setAlert(0);
         return;
+      case 12:
+        success("Chat name updated.");
+        setAlert(0);
+        return;
     }
   }, [alert]);
 

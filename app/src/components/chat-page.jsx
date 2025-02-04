@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import get_self_user, {
   get_self_chat_records,
+  update_chat_record_name,
 } from "../http-requests/user-data";
 import { AppContext } from "../App";
 import { clear_access_token } from "../http-requests/login";
@@ -152,23 +153,36 @@ const ChatPage = () => {
       return;
     }
     setAlert(6);
+    return;
+  };
+
+  const get_chat_records = async () => {
+    const chat_records = await get_self_chat_records();
+    if (chat_records === 2) {
+      setAlert(7);
+      return;
+    } else if (chat_records === 5) {
+      setAlert(6);
+      return;
+    }
+    setChatRecord(Array.isArray(chat_records) ? chat_records : []);
+    return;
+  };
+
+  const update_chat_name = async (record_id, new_name) => {
+    const response = await update_chat_record_name(record_id, new_name);
+
+    if (response === 2) {
+      setAlert(12);
+      await get_chat_records();
+      return;
+    }
+    setAlert(6);
+    return;
   };
 
   // Get all char rooms' breief info
   useEffect(() => {
-    const get_chat_records = async () => {
-      const chat_records = await get_self_chat_records();
-      if (chat_records === 2) {
-        setAlert(7);
-        return;
-      } else if (chat_records === 5) {
-        setAlert(6);
-        return;
-      }
-      setChatRecord(Array.isArray(chat_records) ? chat_records : []);
-      return;
-    };
-
     get_chat_records();
   }, []);
 
@@ -286,6 +300,10 @@ const ChatPage = () => {
                       ref={dropdownRef}
                       className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap bg-gray-700 text-gray-400 outline-none"
                       defaultValue={record.chat_name}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" &&
+                        update_chat_name(record.record_id, e.target.value)
+                      }
                     />
                   )}
 
@@ -347,6 +365,10 @@ const ChatPage = () => {
                       ref={dropdownRef}
                       className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap bg-gray-700 text-gray-400 outline-none"
                       defaultValue={record.chat_name}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" &&
+                        update_chat_name(record.record_id, e.target.value)
+                      }
                     />
                   )}
 
@@ -410,6 +432,10 @@ const ChatPage = () => {
                       ref={dropdownRef}
                       className="w-[90%] p-1 text-left truncate overflow-hidden whitespace-nowrap bg-gray-700 text-gray-400 outline-none"
                       defaultValue={record.chat_name}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" &&
+                        update_chat_name(record.record_id, e.target.value)
+                      }
                     />
                   )}
 
