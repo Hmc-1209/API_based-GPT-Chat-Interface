@@ -274,13 +274,16 @@ const ChatPage = () => {
             {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-white cursor-pointer"
+              className={`h-5 w-5 cursor-pointer ${
+                addingNewChat === 1 ? "text-gray-700" : "text-gray-100"
+              }`}
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              onClick={() => addingNewChat === 0 && add_chat()}
             >
               <path d="M21 15v4a2 2 0 0 1-2 2h-4l-5 3v-3H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4" />
               <line x1="14" y1="12" x2="20" y2="12" />
@@ -288,18 +291,13 @@ const ChatPage = () => {
             </svg>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={
-                "h-5 w-5 cursor-pointer" + addingNewChat
-                  ? " text-gray-600"
-                  : " text-white"
-              }
+              className="h-5 w-5 cursor-pointer text-white"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              onClick={() => addingNewChat && add_chat()}
             >
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
