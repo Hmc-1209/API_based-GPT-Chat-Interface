@@ -185,7 +185,13 @@ const ChatPage = () => {
       {/* Menu button */}
       <button
         className="w-[40px] md:w-[70px] xl:hidden absolute top-4 left-4 flex flex-col gap-1 md:gap-3 bg-gray-700 text-white p-2 md:p-3 rounded"
-        onClick={() => setLeftSideBar(!leftSideBar)}
+        onClick={() => {
+          setLeftSideBar(!leftSideBar);
+          if (settingChatFilter) {
+            settingChatFilter(false);
+            set_chat_filter("");
+          }
+        }}
       >
         <span className="block w-[100%] h-0.5 md:h-1 bg-white"></span>
         <span className="block w-[90%] h-0.5 md:h-1 bg-white"></span>
