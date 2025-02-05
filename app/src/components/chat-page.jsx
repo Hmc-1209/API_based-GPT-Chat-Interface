@@ -13,7 +13,7 @@ const ChatPage = () => {
   const [leftSideBar, setLeftSideBar] = useState(false);
   const [chatRecord, setChatRecord] = useState([
     {
-      chat_name: "New Chat",
+      chat_name: "123 New Chat",
       created_at: "2025-01-28T07:10:09",
       updated_at: "2025-01-28T07:10:09",
       record_id: 3,
@@ -55,7 +55,7 @@ const ChatPage = () => {
       record_id: 11,
     },
     {
-      chat_name: "New Chat",
+      chat_name: "12345 New Chat",
       created_at: "2025-01-28T07:10:09",
       updated_at: "2025-01-28T07:10:09",
       record_id: 12,
@@ -67,7 +67,7 @@ const ChatPage = () => {
       record_id: 13,
     },
     {
-      chat_name: "New Chat",
+      chat_name: "New Chat 123",
       created_at: "2025-01-28T07:10:09",
       updated_at: "2025-01-28T07:10:09",
       record_id: 14,
@@ -109,6 +109,9 @@ const ChatPage = () => {
       record_id: 4,
     },
   ]);
+  const [backUpChatReord, setBackUpChatReord] = useState([]);
+  const [settingChatFilter, setSettingChatFilter] = useState(false);
+  const [chatFilter, setChatFilter] = useState(null);
   const [selectedChatRecord, setSelectedChatRecord] = useState(0);
   const [accountMenu, setAccountMenu] = useState(false);
   const [settingChatRoom, setSettingChatRoom] = useState(0);
@@ -169,6 +172,7 @@ const ChatPage = () => {
       return;
     }
     setChatRecord(Array.isArray(chat_records) ? chat_records : []);
+    setBackUpChatReord(chatRecord);
     setSettingChatRoom(0);
     setSettingStatus(0);
     return;
@@ -195,6 +199,10 @@ const ChatPage = () => {
       return;
     }
     setAlert(6);
+    if (settingChatRoom === record_id) {
+      setSettingChatRoom(0);
+      setSettingStatus(0);
+    }
     return;
   };
 
@@ -210,6 +218,25 @@ const ChatPage = () => {
     }
     setAlert(6);
     setAddingNewChat(0);
+    return;
+  };
+
+  const set_chat_filter = (filter) => {
+    if (backUpChatReord.length === 0) {
+      setBackUpChatReord(chatRecord);
+    }
+
+    if (filter.length === 0) {
+      const filteredChat = backUpChatReord;
+      setChatRecord(filteredChat);
+      return;
+    }
+
+    const filteredChat = backUpChatReord.filter(
+      (chat) => chat?.chat_name?.toLowerCase().includes(filter.toLowerCase()) // 避免 chat.message 為 undefined
+    );
+
+    setChatRecord(filteredChat);
     return;
   };
 
@@ -272,6 +299,7 @@ const ChatPage = () => {
           <button onClick={() => setSelectedChatRecord(0)}>Chat room</button>
           <div className="flex items-center gap-5 ml-auto">
             {" "}
+            {/* Add new chat button */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={`h-5 w-5 cursor-pointer ${
@@ -289,6 +317,7 @@ const ChatPage = () => {
               <line x1="14" y1="12" x2="20" y2="12" />
               <line x1="17" y1="9" x2="17" y2="15" />
             </svg>
+            {/* Filter chat button */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 cursor-pointer text-white"
@@ -298,6 +327,12 @@ const ChatPage = () => {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              onClick={() => {
+                if (settingChatFilter) {
+                  set_chat_filter("");
+                }
+                setSettingChatFilter(!settingChatFilter);
+              }}
             >
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -503,6 +538,17 @@ const ChatPage = () => {
           </div>
         )}
       </div>
+      {settingChatFilter && (
+        <div className="fixed z-[10] mt-12 xl:mt-11 w-[60%] xl:w-[15%] text-center flex items-center justify-center">
+          <input
+            type="text"
+            className="w-[95%] bg-gray-700 focus:outline-none text-sm xl:text-md text-white p-1 rounded-md"
+            placeholder="Type here to filter chat..."
+            onChange={(e) => set_chat_filter(e.target.value)}
+          />
+        </div>
+      )}
+
       {/* Left side bar cover */}
       {leftSideBar && (
         <div
