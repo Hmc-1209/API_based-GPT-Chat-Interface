@@ -11,104 +11,7 @@ import ChatSection from "./chat-section";
 
 const ChatPage = () => {
   const [leftSideBar, setLeftSideBar] = useState(false);
-  const [chatRecord, setChatRecord] = useState([
-    {
-      chat_name: "123 New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 3,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 6,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 7,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 8,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 9,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 10,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 11,
-    },
-    {
-      chat_name: "12345 New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 12,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 13,
-    },
-    {
-      chat_name: "New Chat 123",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 14,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 15,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 16,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 17,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-01-28T07:10:09",
-      updated_at: "2025-01-28T07:10:09",
-      record_id: 18,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-02-01T07:10:09",
-      updated_at: "2025-02-01T07:10:09",
-      record_id: 5,
-    },
-    {
-      chat_name: "New Chat",
-      created_at: "2025-02-02T07:10:09",
-      updated_at: "2025-02-02T07:10:09",
-      record_id: 4,
-    },
-  ]);
+  const [chatRecord, setChatRecord] = useState([]);
   const [backUpChatReord, setBackUpChatReord] = useState([]);
   const [settingChatFilter, setSettingChatFilter] = useState(false);
   const [chatFilter, setChatFilter] = useState(null);
@@ -172,7 +75,7 @@ const ChatPage = () => {
       return;
     }
     setChatRecord(Array.isArray(chat_records) ? chat_records : []);
-    setBackUpChatReord(chatRecord);
+    setBackUpChatReord(Array.isArray(chat_records) ? chat_records : []);
     setSettingChatRoom(0);
     setSettingStatus(0);
     return;
