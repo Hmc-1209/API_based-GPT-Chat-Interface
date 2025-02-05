@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import get_self_user, {
+import {
   add_new_chat_record,
   delete_chat_record,
   get_self_chat_records,
@@ -8,6 +8,7 @@ import get_self_user, {
 import { AppContext } from "../App";
 import { clear_access_token } from "../http-requests/login";
 import ChatSection from "./chat-section";
+import ChatPending from "./chat-pending";
 
 const ChatPage = () => {
   const [leftSideBar, setLeftSideBar] = useState(false);
@@ -185,13 +186,7 @@ const ChatPage = () => {
       {/* Menu button */}
       <button
         className="w-[40px] md:w-[70px] xl:hidden absolute top-4 left-4 flex flex-col gap-1 md:gap-3 bg-gray-700 text-white p-2 md:p-3 rounded"
-        onClick={() => {
-          setLeftSideBar(!leftSideBar);
-          if (settingChatFilter) {
-            settingChatFilter(false);
-            set_chat_filter("");
-          }
-        }}
+        onClick={() => setLeftSideBar(!leftSideBar)}
       >
         <span className="block w-[100%] h-0.5 md:h-1 bg-white"></span>
         <span className="block w-[90%] h-0.5 md:h-1 bg-white"></span>
@@ -462,7 +457,13 @@ const ChatPage = () => {
       {leftSideBar && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 h-[100%] z-[2] xl:hidden"
-          onClick={() => setLeftSideBar(false)}
+          onClick={() => {
+            setLeftSideBar(false);
+            if (settingChatFilter) {
+              settingChatFilter(false);
+              set_chat_filter("");
+            }
+          }}
         />
       )}
 
@@ -471,7 +472,8 @@ const ChatPage = () => {
         <div className="text-white text-2xl xl:text-4xl pt-5 pb-5 bg-gray-800">
           GPTCI
         </div>
-        <ChatSection className="z-[1]" />
+        {selectedChatRecord !== 0 && <ChatSection className="z-[1]" />}
+        {selectedChatRecord === 0 && <ChatPending className="z-[1]" />}
       </div>
 
       {/* Account icon */}
