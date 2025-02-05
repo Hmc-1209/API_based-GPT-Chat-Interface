@@ -460,7 +460,7 @@ const ChatPage = () => {
           onClick={() => {
             setLeftSideBar(false);
             if (settingChatFilter) {
-              settingChatFilter(false);
+              setSettingChatFilter(false);
               set_chat_filter("");
             }
           }}
