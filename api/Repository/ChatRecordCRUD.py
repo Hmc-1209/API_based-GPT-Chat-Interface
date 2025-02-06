@@ -186,6 +186,7 @@ async def send_chat_request(record_id: int, chat_message: str, user_id: int, use
             messages=message
         )
         print("* Response from gpt api.")
+        print(response)
 
         key_file_path = os.path.join(data_storage_path, "Key", "user-id-" + str(user_id), f"chat-id-{record_id}.txt")
         async with aiofiles.open(key_file_path, "rb") as key_file:
@@ -194,7 +195,8 @@ async def send_chat_request(record_id: int, chat_message: str, user_id: int, use
         fernet = Fernet(key)
         response_data = {"role": "assistant", "content": response.choices[0].message.content}
         message.append(response_data)
-        print("1", response_data)
+        print("1")
+        print(response_data)
         bson_file_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id),
                                       f"chat-id-{record_id}.bson")
 
