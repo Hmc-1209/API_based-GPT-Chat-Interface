@@ -54,7 +54,7 @@ const ChatSection = () => {
         <div className="relative h-[90%] bg-gray-800 text-sm xl:text-[20px]">
           <div className="flex flex-col h-full">
             <div
-              className="flex-grow bg-gray-800 overflow-y-auto leading-8"
+              className="flex-grow bg-gray-800 overflow-y-auto leading-8 custom-scrollbar"
               ref={chatContainerRef}
             >
               {chatContents
