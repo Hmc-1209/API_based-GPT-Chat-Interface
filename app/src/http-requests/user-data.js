@@ -143,8 +143,10 @@ export const send_chat_request = async (record_id, chat_content) => {
   try {
     const response = await axios.post(`${api_host}/chat_record/chat`, null, {
       params: {
-        mode: mode,
-        val: value,
+        record_id: record_id,
+        chat_message: chat_content,
+        use_record: false,
+        model: "gpt-4o-mini",
       },
       withCredentials: true,
       headers: {
