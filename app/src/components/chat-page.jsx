@@ -105,6 +105,7 @@ const ChatPage = () => {
     if (settingChatRoom === record_id) {
       setSettingChatRoom(0);
       setSettingStatus(0);
+      setSelectedChatRecord(0);
     }
     return;
   };
