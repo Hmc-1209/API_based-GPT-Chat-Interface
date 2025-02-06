@@ -16,6 +16,9 @@ function App() {
   const [alert, setAlert] = useState(0);
   const [appPage, setAppPage] = useState(-1);
   const [userDetail, setUserDetail] = useState({});
+  const [chatContents, setChatContents] = useState([]);
+  const [selectedChatRecord, setSelectedChatRecord] = useState(0);
+
   const success = (message) => toast.success(message);
   const warning = (message) => toast.warning(message);
   const error = (message) => toast.error(message);
@@ -104,7 +107,17 @@ function App() {
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
         <AppContext.Provider
-          value={{ alert, setAlert, setAppPage, userDetail, setUserDetail }}
+          value={{
+            alert,
+            setAlert,
+            setAppPage,
+            userDetail,
+            setUserDetail,
+            chatContents,
+            setChatContents,
+            selectedChatRecord,
+            setSelectedChatRecord,
+          }}
         >
           {appPage === -1 && <PageLoading />}
           {appPage === 0 && <LogIn />}

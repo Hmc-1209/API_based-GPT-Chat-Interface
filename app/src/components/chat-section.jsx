@@ -1,4 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from "react";
+import { AppContext } from "../App";
+import { get_chat_content_detail } from "../http-requests/user-data";
 
 const ChatSection = () => {
   const [chatMessages, setChatMessages] = useState([
@@ -38,6 +46,9 @@ const ChatSection = () => {
   const chatContainerRef = useRef(null);
   const [loadingChatData, setLoadingChatData] = useState(0);
 
+  const { chatContents, setChatContents, selectedChatRecord } =
+    useContext(AppContext);
+
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
@@ -46,7 +57,31 @@ const ChatSection = () => {
   }, [chatMessages]);
 
   useEffect(() => {
-    setLoadingChatData(0);
+    setLoadingChatData(1);
+
+    const get_chat_contents = async () => {
+      const response = await get_chat_content_detail(selectedChatRecord);
+
+      setChatContents((prevChatContents) => {
+        const exists = prevChatContents.some(
+          (item) => item.record_id === selectedChatRecord
+        );
+
+        if (exists) return prevChatContents;
+
+        return [
+          ...prevChatContents,
+          { record_id: selectedChatRecord, contents: response },
+        ];
+      });
+
+      setLoadingChatData(0);
+    };
+
+    if (!chatContents.some((item) => item.record_id === selectedChatRecord)) {
+      get_chat_contents();
+    }
+    console.log("Data loaded.", chatContents);
   }, []);
 
   return (

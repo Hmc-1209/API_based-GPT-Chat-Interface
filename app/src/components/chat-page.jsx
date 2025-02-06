@@ -15,15 +15,14 @@ const ChatPage = () => {
   const [chatRecord, setChatRecord] = useState([]);
   const [backUpChatReord, setBackUpChatReord] = useState([]);
   const [settingChatFilter, setSettingChatFilter] = useState(false);
-  const [chatFilter, setChatFilter] = useState(null);
-  const [selectedChatRecord, setSelectedChatRecord] = useState(0);
   const [accountMenu, setAccountMenu] = useState(false);
   const [settingChatRoom, setSettingChatRoom] = useState(0);
   const [settingStatus, setSettingStatus] = useState(0);
   const [addingNewChat, setAddingNewChat] = useState(0);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
 
-  const { setAlert, setAppPage } = useContext(AppContext);
+  const { setAlert, setAppPage, selectedChatRecord, setSelectedChatRecord } =
+    useContext(AppContext);
   const dropdownRef = useRef(null);
   const accountMenuRef = useRef(null);
 

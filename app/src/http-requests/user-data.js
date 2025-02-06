@@ -139,13 +139,37 @@ export const add_new_chat_record = async () => {
   }
 };
 
-export const send_chat_request = async (record_id, chat_content) => {
+export const get_chat_content_detail = async (record_id) => {
+  try {
+    const response = await axios.get(`${api_host}/chat_record/${record_id}`, {
+      withCredentials: true,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      return 2;
+    }
+
+    return response.data;
+  } catch (error) {
+    return 5;
+  }
+};
+
+export const send_chat_request = async (
+  record_id,
+  chat_content,
+  use_record
+) => {
   try {
     const response = await axios.post(`${api_host}/chat_record/chat`, null, {
       params: {
         record_id: record_id,
         chat_message: chat_content,
-        use_record: false,
+        use_record: use_record,
         model: "gpt-4o-mini",
       },
       withCredentials: true,
