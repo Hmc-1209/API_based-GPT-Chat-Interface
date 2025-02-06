@@ -107,11 +107,13 @@ async def chat_request(record_id: int, chat_message: str, use_record: bool, mode
     response = await send_chat_request(record_id, chat_message, current_user.user_id, use_record, model)
 
     if not response:
+        print(7)
         raise bad_request
         
     update = await chat_update(record_id, 1)
 
     if not update:
+        print(6)
         raise bad_request
 
     return response
@@ -135,4 +137,5 @@ async def chat_update(record_id: int, mode: int, value: str = None, current_user
     response = await patch_chat_record(record_id, mode, value)
     print("response", response)
     if not response:
+        print("5")
         raise bad_request
