@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { AppContext } from "../App";
 import { get_chat_content_detail } from "../http-requests/user-data";
 
