@@ -3,8 +3,6 @@ import { AppContext } from "../App";
 import { get_chat_content_detail } from "../http-requests/user-data";
 
 const ChatSection = () => {
-  const [chatMessages, setChatMessages] = useState([]);
-
   const chatContainerRef = useRef(null);
   const [loadingChatData, setLoadingChatData] = useState(0);
 
@@ -16,7 +14,7 @@ const ChatSection = () => {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [chatMessages]);
+  }, [chatContents]);
 
   const chatContentsRef = useRef(chatContents);
 
@@ -57,7 +55,7 @@ const ChatSection = () => {
 
   return (
     <>
-      {loadingChatData === 0 ? (
+      {loadingChatData === 1 ? (
         <div className="relative w-screen xl:w-[100%] h-[90%] bg-gray-800 text-md xl:text-[20px] text-gray-500 italic text-center flex items-center justify-center select-none">
           Loading chat data...
         </div>
@@ -68,24 +66,26 @@ const ChatSection = () => {
               className="flex-grow bg-gray-800 overflow-y-auto leading-8"
               ref={chatContainerRef}
             >
-              {chatMessages.map((message, index) =>
-                message.role === "user" ? (
-                  <div className="flex justify-end">
-                    <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-7 break-words">
+              {chatContents
+                .filter((message) => message.record_id === selectedChatRecord)
+                .map((message, index) =>
+                  message.role === "user" ? (
+                    <div className="flex justify-end">
+                      <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-7 break-words">
+                        {message.content}
+                      </div>
+                    </div>
+                  ) : message.role === "assistant" ? (
+                    <div
+                      key={index}
+                      className="text-gray-300 text-left  max-w-[85%] p-2 rounded-lg mr-auto m-5 p-3"
+                    >
                       {message.content}
                     </div>
-                  </div>
-                ) : message.role === "assistant" ? (
-                  <div
-                    key={index}
-                    className="text-gray-300 text-left  max-w-[85%] p-2 rounded-lg mr-auto m-5 p-3"
-                  >
-                    {message.content}
-                  </div>
-                ) : (
-                  <div key={index} />
-                )
-              )}
+                  ) : (
+                    <div key={index} />
+                  )
+                )}
             </div>
 
             <div className="bg-gray-800 p-2 flex justify-center relative">
