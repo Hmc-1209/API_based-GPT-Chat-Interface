@@ -60,22 +60,24 @@ const ChatSection = () => {
               {chatContents
                 .filter((chat) => chat.record_id === selectedChatRecord)
                 .flatMap((chat) => chat.contents)
-                .map((message, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${
-                      message.role === "user" ? "justify-end" : ""
-                    }`}
-                  >
+                .map((message, index) =>
+                  message.role === "user" ? (
+                    <div className="flex justify-end">
+                      <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-7 break-words">
+                        {message.content}
+                      </div>
+                    </div>
+                  ) : message.role === "assistant" ? (
                     <div
-                      className={`text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl break-words ${
-                        message.role === "user" ? "ml-auto mr-7" : "mr-auto m-5"
-                      }`}
+                      key={index}
+                      className="text-gray-300 text-left  max-w-[85%] p-2 rounded-lg mr-auto m-5 p-3"
                     >
                       {message.content}
                     </div>
-                  </div>
-                ))}
+                  ) : (
+                    <div key={index} />
+                  )
+                )}
             </div>
 
             <div className="bg-gray-800 p-2 flex justify-center relative">
