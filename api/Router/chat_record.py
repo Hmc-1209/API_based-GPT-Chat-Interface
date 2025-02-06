@@ -112,7 +112,6 @@ async def chat_request(record_id: int, chat_message: str, use_record: bool, mode
     update = await chat_update(record_id, 1)
 
     if not update:
-        print(6)
         raise bad_request
 
     return response
