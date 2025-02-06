@@ -105,9 +105,10 @@ async def chat_request(record_id: int, chat_message: str, use_record: bool, mode
     """
 
     response = await send_chat_request(record_id, chat_message, current_user.user_id, use_record, model)
+    print(3)
 
     if not response:
-        print("2")
+        print(4)
         print(response)
         raise bad_request
         
