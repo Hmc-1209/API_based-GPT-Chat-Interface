@@ -102,7 +102,7 @@ const ChatPage = () => {
       return;
     }
     setAlert(6);
-    if (settingChatRoom === record_id) {
+    if (selectedChatRecord === record_id) {
       setSettingChatRoom(0);
       setSettingStatus(0);
       setSelectedChatRecord(0);
