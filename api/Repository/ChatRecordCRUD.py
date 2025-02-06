@@ -194,7 +194,6 @@ async def send_chat_request(record_id: int, chat_message: str, user_id: int, use
         fernet = Fernet(key)
         response_data = {"role": "assistant", "content": response.choices[0].message.content}
         message.append(response_data)
-        print(1)
         bson_file_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id),
                                       f"chat-id-{record_id}.bson")
 
@@ -214,7 +213,6 @@ async def send_chat_request(record_id: int, chat_message: str, user_id: int, use
             content = fernet.encrypt(json.dumps(message).encode())
             await bson_file.write(content)
 
-        print(2, response_data)
         return response_data
 
     except Exception as e:
@@ -238,10 +236,10 @@ async def patch_chat_record(record_id: int, mode: int, value: str = None):
 
     if mode == 1:
         stmt = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(updated_at=datetime.utcnow())
-        return await execute_stmt_in_tran([stmt])
+        return await execute_stmt_in_tran([stmt], ret=True)
     elif mode == 2:
         stmt = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(chat_name=value)
         stmt2 = ChatRecord.update().where(ChatRecord.c.record_id==record_id).values(updated_at=datetime.utcnow())
-        return await execute_stmt_in_tran([stmt, stmt2])
+        return await execute_stmt_in_tran([stmt, stmt2], ret=True)
     else:
         return False
