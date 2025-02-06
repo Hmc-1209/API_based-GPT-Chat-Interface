@@ -138,3 +138,27 @@ export const add_new_chat_record = async () => {
     return 5;
   }
 };
+
+export const send_chat_request = async (record_id, chat_content) => {
+  try {
+    const response = await axios.post(`${api_host}/chat_record/chat`, null, {
+      params: {
+        mode: mode,
+        val: value,
+      },
+      withCredentials: true,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      return 2;
+    }
+
+    return response.data;
+  } catch (error) {
+    return 5;
+  }
+};

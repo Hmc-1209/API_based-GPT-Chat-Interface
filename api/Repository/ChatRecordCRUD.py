@@ -194,6 +194,7 @@ async def send_chat_request(record_id: int, chat_message: str, user_id: int, use
         fernet = Fernet(key)
         response_data = {"role": "assistant", "content": response.choices[0].message.content}
         message.append(response_data)
+        print("1", response_data)
         bson_file_path = os.path.join(data_storage_path, "ChatRecord", "user-id-" + str(user_id),
                                       f"chat-id-{record_id}.bson")
 
