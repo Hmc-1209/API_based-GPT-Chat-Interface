@@ -67,20 +67,20 @@ const ChatSection = () => {
               ref={chatContainerRef}
             >
               {chatContents
-                .filter((message) => message.record_id === selectedChatRecord)
-                .map((message, index) =>
-                  message.role === "user" ? (
+                .filter((chat) => chat.record_id === selectedChatRecord)
+                .map((chat, index) =>
+                  chat.role === "user" ? (
                     <div className="flex justify-end">
                       <div className="text-gray-300 text-left max-w-[60%] bg-gray-700 p-3 rounded-2xl ml-auto mr-7 break-words">
-                        {message.content}
+                        {chat.content}
                       </div>
                     </div>
-                  ) : message.role === "assistant" ? (
+                  ) : chat.role === "assistant" ? (
                     <div
                       key={index}
                       className="text-gray-300 text-left  max-w-[85%] p-2 rounded-lg mr-auto m-5 p-3"
                     >
-                      {message.content}
+                      {chat.content}
                     </div>
                   ) : (
                     <div key={index} />
