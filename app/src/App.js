@@ -99,6 +99,10 @@ function App() {
         success("Chat name updated.");
         setAlert(0);
         return;
+      case 13:
+        success("Chat deleted.");
+        setAlert(0);
+        return;
     }
   }, [alert]);
 

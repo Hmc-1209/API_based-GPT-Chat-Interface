@@ -99,14 +99,12 @@ const ChatPage = () => {
     if (response === 1) {
       setAlert(12);
       await get_chat_records();
+      if (selectedChatRecord === record_id) {
+        setSelectedChatRecord(0);
+      }
       return;
     }
     setAlert(6);
-    if (selectedChatRecord === record_id) {
-      setSettingChatRoom(0);
-      setSettingStatus(0);
-      setSelectedChatRecord(0);
-    }
     return;
   };
 
