@@ -3,39 +3,7 @@ import { AppContext } from "../App";
 import { get_chat_content_detail } from "../http-requests/user-data";
 
 const ChatSection = () => {
-  const [chatMessages, setChatMessages] = useState([
-    {
-      role: "system",
-      content: "You're an assistant for answering questions.",
-    },
-    {
-      role: "user",
-      content: "Hi, can you introduce yourself in 30 words?",
-    },
-    {
-      role: "assistant",
-      content:
-        "I'm an AI assistant designed to provide information, answer questions, and offer help on a wide range of topics. I'm here to make your experience informative and enjoyable!",
-    },
-    {
-      role: "user",
-      content: "How long have you been working?",
-    },
-    {
-      role: "assistant",
-      content:
-        "I don’t have a specific start date, as I’m part of an ongoing development of AI technology. My training includes data and knowledge up until October 2023.",
-    },
-    {
-      role: "user",
-      content:
-        "Give me a short fix for the HTML code so that the texts are red, and just return the code for me. ```<div>Testing</div>```",
-    },
-    {
-      role: "assistant",
-      content: '```html\n<div style="color: red;">Testing</div>\n```',
-    },
-  ]);
+  const [chatMessages, setChatMessages] = useState([]);
 
   const chatContainerRef = useRef(null);
   const [loadingChatData, setLoadingChatData] = useState(0);
@@ -50,6 +18,8 @@ const ChatSection = () => {
     }
   }, [chatMessages]);
 
+  const chatContentsRef = useRef(chatContents);
+
   useEffect(() => {
     setLoadingChatData(1);
 
@@ -63,20 +33,27 @@ const ChatSection = () => {
 
         if (exists) return prevChatContents;
 
-        return [
+        const updatedChatContents = [
           ...prevChatContents,
           { record_id: selectedChatRecord, contents: response },
         ];
+        chatContentsRef.current = updatedChatContents;
+        return updatedChatContents;
       });
 
       setLoadingChatData(0);
     };
 
-    if (!chatContents.some((item) => item.record_id === selectedChatRecord)) {
+    if (
+      !chatContentsRef.current.some(
+        (item) => item.record_id === selectedChatRecord
+      )
+    ) {
       get_chat_contents();
     }
-    console.log("Data loaded.", chatContents);
-  }, []);
+
+    console.log("Data loaded.", chatContentsRef.current);
+  }, [selectedChatRecord]);
 
   return (
     <>
