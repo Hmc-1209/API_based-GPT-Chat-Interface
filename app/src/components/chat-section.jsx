@@ -8,77 +8,6 @@ import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const markdownStyle = `
-  .markdown {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-
-  .markdown h1 {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-
-  .markdown h2 {
-    font-size: 1.75rem;
-    font-weight: bold;
-  }
-
-  .markdown h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-
-  .markdown h4 {
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-
-  .markdown h5 {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-
-  .markdown h6 {
-    font-size: 0.875rem;
-    font-weight: bold;
-  }
-
-  .markdown p {
-    margin-bottom: 1rem;
-  }
-
-  .markdown a {
-    color: #1d72b8;
-    text-decoration: none;
-  }
-
-  .markdown a:hover {
-    text-decoration: underline;
-  }
-
-  .markdown pre {
-    background-color: #2e2e2e;
-    padding: 1rem;
-    border-radius: 4px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  .markdown code {
-    background-color: #f4f4f4;
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-  }
-`;
-
 const ChatSection = () => {
   const chatContainerRef = useRef(null);
   const [loadingChatData, setLoadingChatData] = useState(false);
@@ -188,9 +117,55 @@ const ChatSection = () => {
                         <div className="text-gray-300 text-left max-w-[100%] bg-gray-700 p-3 rounded-2xl ml-auto break-words">
                           <ReactMarkdown
                             className="markdown"
-                            children={message.content}
                             remarkPlugins={[remarkGfm]}
-                          />
+                            components={{
+                              h1: ({ children }) => (
+                                <h1 className="text-3xl font-bold">
+                                  {children}
+                                </h1>
+                              ),
+                              h2: ({ children }) => (
+                                <h2 className="text-2xl font-bold">
+                                  {children}
+                                </h2>
+                              ),
+                              h3: ({ children }) => (
+                                <h3 className="text-xl font-bold">
+                                  {children}
+                                </h3>
+                              ),
+                              h4: ({ children }) => (
+                                <h4 className="text-lg font-bold">
+                                  {children}
+                                </h4>
+                              ),
+                              h5: ({ children }) => (
+                                <h5 className="text-base font-bold">
+                                  {children}
+                                </h5>
+                              ),
+                              h6: ({ children }) => (
+                                <h6 className="text-sm font-bold">
+                                  {children}
+                                </h6>
+                              ),
+                              p: ({ children }) => (
+                                <p className="text-base">{children}</p>
+                              ),
+                              code: ({ children }) => (
+                                <code className="bg-gray-800 text-white p-1 rounded-md">
+                                  {children}
+                                </code>
+                              ),
+                              pre: ({ children }) => (
+                                <pre className="bg-gray-900 text-white p-2 rounded-md">
+                                  {children}
+                                </pre>
+                              ),
+                            }}
+                          >
+                            {message.content}
+                          </ReactMarkdown>
                         </div>
                       </div>
                     ) : message.role === "assistant" ? (
@@ -200,9 +175,45 @@ const ChatSection = () => {
                       >
                         <ReactMarkdown
                           className="markdown"
-                          children={message.content}
                           remarkPlugins={[remarkGfm]}
-                        />
+                          components={{
+                            h1: ({ children }) => (
+                              <h1 className="text-3xl font-bold">{children}</h1>
+                            ),
+                            h2: ({ children }) => (
+                              <h2 className="text-2xl font-bold">{children}</h2>
+                            ),
+                            h3: ({ children }) => (
+                              <h3 className="text-xl font-bold">{children}</h3>
+                            ),
+                            h4: ({ children }) => (
+                              <h4 className="text-lg font-bold">{children}</h4>
+                            ),
+                            h5: ({ children }) => (
+                              <h5 className="text-base font-bold">
+                                {children}
+                              </h5>
+                            ),
+                            h6: ({ children }) => (
+                              <h6 className="text-sm font-bold">{children}</h6>
+                            ),
+                            p: ({ children }) => (
+                              <p className="text-base">{children}</p>
+                            ),
+                            code: ({ children }) => (
+                              <code className="bg-gray-800 text-white p-1 rounded-md">
+                                {children}
+                              </code>
+                            ),
+                            pre: ({ children }) => (
+                              <pre className="bg-gray-900 text-white p-2 rounded-md">
+                                {children}
+                              </pre>
+                            ),
+                          }}
+                        >
+                          {message.content}
+                        </ReactMarkdown>
                       </div>
                     ) : (
                       <div key={index} />
