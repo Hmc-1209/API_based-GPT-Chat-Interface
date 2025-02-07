@@ -152,12 +152,25 @@ const ChatSection = () => {
                               p: ({ children }) => (
                                 <p className="text-base">{children}</p>
                               ),
-                              code: ({ children }) => (
-                                <CodeBlockWithCopyButton>
+                              code: ({ inline, children }) => {
+                                if (inline) {
+                                  return (
+                                    <code className="bg-gray-700 text-yellow-400 px-1 rounded">
+                                      {children}
+                                    </code>
+                                  );
+                                }
+                                return (
+                                  <CodeBlockWithCopyButton>
+                                    {children}
+                                  </CodeBlockWithCopyButton>
+                                );
+                              },
+                              pre: ({ children }) => (
+                                <pre className="bg-gray-900 p-2 rounded">
                                   {children}
-                                </CodeBlockWithCopyButton>
+                                </pre>
                               ),
-                              pre: ({ children }) => <pre>{children}</pre>,
                             }}
                           >
                             {message.content}
@@ -206,12 +219,25 @@ const ChatSection = () => {
                             p: ({ children }) => (
                               <p className="text-base">{children}</p>
                             ),
-                            code: ({ children }) => (
-                              <CodeBlockWithCopyButton>
+                            code: ({ inline, children }) => {
+                              if (inline) {
+                                return (
+                                  <code className="bg-gray-700 text-yellow-400 px-1 rounded">
+                                    {children}
+                                  </code>
+                                );
+                              }
+                              return (
+                                <CodeBlockWithCopyButton>
+                                  {children}
+                                </CodeBlockWithCopyButton>
+                              );
+                            },
+                            pre: ({ children }) => (
+                              <pre className="bg-gray-900 p-2 rounded">
                                 {children}
-                              </CodeBlockWithCopyButton>
+                              </pre>
                             ),
-                            pre: ({ children }) => <pre>{children}</pre>,
                           }}
                         >
                           {message.content}
