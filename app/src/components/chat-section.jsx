@@ -153,7 +153,7 @@ const ChatSection = () => {
                                 <p className="text-base">{children}</p>
                               ),
                               code: ({ children }) => (
-                                <code className="bg-gray-700 text-white px-1 py-0 rounded-md inline-block">
+                                <code className="bg-gray-900 text-white px-1 py-0 rounded-md inline-block">
                                   {children}
                                 </code>
                               ),
@@ -163,13 +163,7 @@ const ChatSection = () => {
 
                                 return (
                                   <div className="relative">
-                                    <pre
-                                      className={`${
-                                        isMultiLine
-                                          ? "bg-transparent"
-                                          : "bg-gray-900"
-                                      } text-white p-2 rounded-md overflow-x-auto mt-3 mb-2`}
-                                    >
+                                    <pre className="text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
                                       <style>
                                         {`
                                           pre::-webkit-scrollbar {
@@ -195,7 +189,7 @@ const ChatSection = () => {
                                                 className={`${
                                                   isMultiLine
                                                     ? "text-white"
-                                                    : "bg-gray-700 text-white"
+                                                    : "bg-gray-900 text-white"
                                                 } px-1 py-0 rounded-md block`}
                                               >
                                                 {line}
@@ -267,7 +261,7 @@ const ChatSection = () => {
                               <p className="text-base">{children}</p>
                             ),
                             code: ({ children }) => (
-                              <code className="bg-gray-700 text-white px-1 py-0 rounded-md inline-block">
+                              <code className="bg-gray-900 text-white px-1 py-0 rounded-md inline-block">
                                 {children}
                               </code>
                             ),
@@ -277,13 +271,7 @@ const ChatSection = () => {
 
                               return (
                                 <div className="relative">
-                                  <pre
-                                    className={`${
-                                      isMultiLine
-                                        ? "bg-transparent"
-                                        : "bg-gray-900"
-                                    } text-white p-2 rounded-md overflow-x-auto mt-3 mb-2`}
-                                  >
+                                  <pre className="text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
                                     <style>
                                       {`
                                         pre::-webkit-scrollbar {
@@ -309,7 +297,7 @@ const ChatSection = () => {
                                               className={`${
                                                 isMultiLine
                                                   ? "text-white"
-                                                  : "bg-gray-700 text-white"
+                                                  : "bg-gray-900 text-white"
                                               } px-1 py-0 rounded-md block`}
                                             >
                                               {line}
