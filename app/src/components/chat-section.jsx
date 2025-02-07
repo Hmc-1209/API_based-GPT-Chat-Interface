@@ -1,3 +1,4 @@
+import "./style.css";
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { AppContext } from "../App";
 import {
@@ -153,7 +154,7 @@ const ChatSection = () => {
                                 <p className="text-base">{children}</p>
                               ),
                               code: ({ children }) => (
-                                <code className="bg-gray-800 text-white p-1 rounded-md inline-block">
+                                <code className="text-white p-1 rounded-md inline-block">
                                   {children}
                                 </code>
                               ),
@@ -211,7 +212,7 @@ const ChatSection = () => {
                               <p className="text-base">{children}</p>
                             ),
                             code: ({ children }) => (
-                              <code className="bg-gray-800 text-white p-1 rounded-md inline-block">
+                              <code className="text-white p-1 rounded-md inline-block">
                                 {children}
                               </code>
                             ),
