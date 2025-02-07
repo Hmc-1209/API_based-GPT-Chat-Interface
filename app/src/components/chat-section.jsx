@@ -152,22 +152,28 @@ const ChatSection = () => {
                               p: ({ children }) => (
                                 <p className="text-base">{children}</p>
                               ),
-                              code: ({ inline, children }) => {
-                                if (inline) {
-                                  return (
-                                    <code className="bg-gray-700 text-yellow-400 px-1 rounded">
-                                      {children}
-                                    </code>
-                                  );
-                                }
-                                return (
-                                  <CodeBlockWithCopyButton>
-                                    {children}
-                                  </CodeBlockWithCopyButton>
-                                );
-                              },
+                              code: ({ children }) => (
+                                <code className="text-white p-1 rounded-md inline-block">
+                                  {children}
+                                </code>
+                              ),
                               pre: ({ children }) => (
-                                <pre className="bg-gray-900 p-2 rounded">
+                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                  <style>
+                                    {`
+                                        pre::-webkit-scrollbar {
+                                          width: 6px;
+                                          height: 6px;
+                                        }
+                                        pre::-webkit-scrollbar-thumb {
+                                          background-color: rgba(255, 255, 255, 0.4);
+                                          border-radius: 3px;
+                                        }
+                                        pre::-webkit-scrollbar-track {
+                                          background: transparent;
+                                        }
+                                      `}
+                                  </style>
                                   {children}
                                 </pre>
                               ),
@@ -219,22 +225,28 @@ const ChatSection = () => {
                             p: ({ children }) => (
                               <p className="text-base">{children}</p>
                             ),
-                            code: ({ inline, children }) => {
-                              if (inline) {
-                                return (
-                                  <code className="bg-gray-700 text-yellow-400 px-1 rounded">
-                                    {children}
-                                  </code>
-                                );
-                              }
-                              return (
-                                <CodeBlockWithCopyButton>
-                                  {children}
-                                </CodeBlockWithCopyButton>
-                              );
-                            },
+                            code: ({ children }) => (
+                              <code className="text-white p-1 rounded-md inline-block">
+                                {children}
+                              </code>
+                            ),
                             pre: ({ children }) => (
-                              <pre className="bg-gray-900 p-2 rounded">
+                              <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                <style>
+                                  {`
+                                      pre::-webkit-scrollbar {
+                                        width: 6px;
+                                        height: 6px;
+                                      }
+                                      pre::-webkit-scrollbar-thumb {
+                                        background-color: rgba(255, 255, 255, 0.4);
+                                        border-radius: 3px;
+                                      }
+                                      pre::-webkit-scrollbar-track {
+                                        background: transparent;
+                                      }
+                                    `}
+                                </style>
                                 {children}
                               </pre>
                             ),
@@ -334,50 +346,3 @@ const ChatSection = () => {
   );
 };
 export default ChatSection;
-
-const CodeBlockWithCopyButton = ({ children }) => {
-  const handleCopy = () => {
-    const codeContent = children
-      .toString()
-      .replace(/^```.*?\n(.*?)\n```/s, "$1");
-    navigator.clipboard.writeText(codeContent);
-  };
-
-  return (
-    <div style={{ position: "relative" }}>
-      <button
-        onClick={handleCopy}
-        style={{
-          position: "absolute",
-          right: "5px",
-          top: "5px",
-          backgroundColor: "#212121",
-          color: "#808080",
-          border: "none",
-          borderRadius: "3px",
-          padding: "1px",
-        }}
-      >
-        Copy
-      </button>
-      <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
-        <style>
-          {`
-            pre::-webkit-scrollbar {
-              width: 6px;
-              height: 6px;
-            }
-            pre::-webkit-scrollbar-thumb {
-              background-color: rgba(255, 255, 255, 0.4);
-              border-radius: 3px;
-            }
-            pre::-webkit-scrollbar-track {
-              background: transparent;
-            }
-          `}
-        </style>
-        <code>{children}</code>
-      </pre>
-    </div>
-  );
-};
