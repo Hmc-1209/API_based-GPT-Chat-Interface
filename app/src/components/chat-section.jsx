@@ -152,60 +152,43 @@ const ChatSection = () => {
                               p: ({ children }) => (
                                 <p className="text-base">{children}</p>
                               ),
-                              code: ({ inline, children }) => (
-                                <code
-                                  className={
-                                    inline
-                                      ? "bg-gray-800 text-white px-1 py-0.5 rounded-md"
-                                      : "text-white"
-                                  }
-                                >
+                              code: ({ children }) => (
+                                <code className="bg-gray-800 text-white px-1 py-0.5 rounded-md inline-block">
                                   {children}
                                 </code>
                               ),
-                              pre: ({ children }) => {
-                                const codeRef = useRef(null);
-
-                                const handleCopy = () => {
-                                  if (codeRef.current) {
-                                    navigator.clipboard.writeText(
-                                      codeRef.current.innerText
-                                    );
-                                  }
-                                };
-
-                                return (
-                                  <div className="relative">
-                                    <pre
-                                      ref={codeRef}
-                                      className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2 relative"
-                                    >
-                                      <style>
-                                        {`
-                                          pre::-webkit-scrollbar {
-                                            width: 6px;
-                                            height: 6px;
-                                          }
-                                          pre::-webkit-scrollbar-thumb {
-                                            background-color: rgba(255, 255, 255, 0.4);
-                                            border-radius: 3px;
-                                          }
-                                          pre::-webkit-scrollbar-track {
-                                            background: transparent;
-                                          }
-                                        `}
-                                      </style>
-                                      {children}
-                                    </pre>
-                                    <button
-                                      onClick={handleCopy}
-                                      className="absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-sm hover:bg-gray-600"
-                                    >
-                                      Copy
-                                    </button>
-                                  </div>
-                                );
-                              },
+                              pre: ({ children }) => (
+                                <div className="relative">
+                                  <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                    <style>
+                                      {`
+                                        pre::-webkit-scrollbar {
+                                          width: 6px;
+                                          height: 6px;
+                                        }
+                                        pre::-webkit-scrollbar-thumb {
+                                          background-color: rgba(255, 255, 255, 0.4);
+                                          border-radius: 3px;
+                                        }
+                                        pre::-webkit-scrollbar-track {
+                                          background: transparent;
+                                        }
+                                      `}
+                                    </style>
+                                    {children}
+                                  </pre>
+                                  <button
+                                    onClick={() => {
+                                      const text =
+                                        children.props?.children || "";
+                                      navigator.clipboard.writeText(text);
+                                    }}
+                                    className="absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-sm hover:bg-gray-600"
+                                  >
+                                    Copy
+                                  </button>
+                                </div>
+                              ),
                             }}
                           >
                             {message.content}
@@ -254,60 +237,42 @@ const ChatSection = () => {
                             p: ({ children }) => (
                               <p className="text-base">{children}</p>
                             ),
-                            code: ({ inline, children }) => (
-                              <code
-                                className={
-                                  inline
-                                    ? "bg-gray-800 text-white px-1 py-0.5 rounded-md"
-                                    : "text-white"
-                                }
-                              >
+                            code: ({ children }) => (
+                              <code className="bg-gray-800 text-white px-1 py-0.5 rounded-md inline-block">
                                 {children}
                               </code>
                             ),
-                            pre: ({ children }) => {
-                              const codeRef = useRef(null);
-
-                              const handleCopy = () => {
-                                if (codeRef.current) {
-                                  navigator.clipboard.writeText(
-                                    codeRef.current.innerText
-                                  );
-                                }
-                              };
-
-                              return (
-                                <div className="relative">
-                                  <pre
-                                    ref={codeRef}
-                                    className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2 relative"
-                                  >
-                                    <style>
-                                      {`
-                                        pre::-webkit-scrollbar {
-                                          width: 6px;
-                                          height: 6px;
-                                        }
-                                        pre::-webkit-scrollbar-thumb {
-                                          background-color: rgba(255, 255, 255, 0.4);
-                                          border-radius: 3px;
-                                        }
-                                        pre::-webkit-scrollbar-track {
-                                          background: transparent;
-                                        }
-                                      `}
-                                    </style>
-                                    {children}
-                                  </pre>
-                                  <button
-                                    onClick={handleCopy}
-                                    className="absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-sm hover:bg-gray-600"
-                                  >
-                                    Copy
-                                  </button>
-                                </div>
-                              );
-                            },
+                            pre: ({ children }) => (
+                              <div className="relative">
+                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                  <style>
+                                    {`
+                                      pre::-webkit-scrollbar {
+                                        width: 6px;
+                                        height: 6px;
+                                      }
+                                      pre::-webkit-scrollbar-thumb {
+                                        background-color: rgba(255, 255, 255, 0.4);
+                                        border-radius: 3px;
+                                      }
+                                      pre::-webkit-scrollbar-track {
+                                        background: transparent;
+                                      }
+                                    `}
+                                  </style>
+                                  {children}
+                                </pre>
+                                <button
+                                  onClick={() => {
+                                    const text = children.props?.children || "";
+                                    navigator.clipboard.writeText(text);
+                                  }}
+                                  className="absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-sm hover:bg-gray-600"
+                                >
+                                  Copy
+                                </button>
+                              </div>
+                            ),
                           }}
                         >
                           {message.content}
