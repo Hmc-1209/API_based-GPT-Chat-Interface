@@ -170,13 +170,22 @@ const ChatSection = () => {
                 id="chat-text"
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
+                    if (isComposing) {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                      }
+                      return;
+                    }
+
                     e.preventDefault();
                     const useRecord =
                       document.getElementById("useHistoryRecord").checked;
                     send_chat(selectedChatRecord, e.target.value, useRecord);
                     e.target.value = "";
                   }
+                  disabled = { sendingChatRequest };
                 }}
+                disabled={sendingChatRequest}
               />
               <button
                 className="absolute right-[9%] xl:right-[13%] bottom-7 xl:bottom-6 bg-gray-600 text-white px-3 py-2 xl:m-2 rounded-md hover:bg-gray-800"
@@ -185,6 +194,7 @@ const ChatSection = () => {
                     document.getElementById("useHistoryRecord").checked;
                   send_chat(selectedChatRecord, e.target.value, useRecord);
                 }}
+                disabled={sendingChatRequest}
               >
                 Send
               </button>
