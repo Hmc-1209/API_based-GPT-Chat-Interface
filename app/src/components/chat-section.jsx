@@ -10,6 +10,7 @@ const ChatSection = () => {
   const chatContainerRef = useRef(null);
   const [loadingChatData, setLoadingChatData] = useState(false);
   const [sendingChatRequest, setSendingChatRequest] = useState(false);
+  const [isComposing, setIsComposing] = useState(false);
 
   const { chatContents, setChatContents, selectedChatRecord, setAlert } =
     useContext(AppContext);
@@ -183,7 +184,14 @@ const ChatSection = () => {
                     send_chat(selectedChatRecord, e.target.value, useRecord);
                     e.target.value = "";
                   }
-                  disabled = { sendingChatRequest };
+                }}
+                onCompositionStart={() => {
+                  // 開始中文輸入時標記
+                  setIsComposing(true);
+                }}
+                onCompositionEnd={() => {
+                  // 結束中文輸入時標記
+                  setIsComposing(false);
                 }}
                 disabled={sendingChatRequest}
               />
