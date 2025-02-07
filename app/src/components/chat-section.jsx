@@ -120,32 +120,32 @@ const ChatSection = () => {
                             remarkPlugins={[remarkGfm]}
                             components={{
                               h1: ({ children }) => (
-                                <h1 className="text-3xl font-bold">
+                                <h1 className="text-3xl font-bold mt-6 mb-4">
                                   {children}
                                 </h1>
                               ),
                               h2: ({ children }) => (
-                                <h2 className="text-2xl font-bold">
+                                <h2 className="text-2xl font-bold mt-5 mb-3">
                                   {children}
                                 </h2>
                               ),
                               h3: ({ children }) => (
-                                <h3 className="text-xl font-bold">
+                                <h3 className="text-xl font-bold mt-4 mb-3">
                                   {children}
                                 </h3>
                               ),
                               h4: ({ children }) => (
-                                <h4 className="text-lg font-bold">
+                                <h4 className="text-lg font-bold mt-4 mb-2">
                                   {children}
                                 </h4>
                               ),
                               h5: ({ children }) => (
-                                <h5 className="text-base font-bold">
+                                <h5 className="text-base font-bold mt-3 mb-2">
                                   {children}
                                 </h5>
                               ),
                               h6: ({ children }) => (
-                                <h6 className="text-sm font-bold">
+                                <h6 className="text-sm font-bold mt-2 mb-1">
                                   {children}
                                 </h6>
                               ),
@@ -153,12 +153,12 @@ const ChatSection = () => {
                                 <p className="text-base">{children}</p>
                               ),
                               code: ({ children }) => (
-                                <code className="bg-gray-800 text-white p-1 rounded-md">
+                                <code className="bg-gray-800 text-white p-1 rounded-md inline-block">
                                   {children}
                                 </code>
                               ),
                               pre: ({ children }) => (
-                                <pre className="bg-gray-900 text-white p-2 rounded-md">
+                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto">
                                   {children}
                                 </pre>
                               ),
@@ -178,35 +178,45 @@ const ChatSection = () => {
                           remarkPlugins={[remarkGfm]}
                           components={{
                             h1: ({ children }) => (
-                              <h1 className="text-3xl font-bold">{children}</h1>
+                              <h1 className="text-3xl font-bold mt-6 mb-4">
+                                {children}
+                              </h1>
                             ),
                             h2: ({ children }) => (
-                              <h2 className="text-2xl font-bold">{children}</h2>
+                              <h2 className="text-2xl font-bold mt-5 mb-3">
+                                {children}
+                              </h2>
                             ),
                             h3: ({ children }) => (
-                              <h3 className="text-xl font-bold">{children}</h3>
+                              <h3 className="text-xl font-bold mt-4 mb-3">
+                                {children}
+                              </h3>
                             ),
                             h4: ({ children }) => (
-                              <h4 className="text-lg font-bold">{children}</h4>
+                              <h4 className="text-lg font-bold mt-4 mb-2">
+                                {children}
+                              </h4>
                             ),
                             h5: ({ children }) => (
-                              <h5 className="text-base font-bold">
+                              <h5 className="text-base font-bold mt-3 mb-2">
                                 {children}
                               </h5>
                             ),
                             h6: ({ children }) => (
-                              <h6 className="text-sm font-bold">{children}</h6>
+                              <h6 className="text-sm font-bold mt-2 mb-1">
+                                {children}
+                              </h6>
                             ),
                             p: ({ children }) => (
                               <p className="text-base">{children}</p>
                             ),
                             code: ({ children }) => (
-                              <code className="bg-gray-800 text-white p-1 rounded-md">
+                              <code className="bg-gray-800 text-white p-1 rounded-md inline-block">
                                 {children}
                               </code>
                             ),
                             pre: ({ children }) => (
-                              <pre className="bg-gray-900 text-white p-2 rounded-md">
+                              <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto">
                                 {children}
                               </pre>
                             ),
@@ -243,6 +253,7 @@ const ChatSection = () => {
               </div>
             </div>
 
+            {/* Use history record button */}
             <div className="w-[100%] flex justify-center text-center">
               <div className="w-[89%] xl:w-[74%] flex justify-end items-center">
                 <input
@@ -256,6 +267,7 @@ const ChatSection = () => {
               </div>
             </div>
 
+            {/* Send chat section */}
             <div className="bg-gray-800 p-2 flex justify-center relative">
               <textarea
                 className="w-[90%] xl:w-[75%] h-[6rem] px-3 py-3 mb-3 xl:mb-3 bg-gray-700 text-white rounded-md overflow-y-auto resize-none focus:outline-none"
