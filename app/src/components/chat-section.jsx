@@ -157,61 +157,26 @@ const ChatSection = () => {
                                   {children}
                                 </code>
                               ),
-                              pre: ({ children }) => {
-                                const isMultiLine =
-                                  children.split("\n").length > 1;
-
-                                return (
-                                  <div className="relative">
-                                    <pre className="text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
-                                      <style>
-                                        {`
-                                          pre::-webkit-scrollbar {
-                                            width: 6px;
-                                            height: 6px;
-                                          }
-                                          pre::-webkit-scrollbar-thumb {
-                                            background-color: rgba(255, 255, 255, 0.4);
-                                            border-radius: 3px;
-                                          }
-                                          pre::-webkit-scrollbar-track {
-                                            background: transparent;
-                                          }
-                                        `}
-                                      </style>
-                                      {React.Children.map(children, (child) => {
-                                        if (typeof child === "string") {
-                                          return child
-                                            .split("\n")
-                                            .map((line, index) => (
-                                              <code
-                                                key={index}
-                                                className={`${
-                                                  isMultiLine
-                                                    ? "text-white"
-                                                    : "bg-gray-900 text-white"
-                                                } px-1 py-0 rounded-md block`}
-                                              >
-                                                {line}
-                                              </code>
-                                            ));
+                              pre: ({ children }) => (
+                                <pre className="bg-gray-900 text-white p-1 rounded-md overflow-x-auto mt-3 mb-2">
+                                  <style>
+                                    {`
+                                        pre::-webkit-scrollbar {
+                                          width: 6px;
+                                          height: 6px;
                                         }
-                                        return child;
-                                      })}
-                                    </pre>
-                                    <button
-                                      onClick={() => {
-                                        const text =
-                                          children.props?.children || "";
-                                        navigator.clipboard.writeText(text);
-                                      }}
-                                      className="absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-sm hover:bg-gray-600"
-                                    >
-                                      Copy
-                                    </button>
-                                  </div>
-                                );
-                              },
+                                        pre::-webkit-scrollbar-thumb {
+                                          background-color: rgba(255, 255, 255, 0.4);
+                                          border-radius: 3px;
+                                        }
+                                        pre::-webkit-scrollbar-track {
+                                          background: transparent;
+                                        }
+                                      `}
+                                  </style>
+                                  {children}
+                                </pre>
+                              ),
                             }}
                           >
                             {message.content}
@@ -265,61 +230,26 @@ const ChatSection = () => {
                                 {children}
                               </code>
                             ),
-                            pre: ({ children }) => {
-                              const isMultiLine =
-                                children.split("\n").length > 1;
-
-                              return (
-                                <div className="relative">
-                                  <pre className="text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
-                                    <style>
-                                      {`
-                                        pre::-webkit-scrollbar {
-                                          width: 6px;
-                                          height: 6px;
-                                        }
-                                        pre::-webkit-scrollbar-thumb {
-                                          background-color: rgba(255, 255, 255, 0.4);
-                                          border-radius: 3px;
-                                        }
-                                        pre::-webkit-scrollbar-track {
-                                          background: transparent;
-                                        }
-                                      `}
-                                    </style>
-                                    {React.Children.map(children, (child) => {
-                                      if (typeof child === "string") {
-                                        return child
-                                          .split("\n")
-                                          .map((line, index) => (
-                                            <code
-                                              key={index}
-                                              className={`${
-                                                isMultiLine
-                                                  ? "text-white"
-                                                  : "bg-gray-900 text-white"
-                                              } px-1 py-0 rounded-md block`}
-                                            >
-                                              {line}
-                                            </code>
-                                          ));
+                            pre: ({ children }) => (
+                              <pre className="bg-gray-900 text-white p-1 rounded-md overflow-x-auto mt-3 mb-2">
+                                <style>
+                                  {`
+                                      pre::-webkit-scrollbar {
+                                        width: 6px;
+                                        height: 6px;
                                       }
-                                      return child;
-                                    })}
-                                  </pre>
-                                  <button
-                                    onClick={() => {
-                                      const text =
-                                        children.props?.children || "";
-                                      navigator.clipboard.writeText(text);
-                                    }}
-                                    className="absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-sm hover:bg-gray-600"
-                                  >
-                                    Copy
-                                  </button>
-                                </div>
-                              );
-                            },
+                                      pre::-webkit-scrollbar-thumb {
+                                        background-color: rgba(255, 255, 255, 0.4);
+                                        border-radius: 3px;
+                                      }
+                                      pre::-webkit-scrollbar-track {
+                                        background: transparent;
+                                      }
+                                    `}
+                                </style>
+                                {children}
+                              </pre>
+                            ),
                           }}
                         >
                           {message.content}
