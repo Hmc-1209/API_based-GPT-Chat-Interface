@@ -164,7 +164,7 @@ const ChatSection = () => {
                                 </code>
                               ),
                               pre: ({ children }) => {
-                                const codeRef = React.useRef(null);
+                                const codeRef = useRef(null);
 
                                 const handleCopy = () => {
                                   if (codeRef.current) {
@@ -266,7 +266,7 @@ const ChatSection = () => {
                               </code>
                             ),
                             pre: ({ children }) => {
-                              const codeRef = React.useRef(null);
+                              const codeRef = useRef(null);
 
                               const handleCopy = () => {
                                 if (codeRef.current) {
