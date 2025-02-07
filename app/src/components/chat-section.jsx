@@ -150,7 +150,7 @@ const ChatSection = () => {
                                 </h6>
                               ),
                               p: ({ children }) => (
-                                <p className="text-base">{children}</p>
+                                <p className="text-base mt-1">{children}</p>
                               ),
                               code: ({ children }) => (
                                 <code className="bg-gray-900 text-white px-1 py-0 rounded-md inline-block">
@@ -158,7 +158,7 @@ const ChatSection = () => {
                                 </code>
                               ),
                               pre: ({ children }) => (
-                                <pre className="bg-gray-900 text-white p-1 rounded-md overflow-x-auto mt-3 mb-2">
+                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
                                   <style>
                                     {`
                                         pre::-webkit-scrollbar {
