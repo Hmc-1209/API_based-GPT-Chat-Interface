@@ -153,29 +153,14 @@ const ChatSection = () => {
                                 <p className="text-base">{children}</p>
                               ),
                               code: ({ children }) => (
-                                <code className="text-white p-1 rounded-md inline-block">
+                                <CodeBlockWithCopyButton>
                                   {children}
-                                </code>
+                                </CodeBlockWithCopyButton>
                               ),
                               pre: ({ children }) => (
-                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
-                                  <style>
-                                    {`
-                                        pre::-webkit-scrollbar {
-                                          width: 6px;
-                                          height: 6px;
-                                        }
-                                        pre::-webkit-scrollbar-thumb {
-                                          background-color: rgba(255, 255, 255, 0.4);
-                                          border-radius: 3px;
-                                        }
-                                        pre::-webkit-scrollbar-track {
-                                          background: transparent;
-                                        }
-                                      `}
-                                  </style>
+                                <CodeBlockWithCopyButton>
                                   {children}
-                                </pre>
+                                </CodeBlockWithCopyButton>
                               ),
                             }}
                           >
@@ -226,29 +211,14 @@ const ChatSection = () => {
                               <p className="text-base">{children}</p>
                             ),
                             code: ({ children }) => (
-                              <code className="text-white p-1 rounded-md inline-block">
+                              <CodeBlockWithCopyButton>
                                 {children}
-                              </code>
+                              </CodeBlockWithCopyButton>
                             ),
                             pre: ({ children }) => (
-                              <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
-                                <style>
-                                  {`
-                                      pre::-webkit-scrollbar {
-                                        width: 6px;
-                                        height: 6px;
-                                      }
-                                      pre::-webkit-scrollbar-thumb {
-                                        background-color: rgba(255, 255, 255, 0.4);
-                                        border-radius: 3px;
-                                      }
-                                      pre::-webkit-scrollbar-track {
-                                        background: transparent;
-                                      }
-                                    `}
-                                </style>
+                              <CodeBlockWithCopyButton>
                                 {children}
-                              </pre>
+                              </CodeBlockWithCopyButton>
                             ),
                           }}
                         >
@@ -289,7 +259,7 @@ const ChatSection = () => {
                 <input
                   type="checkbox"
                   id="useHistoryRecord"
-                  className="appearance-none w-5 h-5 bg-gray-800 border-2 border-gray-600 rounded-md checked:bg-gray-800 checked:border-white checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:items-center checked:before:justify-center"
+                  className="appearance-none w-5 h-5 bg-gray-800 pt-2 border-2 border-gray-600 rounded-md checked:bg-gray-800 checked:border-white checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:items-center checked:before:justify-center"
                 />
                 <label htmlFor="useHistoryRecord" className="ml-2 text-white">
                   Use history chat records
@@ -346,3 +316,50 @@ const ChatSection = () => {
   );
 };
 export default ChatSection;
+
+const CodeBlockWithCopyButton = ({ children }) => {
+  const handleCopy = () => {
+    const codeContent = children
+      .toString()
+      .replace(/^```.*?\n(.*?)\n```/s, "$1");
+    navigator.clipboard.writeText(codeContent);
+  };
+
+  return (
+    <div style={{ position: "relative" }}>
+      <button
+        onClick={handleCopy}
+        style={{
+          position: "absolute",
+          right: "10px",
+          top: "10px",
+          backgroundColor: "#000",
+          color: "#fff",
+          border: "none",
+          borderRadius: "3px",
+          padding: "5px",
+        }}
+      >
+        Copy
+      </button>
+      <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+        <style>
+          {`
+            pre::-webkit-scrollbar {
+              width: 6px;
+              height: 6px;
+            }
+            pre::-webkit-scrollbar-thumb {
+              background-color: rgba(255, 255, 255, 0.4);
+              border-radius: 3px;
+            }
+            pre::-webkit-scrollbar-track {
+              background: transparent;
+            }
+          `}
+        </style>
+        <code>{children}</code>
+      </pre>
+    </div>
+  );
+};
