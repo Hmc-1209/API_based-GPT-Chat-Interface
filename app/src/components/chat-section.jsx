@@ -1,4 +1,3 @@
-import "./style.css";
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { AppContext } from "../App";
 import {
@@ -115,7 +114,7 @@ const ChatSection = () => {
                   .map((message, index) =>
                     message.role === "user" ? (
                       <div className="flex justify-end">
-                        <div className="text-gray-300 text-left max-w-[100%] bg-gray-700 p-3 rounded-2xl ml-auto break-words">
+                        <div className="text-gray-300 text-left max-w-[70%] bg-gray-700 p-3 mt-2 mb-2 rounded-2xl ml-auto break-words">
                           <ReactMarkdown
                             className="markdown"
                             remarkPlugins={[remarkGfm]}
@@ -159,7 +158,22 @@ const ChatSection = () => {
                                 </code>
                               ),
                               pre: ({ children }) => (
-                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto">
+                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                  <style>
+                                    {`
+                                        pre::-webkit-scrollbar {
+                                          width: 6px;
+                                          height: 6px;
+                                        }
+                                        pre::-webkit-scrollbar-thumb {
+                                          background-color: rgba(255, 255, 255, 0.4);
+                                          border-radius: 3px;
+                                        }
+                                        pre::-webkit-scrollbar-track {
+                                          background: transparent;
+                                        }
+                                      `}
+                                  </style>
                                   {children}
                                 </pre>
                               ),
@@ -217,7 +231,22 @@ const ChatSection = () => {
                               </code>
                             ),
                             pre: ({ children }) => (
-                              <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto">
+                              <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                <style>
+                                  {`
+                                      pre::-webkit-scrollbar {
+                                        width: 6px;
+                                        height: 6px;
+                                      }
+                                      pre::-webkit-scrollbar-thumb {
+                                        background-color: rgba(255, 255, 255, 0.4);
+                                        border-radius: 3px;
+                                      }
+                                      pre::-webkit-scrollbar-track {
+                                        background: transparent;
+                                      }
+                                    `}
+                                </style>
                                 {children}
                               </pre>
                             ),
