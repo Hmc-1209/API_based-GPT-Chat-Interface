@@ -157,11 +157,7 @@ const ChatSection = () => {
                                   {children}
                                 </CodeBlockWithCopyButton>
                               ),
-                              pre: ({ children }) => (
-                                <CodeBlockWithCopyButton>
-                                  {children}
-                                </CodeBlockWithCopyButton>
-                              ),
+                              pre: ({ children }) => <pre>{children}</pre>,
                             }}
                           >
                             {message.content}
@@ -331,13 +327,13 @@ const CodeBlockWithCopyButton = ({ children }) => {
         onClick={handleCopy}
         style={{
           position: "absolute",
-          right: "10px",
-          top: "10px",
-          backgroundColor: "#000",
-          color: "#fff",
+          right: "5px",
+          top: "5px",
+          backgroundColor: "#212121",
+          color: "#808080",
           border: "none",
           borderRadius: "3px",
-          padding: "5px",
+          padding: "1px",
         }}
       >
         Copy
