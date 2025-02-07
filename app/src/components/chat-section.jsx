@@ -20,6 +20,36 @@ const markdownStyle = `
     margin-bottom: 0.5rem;
   }
 
+  .markdown h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .markdown h2 {
+    font-size: 1.75rem;
+    font-weight: bold;
+  }
+
+  .markdown h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .markdown h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .markdown h5 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .markdown h6 {
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+
   .markdown p {
     margin-bottom: 1rem;
   }
