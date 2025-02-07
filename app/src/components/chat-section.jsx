@@ -5,6 +5,7 @@ import {
   send_chat_request,
 } from "../http-requests/user-data";
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
 
 const ChatSection = () => {
   const chatContainerRef = useRef(null);
@@ -113,7 +114,7 @@ const ChatSection = () => {
                     message.role === "user" ? (
                       <div className="flex justify-end">
                         <div className="text-gray-300 text-left max-w-[100%] bg-gray-700 p-3 rounded-2xl ml-auto break-words">
-                          {message.content}
+                          <ReactMarkdown>{message.content}</ReactMarkdown>
                         </div>
                       </div>
                     ) : message.role === "assistant" ? (
@@ -121,7 +122,7 @@ const ChatSection = () => {
                         key={index}
                         className="text-gray-300 text-left max-w-[100%] p-2 rounded-lg mr-auto"
                       >
-                        {message.content}
+                        <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     ) : (
                       <div key={index} />
@@ -186,11 +187,9 @@ const ChatSection = () => {
                   }
                 }}
                 onCompositionStart={() => {
-                  // 開始中文輸入時標記
                   setIsComposing(true);
                 }}
                 onCompositionEnd={() => {
-                  // 結束中文輸入時標記
                   setIsComposing(false);
                 }}
                 disabled={sendingChatRequest}
