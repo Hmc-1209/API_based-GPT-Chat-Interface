@@ -153,13 +153,13 @@ const ChatSection = () => {
                                 <p className="text-base">{children}</p>
                               ),
                               code: ({ children }) => (
-                                <code className="bg-gray-700 text-white px-1 py-0.5 rounded-md inline-block">
+                                <code className="bg-gray-800 text-white px-1 py-0 rounded-md inline-block">
                                   {children}
                                 </code>
                               ),
                               pre: ({ children }) => (
                                 <div className="relative">
-                                  <pre className="text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                  <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
                                     <style>
                                       {`
                                         pre::-webkit-scrollbar {
@@ -238,13 +238,13 @@ const ChatSection = () => {
                               <p className="text-base">{children}</p>
                             ),
                             code: ({ children }) => (
-                              <code className="bg-gray-700 text-white px-1 py-0.5 rounded-md inline-block">
+                              <code className="bg-gray-700 text-white px-1 py-0 rounded-md inline-block">
                                 {children}
                               </code>
                             ),
                             pre: ({ children }) => (
                               <div className="relative">
-                                <pre className="text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
+                                <pre className="bg-gray-900 text-white p-2 rounded-md overflow-x-auto mt-3 mb-2">
                                   <style>
                                     {`
                                       pre::-webkit-scrollbar {
