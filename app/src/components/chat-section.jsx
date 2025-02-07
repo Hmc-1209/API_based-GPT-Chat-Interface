@@ -211,11 +211,7 @@ const ChatSection = () => {
                                 {children}
                               </CodeBlockWithCopyButton>
                             ),
-                            pre: ({ children }) => (
-                              <CodeBlockWithCopyButton>
-                                {children}
-                              </CodeBlockWithCopyButton>
-                            ),
+                            pre: ({ children }) => <pre>{children}</pre>,
                           }}
                         >
                           {message.content}
