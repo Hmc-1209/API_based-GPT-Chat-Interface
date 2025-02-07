@@ -6,6 +6,48 @@ import {
 } from "../http-requests/user-data";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+const markdownStyle = `
+  .markdown {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown p {
+    margin-bottom: 1rem;
+  }
+
+  .markdown a {
+    color: #1d72b8;
+    text-decoration: none;
+  }
+
+  .markdown a:hover {
+    text-decoration: underline;
+  }
+
+  .markdown pre {
+    background-color: #2e2e2e;
+    padding: 1rem;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .markdown code {
+    background-color: #f4f4f4;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+`;
 
 const ChatSection = () => {
   const chatContainerRef = useRef(null);
@@ -114,7 +156,11 @@ const ChatSection = () => {
                     message.role === "user" ? (
                       <div className="flex justify-end">
                         <div className="text-gray-300 text-left max-w-[100%] bg-gray-700 p-3 rounded-2xl ml-auto break-words">
-                          <ReactMarkdown>{message.content}</ReactMarkdown>
+                          <ReactMarkdown
+                            className="markdown"
+                            children={message.content}
+                            remarkPlugins={[remarkGfm]}
+                          />
                         </div>
                       </div>
                     ) : message.role === "assistant" ? (
@@ -122,7 +168,11 @@ const ChatSection = () => {
                         key={index}
                         className="text-gray-300 text-left max-w-[100%] p-2 rounded-lg mr-auto"
                       >
-                        <ReactMarkdown>{message.content}</ReactMarkdown>
+                        <ReactMarkdown
+                          className="markdown"
+                          children={message.content}
+                          remarkPlugins={[remarkGfm]}
+                        />
                       </div>
                     ) : (
                       <div key={index} />
