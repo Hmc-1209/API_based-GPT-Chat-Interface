@@ -289,7 +289,7 @@ const ChatSection = () => {
                 <input
                   type="checkbox"
                   id="useHistoryRecord"
-                  className="appearance-none w-5 h-5 bg-gray-800 pt-2 border-2 border-gray-600 rounded-md checked:bg-gray-800 checked:border-white checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:items-center checked:before:justify-center"
+                  className="appearance-none w-5 h-5 bg-gray-800 border-2 border-gray-600 rounded-md checked:bg-gray-800 checked:border-white checked:before:content-['✔'] checked:before:text-white checked:before:flex checked:before:items-center checked:before:justify-center"
                 />
                 <label htmlFor="useHistoryRecord" className="ml-2 text-white">
                   Use history chat records
@@ -332,7 +332,12 @@ const ChatSection = () => {
                 onClick={(e) => {
                   const useRecord =
                     document.getElementById("useHistoryRecord").checked;
-                  send_chat(selectedChatRecord, e.target.value, useRecord);
+                  send_chat(
+                    selectedChatRecord,
+                    document.getElementById("chat-text").value,
+                    useRecord
+                  );
+                  document.getElementById("chat-text").value = "";
                 }}
                 disabled={sendingChatRequest}
               >

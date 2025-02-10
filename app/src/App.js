@@ -9,12 +9,13 @@ import PageLoading from "./components/app-loading";
 import get_self_user from "./http-requests/user-data";
 import AccountProfile from "./components/account-profile";
 import SettingsPage from "./components/settings";
+import HelpPage from "./components/help";
 
 export const AppContext = createContext(null);
 
 function App() {
   const [alert, setAlert] = useState(0);
-  const [appPage, setAppPage] = useState(-1);
+  const [appPage, setAppPage] = useState(1);
   const [userDetail, setUserDetail] = useState({});
   const [chatContents, setChatContents] = useState([]);
   const [selectedChatRecord, setSelectedChatRecord] = useState(0);
@@ -24,26 +25,26 @@ function App() {
   const error = (message) => toast.error(message);
 
   // Login check
-  useEffect(() => {
-    const loggedin_check = async () => {
-      const response = await check_access_token();
-      if (response === 1) {
-        const user_detail = await get_self_user();
-        if (user_detail === 2 || user_detail === 5) {
-          setAlert(9);
-        } else {
-          setUserDetail(user_detail);
-        }
-        setAppPage(1);
-        return;
-      } else {
-        setAppPage(0);
-        return;
-      }
-    };
+  // useEffect(() => {
+  //   const loggedin_check = async () => {
+  //     const response = await check_access_token();
+  //     if (response === 1) {
+  //       const user_detail = await get_self_user();
+  //       if (user_detail === 2 || user_detail === 5) {
+  //         setAlert(9);
+  //       } else {
+  //         setUserDetail(user_detail);
+  //       }
+  //       setAppPage(1);
+  //       return;
+  //     } else {
+  //       setAppPage(0);
+  //       return;
+  //     }
+  //   };
 
-    loggedin_check();
-  }, []);
+  //   loggedin_check();
+  // }, []);
 
   /*
     Alert message type and settings:
@@ -128,6 +129,7 @@ function App() {
           {appPage === 1 && <ChatPage />}
           {appPage === 2 && <AccountProfile />}
           {appPage === 3 && <SettingsPage />}
+          {appPage === 4 && <HelpPage />}
           <ToastContainer
             position="bottom-right"
             theme="colored"
