@@ -68,6 +68,7 @@ const ChatPage = () => {
       settingStatus(0);
       setChatRecord([]);
       setChatContents([]);
+      setSelectedChatRecord(0);
       return;
     }
     setAlert(6);
