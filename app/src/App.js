@@ -82,6 +82,8 @@ function App() {
       case 8:
         success("Logged out.");
         setAlert(0);
+        setChatContents([]);
+        setSelectedChatRecord(0);
         setAppPage(0);
         return;
       case 9:

@@ -63,11 +63,6 @@ const ChatPage = () => {
   const logout = async () => {
     const response = await clear_access_token();
     if (response === 1) {
-      settingChatRoom(0);
-      settingStatus(0);
-      setChatRecord([]);
-      setChatContents([]);
-      setSelectedChatRecord(0);
       setAlert(8);
       return;
     }
