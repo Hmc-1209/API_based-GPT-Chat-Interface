@@ -17,7 +17,7 @@ const HelpPage = () => {
           Welcome to <b>API based GPT chat interface</b>. This website is an
           application built for people to use GPT with a pay as you go method. I
           made this application because I would like to use GPT 4o without
-          limitation but my monthly usage is much lower than 20 USD(the price of
+          limitation but my monthly usage is much lower than $20(the price of
           ChatGPT Plus), so using GPT api is definitily a better case for me.
         </div>
         <div className="leading-6 xl:leading-8 mb-4 xl:mb-2">

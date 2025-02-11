@@ -21,8 +21,13 @@ const ChatPage = () => {
   const [addingNewChat, setAddingNewChat] = useState(0);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
 
-  const { setAlert, setAppPage, selectedChatRecord, setSelectedChatRecord } =
-    useContext(AppContext);
+  const {
+    setAlert,
+    setAppPage,
+    selectedChatRecord,
+    setSelectedChatRecord,
+    setChatContents,
+  } = useContext(AppContext);
   const dropdownRef = useRef(null);
   const accountMenuRef = useRef(null);
 
@@ -59,6 +64,10 @@ const ChatPage = () => {
     const response = await clear_access_token();
     if (response === 1) {
       setAlert(8);
+      settingChatRoom(0);
+      settingStatus(0);
+      setChatRecord([]);
+      setChatContents([]);
       return;
     }
     setAlert(6);
