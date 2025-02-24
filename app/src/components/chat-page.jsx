@@ -185,10 +185,10 @@ const ChatPage = () => {
   }, []);
 
   return (
-    <div className="w-full h-[100%] bg-gray-800 font-bold flex flex-row xl:flex-row">
+    <div className="w-full h-[100%] bg-gray-800 font-bold flex flex-row md:flex-row">
       {/* Menu button */}
       <button
-        className="w-[40px] md:w-[70px] xl:hidden absolute top-4 left-4 flex flex-col gap-1 md:gap-3 bg-gray-700 text-white p-2 md:p-3 rounded"
+        className="w-[40px] md:w-[70px] md:hidden absolute top-4 left-4 flex flex-col gap-1 md:gap-3 bg-gray-700 text-white p-2 md:p-3 rounded"
         onClick={() => setLeftSideBar(!leftSideBar)}
       >
         <span className="block h-1 w-[100%] h-0.5 md:h-0.5 bg-white"></span>
@@ -198,11 +198,11 @@ const ChatPage = () => {
 
       {/* Left side bar */}
       <div
-        className={`absolute xl:static top-0 left-0 transform ${
+        className={`absolute md:static top-0 left-0 transform ${
           leftSideBar ? "translate-x-0" : "-translate-x-full"
-        } transition-transform xl:transform-none w-[60%] xl:w-[15%] h-full bg-gray-900 z-10 overflow-y-auto custom-scrollbar`}
+        } transition-transform md:transform-none w-[60%] md:w-[15%] h-full bg-gray-900 z-10 overflow-y-auto custom-scrollbar`}
       >
-        <div className="w-full pt-5 pb-5 pl-2 pr-2 text-md xl:text-sm text-white flex items-center justify-between sticky top-0 bg-gray-900 z-20">
+        <div className="w-full pt-5 pb-5 pl-2 pr-2 text-md md:text-sm text-white flex items-center justify-between sticky top-0 bg-gray-900 z-20">
           <button onClick={() => setSelectedChatRecord(0)}>Chat room</button>
           <div className="flex items-center gap-5 ml-auto">
             {" "}
@@ -459,7 +459,7 @@ const ChatPage = () => {
       {/* Left side bar cover */}
       {leftSideBar && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 h-[100%] z-[2] xl:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 h-[100%] z-[2] md:hidden"
           onClick={() => {
             setLeftSideBar(false);
             if (settingChatFilter) {
@@ -471,7 +471,7 @@ const ChatPage = () => {
       )}
 
       {/* Chat */}
-      <div className="max-w-[100%] xl:w-[85%] text-white bg-gray-800 flex flex-col h-[90%] xl:h-full">
+      <div className="max-w-[100%] md:w-[85%] text-white bg-gray-800 flex flex-col h-[90%] md:h-full">
         <div className="text-white text-2xl xl:text-4xl pt-5 pb-5 bg-gray-800">
           GPTCI
         </div>
