@@ -250,14 +250,14 @@ const ChatPage = () => {
         {/* Chat record from today */}
         {groupedRecords.today.length > 0 && (
           <div>
-            <h3 className="text-gray-400 font-bold m-2 mt-4 text-md xl:text-sm text-left ">
+            <h3 className="text-gray-400 font-bold m-2 mt-4 text-md md:text-sm text-left ">
               Today
             </h3>
             {groupedRecords.today.map((record) => (
               <div
                 key={record.record_id}
                 className={
-                  "relative w-[100%] p-2 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
+                  "relative w-[100%] p-2 text-left text-md md:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
@@ -286,7 +286,7 @@ const ChatPage = () => {
 
                 <button
                   className={
-                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
+                    "absolute right-0 text-2xl text-bold md:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
                     (settingChatRoom === record.record_id ? " opacity-100" : "")
                   }
                   onClick={(e) => {
@@ -315,14 +315,14 @@ const ChatPage = () => {
         {/* Chat record from yesterday */}
         {groupedRecords.yesterday.length > 0 && (
           <div>
-            <h3 className="text-gray-400 font-bold m-2 mt-4 text-md xl:text-sm text-left">
+            <h3 className="text-gray-400 font-bold m-2 mt-4 text-md md:text-sm text-left">
               Yesterday
             </h3>
             {groupedRecords.yesterday.map((record) => (
               <div
                 key={record.record_id}
                 className={
-                  "relative w-[100%] p-2 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
+                  "relative w-[100%] p-2 text-left text-md md:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
@@ -351,7 +351,7 @@ const ChatPage = () => {
 
                 <button
                   className={
-                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
+                    "absolute right-0 text-2xl text-bold md:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
                     (settingChatRoom === record.record_id ? " opacity-100" : "")
                   }
                   onClick={(e) => {
@@ -380,14 +380,14 @@ const ChatPage = () => {
         {/* Chat record from previous */}
         {groupedRecords.previous.length > 0 && (
           <div>
-            <h3 className="text-gray-400 font-bold m-2 mt-4 text-md xl:text-sm text-left">
+            <h3 className="text-gray-400 font-bold m-2 mt-4 text-md md:text-sm text-left">
               Previous
             </h3>
             {groupedRecords.previous.map((record) => (
               <div
                 key={record.record_id}
                 className={
-                  "relative w-[100%] p-2 text-left text-md xl:text-sm cursor-pointer flex items-center group" +
+                  "relative w-[100%] p-2 text-left text-md md:text-sm cursor-pointer flex items-center group" +
                   (selectedChatRecord === record.record_id
                     ? " text-gray-400"
                     : " text-gray-600")
@@ -418,7 +418,7 @@ const ChatPage = () => {
 
                 <button
                   className={
-                    "absolute right-0 text-2xl text-bold xl:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
+                    "absolute right-0 text-2xl text-bold md:text-lg text-gray-400 pt-5 pb-5 pr-3 pl-3 opacity-0 group-hover:opacity-100" +
                     (settingChatRoom === record.record_id ? " opacity-100" : "")
                   }
                   onClick={(e) => {
@@ -446,10 +446,10 @@ const ChatPage = () => {
         )}
       </div>
       {settingChatFilter && (
-        <div className="fixed z-[10] mt-12 xl:mt-11 w-[60%] xl:w-[15%] text-center flex items-center justify-center">
+        <div className="fixed z-[10] mt-12 md:mt-11 w-[60%] md:w-[15%] text-center flex items-center justify-center">
           <input
             type="text"
-            className="w-[95%] bg-gray-700 focus:outline-none text-sm xl:text-md text-white p-1 rounded-md"
+            className="w-[95%] bg-gray-700 focus:outline-none text-sm md:text-md text-white p-1 rounded-md"
             placeholder="Type here to filter chat..."
             onChange={(e) => set_chat_filter(e.target.value)}
           />
