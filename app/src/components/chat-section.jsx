@@ -102,7 +102,7 @@ const ChatSection = () => {
         </div>
       ) : (
         <div className="relative h-[90%] bg-gray-800 text-sm xl:text-[15px]">
-          <div className="flex flex-col justify-center h-full">
+          <div className="flex flex-col justify-center h-dvh">
             <div
               className="flex-grow bg-gray-800 overflow-y-auto leading-8 custom-scrollbar flex flex-col items-center"
               ref={chatContainerRef}
