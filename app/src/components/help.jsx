@@ -5,14 +5,14 @@ const HelpPage = () => {
   const { setAppPage } = useContext(AppContext);
 
   return (
-    <div className="h-screen w-[100%] flex flex-col items-center justify-center text-center">
+    <div className="h-dvh w-[100%] flex flex-col items-center justify-center text-center">
       {/* Title */}
       <div className="min-h-[7%] font-bold mt-5 text-2xl xl:text-4xl">
         GPTCI
       </div>
 
       {/* Help contents */}
-      <div className="w-[80%] text-left min-h-[80%] text-[15px] xl:text-[20px] xl:min-h-[80%] overflow-y-auto">
+      <div className="w-[90%] md:w-[80%] text-left min-h-[80%] text-[15px] xl:text-[20px] xl:min-h-[80%] overflow-y-auto text-justify">
         <div className="leading-6 xl:leading-8 mb-4 xl:mb-2">
           Welcome to <b>API based GPT chat interface</b>. This website is an
           application built for people to use GPT with a pay as you go method. I
@@ -102,10 +102,9 @@ const HelpPage = () => {
               &emsp;
               <span className="inline-flex items-center">
                 {" "}
-                {/* 使用 inline-flex 使其在同一行 */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 cursor-pointer text-white mr-1" // 使用 'mr-1' 添加右边距
+                  className="h-5 w-5 cursor-pointer text-white mr-1"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
