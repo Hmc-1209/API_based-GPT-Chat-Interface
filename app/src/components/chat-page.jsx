@@ -471,7 +471,7 @@ const ChatPage = () => {
       )}
 
       {/* Chat */}
-      <div className="max-w-[100%] md:w-[85%] text-white bg-gray-800 flex flex-col h-[90%] md:h-full">
+      <div className="max-w-[100%] md:w-[85%] text-white bg-gray-800 flex flex-col h-dvh md:h-full">
         <div className="text-white text-2xl xl:text-4xl pt-5 pb-5 bg-gray-800">
           GPTCI
         </div>
