@@ -110,7 +110,7 @@ function App() {
   }, [alert]);
 
   return (
-    <div className="App">
+    <div className="App h-dvh">
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <div className="App-content">
         <AppContext.Provider

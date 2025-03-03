@@ -7,7 +7,7 @@ const HelpPage = () => {
   return (
     <div className="h-dvh w-[100%] flex flex-col items-center justify-center text-center">
       {/* Title */}
-      <div className="min-h-[7%] font-bold mt-5 text-2xl xl:text-4xl">
+      <div className="min-h-[5%] font-bold mt-5 text-2xl xl:text-4xl">
         GPTCI
       </div>
 
