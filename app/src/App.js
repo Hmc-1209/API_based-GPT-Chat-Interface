@@ -125,7 +125,7 @@ function App() {
             selectedChatRecord,
             setSelectedChatRecord,
           }}
-          className="h-dvh"
+          className="h-dvh items-center"
         >
           {appPage === -1 && <PageLoading />}
           {appPage === 0 && <LogIn />}
