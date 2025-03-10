@@ -41,7 +41,7 @@ const ChatPage = () => {
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
 
-    return records.reduce(
+    const grouped = records.reduce(
       (groups, record) => {
         const recordDate = new Date(record.updated_at);
         const recordDay = recordDate.toDateString();
@@ -57,7 +57,16 @@ const ChatPage = () => {
       },
       { today: [], yesterday: [], previous: [] }
     );
+
+    const sortByDateDesc = (a, b) =>
+      new Date(b.updated_at) - new Date(a.updated_at);
+    grouped.today.sort(sortByDateDesc);
+    grouped.yesterday.sort(sortByDateDesc);
+    grouped.previous.sort(sortByDateDesc);
+
+    return grouped;
   };
+
   const groupedRecords = groupChatRecords(chatRecord);
 
   const logout = async () => {
