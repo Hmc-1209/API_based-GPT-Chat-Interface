@@ -88,16 +88,8 @@ const LogIn = () => {
   return (
     <div className="w-[90%] md:w-[50%] xl:w-[70%] min-h-[60%] xl:min-h-[80%] bg-gradient-to-br from-gray-900 to-gray-700 font-bold rounded-lg flex flex-col xl:flex-row">
       {/* Login page banner */}
-      <div
-        className="w-[100%] h-[30%] rounded-t
-                            xl:w-[50%] xl:h-[100%]
-                            bg-gradient-to-br from-purple-700 to-green-700 bg-opacity-50 
-                            font-bold flex items-center justify-center flex-col flex-row p-6"
-      >
-        <span
-          className="text-3xl
-                                 text-transparent bg-clip-text bg-gradient-to-br from-gray-100 to-gray-200 drop-shadow-[0_5px_3px_rgba(200,0,200,0.8)]"
-        >
+      <div className="w-[100%] h-[30%] rounded-t xl:w-[50%] xl:h-[100%] bg-gradient-to-br from-purple-700 to-green-700 bg-opacity-50 font-bold flex items-center justify-center flex-col flex-row p-6">
+        <span className="text-3xl text-transparent bg-clip-text bg-gradient-to-br from-gray-100 to-gray-200 drop-shadow-[0_5px_3px_rgba(200,0,200,0.8)]">
           API Based <br /> GPT Chat Interface
         </span>
         <span className="text-sm p-4 xl:p-10 drop-shadow-[0_1px_1px_rgba(200,0,200,0.8)]">
@@ -105,10 +97,7 @@ const LogIn = () => {
         </span>
       </div>
       {/* Login & Sign Up form */}
-      <div
-        className="w-[100%] h-[70%] rounded-t-lg
-                xl:w-[50%] xl:h-[100%] flex flex-col items-center justify-center"
-      >
+      <div className="w-[100%] h-[70%] rounded-t-lg xl:w-[50%] xl:h-[100%] flex flex-col items-center justify-center">
         {loginMode === 0 && (
           <div className="w-[70%] flex flex-col items-center xl:w-[100%] p-4">
             <div className="pb-10 text-4xl xl:text-3xl">Login page</div>
