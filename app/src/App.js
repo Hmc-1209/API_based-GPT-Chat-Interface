@@ -112,7 +112,7 @@ function App() {
   return (
     <div className="App h-dvh">
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-      <div className="App-content">
+      <div className="App-content h-dvh items-center">
         <AppContext.Provider
           value={{
             alert,
@@ -125,7 +125,6 @@ function App() {
             selectedChatRecord,
             setSelectedChatRecord,
           }}
-          className="h-dvh items-center"
         >
           {appPage === -1 && <PageLoading />}
           {appPage === 0 && <LogIn />}
